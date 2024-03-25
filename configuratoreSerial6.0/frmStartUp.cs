@@ -305,6 +305,8 @@ namespace configuratore
           
         }
 
+
+
         private void timerRicezione_Tick(object sender, EventArgs e)
         {
             
