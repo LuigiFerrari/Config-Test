@@ -742,7 +742,17 @@ namespace configuratore
                         },
                     },
                     valLabel = new Label[] { val_s0_00,val_s0_01, val_s0_02,val_s0_03, val_s0_04,val_s0_05,val_s0_07,val_s0_08,val_s0_09,val_s0_15,val_s0_16 },
-                    vvParametro = new int[] { constStatoT1.T2S_TEMP_NTC1, constStatoT1.T2S_TEMP_NTCEXT, constStatoT1.T2S_TEMP_NTCBOARD, constStatoT1.T2S_REAL_SETPOINT_TEMP, constStatoT1.T2S_ALIM_VOLT, constStatoT1.T2S_TEMP_SETPOINT, constStatoT1.T2S_ERR_NTC1, constStatoT1.T2S_ERR_NTCEXT, constStatoT1.T2S_ERR_NTCBOARD, constStatoT1.T2S_DEFAULT_SETPOINT,constStatoT1.T2S_DEVIAZIONE_SETPOINT },
+                    vvParametro = new int[] { constStatoT1.T2S_TEMP_NTC1,
+                        constStatoT1.T2S_TEMP_NTCEXT,
+                        constStatoT1.T2S_TEMP_NTCBOARD, 
+                        constStatoT1.T2S_REAL_SETPOINT_TEMP,
+                        constStatoT1.T2S_ALIM_VOLT, 
+                        constStatoT1.T2S_TEMP_SETPOINT, 
+                        constStatoT1.T2S_ERR_NTC1, 
+                        constStatoT1.T2S_ERR_NTCEXT, 
+                        constStatoT1.T2S_ERR_NTCBOARD, 
+                        constStatoT1.T2S_DEFAULT_SETPOINT,
+                        constStatoT1.T2S_DEVIAZIONE_SETPOINT },
                 },   // ---------- 0
                 new gbOx()    // ---------- 0
                  {
@@ -1057,6 +1067,14 @@ namespace configuratore
             txMsg.txMsgOne(parametriT2.KT2_V_VERDE, getStato(l), richiestoDa);
         }
 
+        void offForzature()
+        {
+            txMsg.txMsgOne(parametriT2.KT2_V_ROSSO, 0, richiestoDa);
+            txMsg.txMsgOne(parametriT2.KT2_V_VERDE, 0, richiestoDa);
+            txMsg.txMsgOne(parametriT2.KT2_V_BLU, 0, richiestoDa);
+            txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, 0, richiestoDa);
+        }
+
         private void btn_s1__02_LED_BLU_Click(object sender, EventArgs e)
         {
             int l = 2;
@@ -1086,6 +1104,8 @@ namespace configuratore
                 parent.abilitaMenu();
             else
                 clsArbitrator.setriabilitaBottoni();
+            // blocca eventuali forzature
+            offForzature();
         }
 
 
