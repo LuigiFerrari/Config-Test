@@ -47,6 +47,8 @@ namespace configuratore
             public int numParametro;
             public int Enabled;
             public int Visible;
+            public int lTimer;
+            public decimal oldValue;
         }
 
 

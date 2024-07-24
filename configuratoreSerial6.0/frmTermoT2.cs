@@ -410,7 +410,7 @@ namespace configuratore
                         },
                     },
                     valLabel = new Label[] { t2_val_s2_00,t2_val_s2_01,t2_val_s2_02},  // 
-                    vvParametro = new int[] { costStatoT2.T2S_MATRICOLA, costStatoT2.T2S_INDIRIZZO_SLAVE, costStatoT2.T2S_MASTERSLAVE },
+                    vvParametro = new int[] { costStatoT2.T2S_MATRICOLA_00, costStatoT2.T2S_INDIRIZZO_SLAVE, costStatoT2.T2S_MASTERSLAVE },
                 },
 
                   new  gbOx()

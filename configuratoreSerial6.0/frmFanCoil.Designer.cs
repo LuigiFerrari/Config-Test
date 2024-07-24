@@ -501,6 +501,7 @@
             btn_3_00_Reset.TabIndex = 49;
             btn_3_00_Reset.Text = "RESET";
             btn_3_00_Reset.UseVisualStyleBackColor = true;
+            btn_3_00_Reset.Click += btn_3_00_Reset_Click;
             // 
             // lbl_3_04_ON
             // 
@@ -620,6 +621,7 @@
             cb_2_00_OutputConfig.Name = "cb_2_00_OutputConfig";
             cb_2_00_OutputConfig.Size = new Size(421, 23);
             cb_2_00_OutputConfig.TabIndex = 45;
+            cb_2_00_OutputConfig.SelectedIndexChanged += cb_2_00_OutputConfig_SelectedIndexChanged;
             // 
             // lbl_2_00_CONFIG
             // 
@@ -652,6 +654,7 @@
             rb_2_00_OFF.TabStop = true;
             rb_2_00_OFF.Text = "OFF";
             rb_2_00_OFF.UseVisualStyleBackColor = true;
+            rb_2_00_OFF.CheckedChanged += rb_2_00_OFF_CheckedChanged;
             // 
             // rb_2_00_ON
             // 
@@ -664,6 +667,7 @@
             rb_2_00_ON.TabStop = true;
             rb_2_00_ON.Text = "ON";
             rb_2_00_ON.UseVisualStyleBackColor = true;
+            rb_2_00_ON.CheckedChanged += rb_2_00_ON_CheckedChanged;
             // 
             // panel14
             // 
@@ -1755,6 +1759,7 @@
             cb_7_00_ModGestione.Name = "cb_7_00_ModGestione";
             cb_7_00_ModGestione.Size = new Size(108, 23);
             cb_7_00_ModGestione.TabIndex = 68;
+            cb_7_00_ModGestione.SelectedIndexChanged += cb_7_00_ModGestione_SelectedIndexChanged;
             // 
             // nud_7_10_PortMax
             // 

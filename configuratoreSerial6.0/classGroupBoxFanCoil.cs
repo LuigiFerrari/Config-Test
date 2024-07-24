@@ -97,7 +97,10 @@ namespace configuratore
                 for (i = 0; i < GroupBpoxInfo.cfgCombo.Length; i++)
                 {
                     for (j = 0; j < GroupBpoxInfo.cfgCombo[i].lista.Length; j++)
+                    {
                         GroupBpoxInfo.cfgCombo[i].combo.Items.Add(loca.getStr(GroupBpoxInfo.cfgCombo[i].lista[j]));
+                        
+                    }
                     GroupBpoxInfo.cfgCombo[i].combo.SelectedIndex = GroupBpoxInfo.cfgCombo[i].vDefault;
                     GroupBpoxInfo.cfgCombo[i].combo.SelectedIndexChanged += new System.EventHandler(SelectedIndexChanged);
                 }

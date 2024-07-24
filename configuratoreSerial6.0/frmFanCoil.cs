@@ -10,6 +10,7 @@ using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.ApplicationModel.VoiceCommands;
 using static configuratore.frmCassette;
 using static configuratore.statoCassette.frmStatoCassette;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -36,6 +37,7 @@ namespace configuratore
         public frmFanCoil(String Type, String Info, frmStartUp lparent, Boolean DefaultData, int lrichiestoDa)
         {
             InitializeComponent();
+            initListDamper();
             initDatiLayout();
             initDisabilitazioni();
 
@@ -96,6 +98,7 @@ namespace configuratore
             // Debug.WriteLine("MASTER/SLAVE PaR=" + parametriCassetta.KK_TIPO_DISPOSITIVO_MS.ToString());
             rxBuffer = new clsRxBuffer();
             systemTimer.Enabled = true;
+
         }
         public clsRxBuffer getRxBufferClass() { return rxBuffer; }
         public byte[] getRxBuffr() { return rxBuffer.getRxBuffer(); }
@@ -1124,7 +1127,7 @@ namespace configuratore
                      {
                          new comboInfo() {
                              combo = cb_7_00_ModGestione,
-                             lista = new loca.indice[] { loca.indice.FC_CB_7_00, loca.indice.FC_CB_7_01, loca.indice.FC_CB_7_02 },
+                             lista = new loca.indice[] { loca.indice.FC_CB_7_00, loca.indice.FC_CB_0_02_1,loca.indice.FC_CB_7_01, loca.indice.FC_CB_7_02 },
                              vDefault = 1,
                              numParametro = parametriFanCoil.KF_MODALITA_GESTIONE_SERRANDA,
                         },
@@ -1171,38 +1174,38 @@ namespace configuratore
                               new upDownInfo
                         {
                             numUpDown = nud_7_07_TensPortMin, // 1
-                            numParametro = parametriFanCoil.KF_TEMPO_POST_VENTILAZIONE,
-                            vDefault =(decimal)180,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
+                            numParametro = parametriFanCoil.KF_TENSIONE_ALLA_PORTATA_MINIMA,
+                            vDefault =(decimal)0,vMin =(decimal) 0,vMax =(decimal) 10,vInc =(decimal) 0.1,nDec =(int) 1
                         },
                                new upDownInfo
                         {
                             numUpDown = nud_7_08_TensPortMax, // 1
-                            numParametro = parametriFanCoil.KF_TENSIONE_ALLA_PORTATA_MINIMA,
-                            vDefault =(decimal)0,vMin =(decimal) 0,vMax =(decimal) 10,vInc =(decimal) 0.1,nDec =(int) 1
+                            numParametro = parametriFanCoil.KF_TENSIONE_ALLA_PORTATA_MASSIMA,
+                            vDefault =(decimal)10,vMin =(decimal) 0,vMax =(decimal) 10,vInc =(decimal) 0.1,nDec =(int) 1
                         },
                                 new upDownInfo
                         {
                             numUpDown = nud_7_09_PortMin, // 1
-                            numParametro = parametriFanCoil.KF_TENSIONE_ALLA_PORTATA_MASSIMA,
-                            vDefault =(decimal)10,vMin =(decimal) 0,vMax =(decimal) 10,vInc =(decimal) 0.1,nDec =(int) 1
+                            numParametro = parametriFanCoil.KF_PORTATA_MINIMA,
+                            vDefault =(decimal)100,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
                         },
                                  new upDownInfo
                         {
                             numUpDown = nud_7_10_PortMax, // 1
-                            numParametro = parametriFanCoil.KF_TEMPO_POST_VENTILAZIONE,
-                            vDefault =(decimal)180,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
+                            numParametro = parametriFanCoil.KF_PORTATA_MASSIMA,
+                            vDefault =(decimal)500,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
                         },
                                   new upDownInfo
                         {
                             numUpDown = nud_7_11_SpPortConf, // 1
                             numParametro = parametriFanCoil.KF_SETPOINT_PORTATA_CONFORT,
-                            vDefault =(decimal)500,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
+                            vDefault =(decimal)200,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
                         },
                                    new upDownInfo
                         {
                             numUpDown = nud_7_12_SpPortEcom, // 1
                             numParametro = parametriFanCoil.KF_SETPOINT_PORTATA_ECONOMY,
-                            vDefault =(decimal)500,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
+                            vDefault =(decimal)100,vMin =(decimal) 0,vMax =(decimal) 500,vInc =(decimal) 1,nDec =(int) 0
                         },
                     },
                },// ------------------------------ // REGOLAZIONI SERRANDA 7
@@ -1823,6 +1826,8 @@ namespace configuratore
             }
         }
 
+
+
         void visibileInvisibile()
         {
 
@@ -2220,6 +2225,131 @@ namespace configuratore
                 Debug.WriteLine("Parametro non trovato" + p.ToString());
             }
         }
+
+        private void btn_3_00_Reset_Click(object sender, EventArgs e)
+        {
+            txMsg.txMsgOne(parametriFanCoil.KF_BTN_RESET, 1, richiestoDa);
+
+        }
+
+        // ---------- ABILITAZIONE/DISABILITAZIONE PARAMETRI SERRANDA ------
+
+        List<int> enCO2;
+        List<int> enVOC;
+        List<int> enEconomy;
+        List<int> enPortata;
+        List<int> tutto;
+
+        void initListDamper()
+        {
+            enCO2 = new List<int> { 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 };
+            enVOC = new List<int> { 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 };
+            enEconomy = new List<int> { 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 };
+            enPortata = new List<int> { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 };
+            tutto = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        }
+
+        void disabilitaSerranda()
+        {
+            gbOxConfig GroupBpox = LayOutFanCoilGrp[7];
+            abilitaDisabilitaSerranda(tutto);
+            GroupBpox.cfgCombo[0].Enabled = GroupBpox.cfgCombo[0].Enabled | Costanti.ABILITA_SERRANDA;
+            GroupBpox.cfgLabel[0].Enabled = GroupBpox.cfgLabel[0].Enabled | Costanti.ABILITA_SERRANDA;
+            GroupBpox.cfgLabel[0].lbl.Enabled = (GroupBpox.cfgLabel[0].Enabled == 0);
+            GroupBpox.cfgCombo[0].combo.Enabled = (GroupBpox.cfgCombo[0].Enabled == 0);
+
+        }
+
+        void abilitaSerranda()
+        {
+            gbOxConfig GroupBpox = LayOutFanCoilGrp[7];
+            GroupBpox.cfgCombo[0].Enabled = GroupBpox.cfgCombo[0].Enabled & (~Costanti.ABILITA_SERRANDA);
+            GroupBpox.cfgLabel[0].Enabled = GroupBpox.cfgLabel[0].Enabled & (~Costanti.ABILITA_SERRANDA);
+
+            selezionaAbilitazione(cb_7_00_ModGestione.SelectedIndex);
+            GroupBpox.cfgLabel[0].lbl.Enabled = (GroupBpox.cfgLabel[0].Enabled == 0);
+            GroupBpox.cfgCombo[0].combo.Enabled = (GroupBpox.cfgCombo[0].Enabled == 0);
+        }
+
+
+
+        void abilitaDisabilitaSerranda(List<int> en)
+        {
+            gbOxConfig GroupBpox = LayOutFanCoilGrp[7];
+            for (int i = 0; i < en.Count; i++)
+            {
+
+                if (en[i] == 0)
+                {
+                    GroupBpox.cfgLabel[i + 1].Enabled = GroupBpox.cfgLabel[i].Enabled | Costanti.ABILITA_SERRANDA;
+                    GroupBpox.cfgUpDown[i].Enabled = GroupBpox.cfgUpDown[i].Enabled | Costanti.ABILITA_SERRANDA;
+
+                }
+                else
+                {
+                    GroupBpox.cfgLabel[i + 1].Enabled = GroupBpox.cfgLabel[i].Enabled & (~Costanti.ABILITA_SERRANDA);
+                    GroupBpox.cfgUpDown[i].Enabled = GroupBpox.cfgUpDown[i].Enabled & (~Costanti.ABILITA_SERRANDA);
+                }
+            }
+            for (int i = 0; i < en.Count; i++)
+            {
+                GroupBpox.cfgLabel[i + 1].lbl.Enabled = (GroupBpox.cfgLabel[i + 1].Enabled == 0);
+                GroupBpox.cfgUpDown[i].numUpDown.Enabled = (GroupBpox.cfgUpDown[i].Enabled == 0);
+            }
+        }
+
+        void selezionaAbilitazione(int k)
+        {
+            switch (k)
+            {
+                case 0:
+                    abilitaDisabilitaSerranda(enCO2);
+                    break;
+                case 1:
+                    abilitaDisabilitaSerranda(enVOC);
+                    break;
+                case 2:
+                    abilitaDisabilitaSerranda(enEconomy);
+                    break;
+                case 3:
+                    abilitaDisabilitaSerranda(enPortata);
+                    break;
+            }
+        }
+
+        private void cb_7_00_ModGestione_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selezionaAbilitazione(cb_7_00_ModGestione.SelectedIndex);
+        }
+        void subAbilitaSerranda()
+        {
+            if (cb_2_00_OutputConfig.SelectedIndex > 7 && rb_2_00_ON.Checked == true)
+            {
+                abilitaSerranda();
+            }
+            else
+            {
+                disabilitaSerranda();
+            }
+        }
+        private void cb_2_00_OutputConfig_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            subAbilitaSerranda();
+
+        }
+
+        private void rb_2_00_ON_CheckedChanged(object sender, EventArgs e)
+        {
+            subAbilitaSerranda();
+        }
+
+        private void rb_2_00_OFF_CheckedChanged(object sender, EventArgs e)
+        {
+            subAbilitaSerranda();
+        }
+
+        // ---------- ABILITAZIONE/DISABILITAZIONE PARAMETRI SERRANDA ------
+
     }
 }
 

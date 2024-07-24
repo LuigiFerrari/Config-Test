@@ -24,7 +24,8 @@ namespace configuratore
         {
             // inizializzaione directory
 
-
+            String appData = Application.LocalUserAppDataPath;
+            String cccc = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string docDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             dataDir = docDir + MASTER_DIR;
             if (!System.IO.Directory.Exists(dataDir))

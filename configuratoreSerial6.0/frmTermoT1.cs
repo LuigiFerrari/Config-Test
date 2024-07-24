@@ -160,11 +160,11 @@ namespace configuratore
         }
 
 
-        void continuaRichiestaStato()
+        void continuaRichiestaStato(int skip)
         {
             rchiedi = 2;
             parametroDaRichiedere = -1;
-            statoDaRichiedere++;
+            statoDaRichiedere = statoDaRichiedere + skip;
 
             if (statoDaRichiedere >= costStatoT2.T2S_NUMERO_STATI)
             {
@@ -202,6 +202,8 @@ namespace configuratore
             int v;
             int trovato = -1;
             string s = "";
+
+            int skipNum = 1;
 
             //for (g = 0; buffer[g] != 0xf7; g++)
             //{
@@ -242,6 +244,7 @@ namespace configuratore
                                     for (int i = 0; i < costAl.MAX_SIZE_STRING; i++)
                                         s = s + (char)buffer[pos + i + 1];
                                     statoGrp[g].valLabel[j].Text = s;
+                                    skipNum = costAl.MAX_SIZE_STRING / 2;
                                     // Debug.WriteLine(s);
                                     break;
                                 case 'N':
@@ -277,17 +280,18 @@ namespace configuratore
                                             defaultSetPoint = utility.fromStringToFolat(s);
                                         if (p == costStatoT2.T2S_TEMP_SETPOINT)
                                             discreteSetPoint = (int)utility.fromStringToFolat(s);
-                                        if (p== costStatoT2.T2S_REAL_SETPOINT_TEMP)
+                                        if (p == costStatoT2.T2S_REAL_SETPOINT_TEMP)
                                         {
                                             updateSetpointReale(g, j, p);
-                                        } else
+                                        }
+                                        else
                                             statoGrp[g].valLabel[j].Text = s;
                                     }
-                                    
+
 
 
                                     if (p == costStatoT2.T2S_TEMP_SETPOINT)
-                                        discreteSetPoint = (int)utility.fromStringToFolat(s);                                        
+                                        discreteSetPoint = (int)utility.fromStringToFolat(s);
                                     // Debug.WriteLine(s);
                                     break;
                             }
@@ -311,7 +315,7 @@ namespace configuratore
                 //Debug.Write("Aggiorno ");
                 // Debug.WriteLine(p);
             }
-            continuaRichiestaStato();
+            continuaRichiestaStato(skipNum);
             //Debug.Write("Richiedo ");
             //Debug.Write(statoDaRichiedere);
             //Debug.Write(" ");
@@ -585,7 +589,7 @@ namespace configuratore
                         {
                             numUpDown = nud_0_06, // 5
                             numParametro = parametriT1.KT2_TEMP_OFF,
-                            vDefault =(decimal)5,vMin =(decimal) 1,vMax =(decimal) 60,vInc =(decimal) 1,nDec =(int) 0
+                            vDefault =(decimal)5,vMin =(decimal) 0,vMax =(decimal) 60,vInc =(decimal) 1,nDec =(int) 0
                         },
                             new upDownInfo
                         {
@@ -742,15 +746,16 @@ namespace configuratore
                         },
                     },
                     valLabel = new Label[] { val_s0_00,val_s0_01, val_s0_02,val_s0_03, val_s0_04,val_s0_05,val_s0_07,val_s0_08,val_s0_09,val_s0_15,val_s0_16 },
-                    vvParametro = new int[] { constStatoT1.T2S_TEMP_NTC1,
+                    vvParametro = new int[] {
+                        constStatoT1.T2S_TEMP_NTC1,
                         constStatoT1.T2S_TEMP_NTCEXT,
-                        constStatoT1.T2S_TEMP_NTCBOARD, 
+                        constStatoT1.T2S_TEMP_NTCBOARD,
                         constStatoT1.T2S_REAL_SETPOINT_TEMP,
-                        constStatoT1.T2S_ALIM_VOLT, 
-                        constStatoT1.T2S_TEMP_SETPOINT, 
-                        constStatoT1.T2S_ERR_NTC1, 
-                        constStatoT1.T2S_ERR_NTCEXT, 
-                        constStatoT1.T2S_ERR_NTCBOARD, 
+                        constStatoT1.T2S_ALIM_VOLT,
+                        constStatoT1.T2S_TEMP_SETPOINT,
+                        constStatoT1.T2S_ERR_NTC1,
+                        constStatoT1.T2S_ERR_NTCEXT,
+                        constStatoT1.T2S_ERR_NTCBOARD,
                         constStatoT1.T2S_DEFAULT_SETPOINT,
                         constStatoT1.T2S_DEVIAZIONE_SETPOINT },
                 },   // ---------- 0
@@ -788,7 +793,7 @@ namespace configuratore
                         },
                     },
                         valLabel = new Label[] { t1_val_s2_00, t1_val_s2_01, t1_val_s2_02 },
-                        vvParametro = new int[] { constStatoT1.T2S_MATRICOLA,  constStatoT1.T2S_MASTERSLAVE, constStatoT1.T2S_INDIRIZZO_SLAVE }
+                        vvParametro = new int[] { constStatoT1.T2S_MATRICOLA_00,  constStatoT1.T2S_MASTERSLAVE, constStatoT1.T2S_INDIRIZZO_SLAVE }
                    },   // ---------- 0
           };
         }
@@ -1155,6 +1160,8 @@ namespace configuratore
             txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, getStato(t2_s1_btn_00), richiestoDa);
         }
 
+
+
         private void t2_s1_nud_00_ValueChanged(object sender, EventArgs e)
         {
             txMsg.txMsg2(parametriT2.KT2_V_FORZ_SETPOINT_VALORE, (int)t2_s1_nud_00.Value * 10, richiestoDa);
@@ -1172,6 +1179,29 @@ namespace configuratore
             abilitaTimerRichiesta();
             richiedi();
             timerRefresh.Enabled = false;
+
+        }
+
+
+
+        private void nud_0_06_ValueChanged_1(object sender, EventArgs e)
+        {
+            if (nud_0_06.Value == 0)
+            {
+                nud_0_06.BackColor = Color.Black;
+            }
+            else
+            {
+                nud_0_06.BackColor = Color.White;
+
+            }
+        }
+
+        private void timerUnSecondo_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gBox.Count; i++)
+                gBox[i].Tick(LayOutT1Grp[i]);
+
 
         }
     }

@@ -59,6 +59,7 @@
             lbl_1_01 = new Label();
             lbl_1_00 = new Label();
             gb_2_Regolazioni = new GroupBox();
+            val_2_13 = new Label();
             label2 = new Label();
             label3 = new Label();
             val_2_07Sub = new Label();
@@ -196,7 +197,6 @@
             timerTick = new System.Windows.Forms.Timer(components);
             timerRxParametri = new System.Windows.Forms.Timer(components);
             timerRefresh = new System.Windows.Forms.Timer(components);
-            val_2_13 = new Label();
             gb_0_InfoMatricola.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPrimaryDevice).BeginInit();
             gb_1_Ingressi.SuspendLayout();
@@ -462,7 +462,7 @@
             // 
             lbl_1_06.AutoSize = true;
             lbl_1_06.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl_1_06.Location = new Point(264, 18);
+            lbl_1_06.Location = new Point(271, 18);
             lbl_1_06.Margin = new Padding(4, 0, 4, 0);
             lbl_1_06.Name = "lbl_1_06";
             lbl_1_06.Size = new Size(28, 16);
@@ -528,10 +528,10 @@
             // 
             val_1_00.BackColor = SystemColors.ButtonHighlight;
             val_1_00.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val_1_00.Location = new Point(139, 18);
+            val_1_00.Location = new Point(131, 18);
             val_1_00.Margin = new Padding(4, 0, 4, 0);
             val_1_00.Name = "val_1_00";
-            val_1_00.Size = new Size(118, 18);
+            val_1_00.Size = new Size(142, 18);
             val_1_00.TabIndex = 3;
             val_1_00.Text = "tipoSonda";
             // 
@@ -607,6 +607,16 @@
             gb_2_Regolazioni.TabIndex = 15;
             gb_2_Regolazioni.TabStop = false;
             gb_2_Regolazioni.Text = "regolazione";
+            // 
+            // val_2_13
+            // 
+            val_2_13.BackColor = Color.Lime;
+            val_2_13.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val_2_13.Location = new Point(274, 50);
+            val_2_13.Margin = new Padding(4, 0, 4, 0);
+            val_2_13.Name = "val_2_13";
+            val_2_13.Size = new Size(10, 11);
+            val_2_13.TabIndex = 36;
             // 
             // label2
             // 
@@ -1114,10 +1124,10 @@
             // 
             val_3_07.BackColor = SystemColors.ButtonHighlight;
             val_3_07.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val_3_07.Location = new Point(198, 218);
+            val_3_07.Location = new Point(127, 218);
             val_3_07.Margin = new Padding(4, 0, 4, 0);
             val_3_07.Name = "val_3_07";
-            val_3_07.Size = new Size(128, 18);
+            val_3_07.Size = new Size(258, 18);
             val_3_07.TabIndex = 31;
             val_3_07.Text = "0";
             // 
@@ -2166,16 +2176,6 @@
             // 
             timerRefresh.Interval = 1000;
             timerRefresh.Tick += timerRefresh_Tick;
-            // 
-            // val_2_13
-            // 
-            val_2_13.BackColor = Color.Lime;
-            val_2_13.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val_2_13.Location = new Point(265, 43);
-            val_2_13.Margin = new Padding(4, 0, 4, 0);
-            val_2_13.Name = "val_2_13";
-            val_2_13.Size = new Size(26, 18);
-            val_2_13.TabIndex = 36;
             // 
             // frmStatoFanCoil
             // 

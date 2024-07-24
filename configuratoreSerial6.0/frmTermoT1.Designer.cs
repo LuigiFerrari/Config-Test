@@ -48,6 +48,10 @@
             btn_s1__01_LED_VERDE = new Button();
             btn_s1__00_LED_ROSSO = new Button();
             t1_gb_0_stato = new GroupBox();
+            val_s0_16 = new Label();
+            t1_lbl_s0_16 = new Label();
+            val_s0_15 = new Label();
+            t1_lbl_s0_15 = new Label();
             button2 = new Button();
             val_s0_05 = new Label();
             t1_lbl_s0_14 = new Label();
@@ -110,10 +114,8 @@
             labelPleaseWait = new Label();
             timerRxDati = new System.Windows.Forms.Timer(components);
             timerRefresh = new System.Windows.Forms.Timer(components);
-            val_s0_15 = new Label();
-            t1_lbl_s0_15 = new Label();
-            val_s0_16 = new Label();
-            t1_lbl_s0_16 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            timerUnSecondo = new System.Windows.Forms.Timer(components);
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             t1_gb_s2_matricola.SuspendLayout();
@@ -380,6 +382,44 @@
             t1_gb_0_stato.TabIndex = 81;
             t1_gb_0_stato.TabStop = false;
             t1_gb_0_stato.Text = "Impostazioni";
+            // 
+            // val_s0_16
+            // 
+            val_s0_16.BackColor = Color.White;
+            val_s0_16.Location = new Point(229, 179);
+            val_s0_16.Margin = new Padding(4, 0, 4, 0);
+            val_s0_16.Name = "val_s0_16";
+            val_s0_16.Size = new Size(41, 15);
+            val_s0_16.TabIndex = 119;
+            // 
+            // t1_lbl_s0_16
+            // 
+            t1_lbl_s0_16.AutoSize = true;
+            t1_lbl_s0_16.Location = new Point(13, 179);
+            t1_lbl_s0_16.Margin = new Padding(4, 0, 4, 0);
+            t1_lbl_s0_16.Name = "t1_lbl_s0_16";
+            t1_lbl_s0_16.Size = new Size(99, 15);
+            t1_lbl_s0_16.TabIndex = 118;
+            t1_lbl_s0_16.Text = "Dev. max. stpoint";
+            // 
+            // val_s0_15
+            // 
+            val_s0_15.BackColor = Color.White;
+            val_s0_15.Location = new Point(229, 158);
+            val_s0_15.Margin = new Padding(4, 0, 4, 0);
+            val_s0_15.Name = "val_s0_15";
+            val_s0_15.Size = new Size(41, 15);
+            val_s0_15.TabIndex = 117;
+            // 
+            // t1_lbl_s0_15
+            // 
+            t1_lbl_s0_15.AutoSize = true;
+            t1_lbl_s0_15.Location = new Point(14, 158);
+            t1_lbl_s0_15.Margin = new Padding(4, 0, 4, 0);
+            t1_lbl_s0_15.Name = "t1_lbl_s0_15";
+            t1_lbl_s0_15.Size = new Size(91, 15);
+            t1_lbl_s0_15.TabIndex = 116;
+            t1_lbl_s0_15.Text = "setpoint Default";
             // 
             // button2
             // 
@@ -734,6 +774,7 @@
             nud_0_06.Name = "nud_0_06";
             nud_0_06.Size = new Size(59, 23);
             nud_0_06.TabIndex = 80;
+            nud_0_06.ValueChanged += nud_0_06_ValueChanged_1;
             // 
             // t1_lbl_0_04
             // 
@@ -1019,43 +1060,15 @@
             timerRefresh.Interval = 500;
             timerRefresh.Tick += timerRefresh_Tick;
             // 
-            // val_s0_15
+            // timer1
             // 
-            val_s0_15.BackColor = Color.White;
-            val_s0_15.Location = new Point(229, 158);
-            val_s0_15.Margin = new Padding(4, 0, 4, 0);
-            val_s0_15.Name = "val_s0_15";
-            val_s0_15.Size = new Size(41, 15);
-            val_s0_15.TabIndex = 117;
+            timer1.Interval = 500;
             // 
-            // t1_lbl_s0_15
+            // timerUnSecondo
             // 
-            t1_lbl_s0_15.AutoSize = true;
-            t1_lbl_s0_15.Location = new Point(14, 158);
-            t1_lbl_s0_15.Margin = new Padding(4, 0, 4, 0);
-            t1_lbl_s0_15.Name = "t1_lbl_s0_15";
-            t1_lbl_s0_15.Size = new Size(91, 15);
-            t1_lbl_s0_15.TabIndex = 116;
-            t1_lbl_s0_15.Text = "setpoint Default";
-            // 
-            // val_s0_16
-            // 
-            val_s0_16.BackColor = Color.White;
-            val_s0_16.Location = new Point(229, 179);
-            val_s0_16.Margin = new Padding(4, 0, 4, 0);
-            val_s0_16.Name = "val_s0_16";
-            val_s0_16.Size = new Size(41, 15);
-            val_s0_16.TabIndex = 119;
-            // 
-            // t1_lbl_s0_16
-            // 
-            t1_lbl_s0_16.AutoSize = true;
-            t1_lbl_s0_16.Location = new Point(13, 179);
-            t1_lbl_s0_16.Margin = new Padding(4, 0, 4, 0);
-            t1_lbl_s0_16.Name = "t1_lbl_s0_16";
-            t1_lbl_s0_16.Size = new Size(99, 15);
-            t1_lbl_s0_16.TabIndex = 118;
-            t1_lbl_s0_16.Text = "Dev. max. stpoint";
+            timerUnSecondo.Enabled = true;
+            timerUnSecondo.Interval = 1000;
+            timerUnSecondo.Tick += timerUnSecondo_Tick;
             // 
             // frmTermoT1
             // 
@@ -1189,5 +1202,7 @@
         private Label t1_lbl_s0_16;
         private Label val_s0_15;
         private Label t1_lbl_s0_15;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerUnSecondo;
     }
 }

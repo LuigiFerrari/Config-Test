@@ -29,6 +29,11 @@ namespace configuratore.stato
         public frmStatoFanCoil(String Type, String Info, int lrichiestoDa)
         {
             InitializeComponent();
+            var path = new System.Drawing.Drawing2D.GraphicsPath();
+            path.AddEllipse(0, 0, val_2_13.Width, val_2_13.Height);
+
+            this.val_2_13.Region = new Region(path);
+            
             costAlFanCoil.init();
             initStatoFancoil();
             rxBuffer = new clsRxBuffer();
@@ -111,6 +116,8 @@ namespace configuratore.stato
             }
         }
 
+
+        // in realtà aggiorna lo stato anche se si chiama aggiorna parametro
         public void aggiornaParametro(int p, byte[] buffer, int pos)
         // p = numero stato
         // buffer = buffer ricezione (F0 ... F7
@@ -121,6 +128,7 @@ namespace configuratore.stato
             int v;
             int trovato = -1;
             string s = "";
+            int skipNum = 1;
 
             //for (g = 0; buffer[g] != 0xf7; g++)
             //{
@@ -160,6 +168,7 @@ namespace configuratore.stato
                                     for (int i = 0; i < costAl.MAX_SIZE_STRING; i++)
                                         s = s + (char)buffer[pos + i + 1];
                                     statoFancoilGrp[g].valLabel[j].Text = s;
+                                    skipNum = costAl.MAX_SIZE_STRING / 2;
                                     // Debug.WriteLine(s);
                                     break;
                                 case 'N':
@@ -168,6 +177,43 @@ namespace configuratore.stato
                                     s = utility.convertToString(v, d);
                                     switch (p)
                                     {
+                                        case costAlFanCoil.FCS_SONDA_REGOLAZIONE:
+                                            switch(v)
+                                            {
+                                                case 0:
+                                                    s = loca.getStr(loca.indice.FC_CB_8_00_01);
+                                                    break;
+                                                case 1:
+                                                    s = loca.getStr(loca.indice.FC_CB_8_00_02);
+                                                    break;
+                                                case 2:
+                                                    s = loca.getStr(loca.indice.FC_CB_8_00_03);
+                                                    break;
+                                                case 3:
+                                                    s = loca.getStr(loca.indice.FC_CB_8_00_04);
+                                                    break;
+
+                                            }
+                                            break;
+                                        case costAlFanCoil.FCS_ECONOMY_TYPE:
+                                            String str="";
+                                            switch (v)
+                                            {
+                                                case 1:
+                                                    str = loca.getStr(loca.indice.FC_CB_17_00_TIPO_ECONOMY_00);
+                                                    break;
+                                                case 2:
+                                                    str = loca.getStr(loca.indice.FC_CB_17_00_TIPO_ECONOMY_01);
+                                                    break;
+                                                case 3:
+                                                    str = loca.getStr(loca.indice.FC_CB_17_00_TIPO_ECONOMY_02);
+                                                    break;
+                                                case 4:
+                                                    str = loca.getStr(loca.indice.FC_CB_17_00_TIPO_ECONOMY_03);
+                                                    break;
+                                            }
+                                            s = str;
+                                            break;
                                         case costAlFanCoil.FCS_MASTER_SLAVE:
                                             if (v == 0)
                                             {
@@ -211,8 +257,10 @@ namespace configuratore.stato
             {
                 Debug.WriteLine("Stato " + p.ToString() + " non in videata");
             }
-            continuaRichiesta();
+            continuaRichiesta (skipNum);
         }
+
+
 
         void richiedi()
         {
@@ -224,12 +272,12 @@ namespace configuratore.stato
             }
         }
 
-        void continuaRichiesta()
+        void continuaRichiesta(int skipNum)
         {
             if (statoDaRichiedere >= 0)
             {
                 rchiedi = 1;
-                statoDaRichiedere++;
+                statoDaRichiedere = statoDaRichiedere + skipNum;
                 if (statoDaRichiedere < costAlFanCoil.FCS_NUMERO_STATI)
                 {
                     richiedi();
@@ -282,7 +330,7 @@ namespace configuratore.stato
                         },
                     },
                     valLabel = new Label[] { val_0_00_Matricola, val_0_01_Indirizzo, val_0_02_MS, val_0_03_PS },
-                    vvParametro = new int[] { costAlFanCoil.FCS_MATRICOLA, costAlFanCoil.FCS_INDIRIZZO_SLAVE, costAlFanCoil.FCS_MASTER_SLAVE, costAlFanCoil.FCS_DISP_PRIMARIO }
+                    vvParametro = new int[] { costAlFanCoil.FCS_MATRICOLA_00, costAlFanCoil.FCS_INDIRIZZO_SLAVE, costAlFanCoil.FCS_MASTER_SLAVE, costAlFanCoil.FCS_DISP_PRIMARIO }
                 },   // ---------- 0
 
                 new gbOx()    // ---------- 1
@@ -578,10 +626,10 @@ namespace configuratore.stato
                         },
 
                     },
-                    valLabel = new Label[] { val_3_00, val_3_01,val_3_02, val_3_03,val_3_04,val_3_05,val_3_06,val_3_07,val_3_08,val_3_09,val_3_10,val_3_11,val_3_12,val_3_13,val_3_14 },
+                    valLabel = new Label[] { val_3_00, val_3_01,val_3_02, val_3_03,val_3_04,val_3_05,val_3_06, val_3_07, val_3_08,val_3_09,val_3_10,val_3_11,val_3_12,val_3_13,val_3_14 },
                     vvParametro = new int[] {
 costAlFanCoil.FCS_SPENTO_BMS,
-costAlFanCoil.FCS_SPENTO_TERMOSTATO,
+costAlFanCoil.FCS_SPENTO_DA_TASTO,
 costAlFanCoil.FCS_SPENTO_D1,
 costAlFanCoil.FCS_SPENTO_ECONOMY,
 //costAlFanCoil.FCS_MOD_ECONOMY_MODBUS_DI1,
@@ -595,7 +643,7 @@ costAlFanCoil.FCS_MOD_ECONOMY_RETE,
 costAlFanCoil.FCS_MOD_ECONOMY_BMS_EN_SAVING,
 costAlFanCoil.FCS_LIMITE_TEMP_MAND_RIS_RAFF,
 costAlFanCoil.FCS_LIMITE_TEMP_SCHEDA,
-costAlFanCoil.FCS_RAFF_RAPIDO,
+costAlFanCoil.FCS_QUICK_COOLING,
 costAlFanCoil.FCS_CONTATORE_FILTRO,
 costAlFanCoil.FCS_FANCOIL_OFF
 
@@ -903,6 +951,10 @@ costAlFanCoil.FCS_FANCOIL_OFF
         {
             retStat y;
             y = toggleStatus(btn60_AccensioneVentilatore);
+            if(getStato(btn61_ComandoRiscaldamento)==1) {  // forzatura resistenza attiva
+                setStatoOff(btn61_ComandoRiscaldamento);
+                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RISCALDAMENTO, getStato(btn60_AccensioneVentilatore), richiestoDa);
+            }
             btn60_AccensioneVentilatore.Image = y.img;
             btn60_AccensioneVentilatore.Text = y.txt;
             txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_VENTILATORE, getStato(btn60_AccensioneVentilatore), richiestoDa);
@@ -912,6 +964,11 @@ costAlFanCoil.FCS_FANCOIL_OFF
         {
             retStat y;
             y = toggleStatus(btn61_ComandoRiscaldamento);
+            if (getStato(btn60_AccensioneVentilatore) == 1)
+            {
+                setStatoOff(btn60_AccensioneVentilatore);
+                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_VENTILATORE, getStato(btn60_AccensioneVentilatore), richiestoDa);
+            }
             btn61_ComandoRiscaldamento.Image = y.img;
             btn61_ComandoRiscaldamento.Text = y.txt;
             if(getStato(btn62_ComandoRaffreddamento)!=0) {  // on

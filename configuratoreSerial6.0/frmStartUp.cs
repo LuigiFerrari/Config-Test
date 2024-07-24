@@ -366,6 +366,14 @@ namespace configuratore
                 {
                     byte b = (byte)(d & 0xff);
                     clsHandler.decode(b, this);
+                    d = clsSerial.pop(Costanti.BIT_IM_MASTER | Costanti.BITS_DEVICE_FANCOIL | Costanti.BITS_VIDEATA_MASTER);
+                    // handelrData
+                }
+                d = clsSerial.pop(Costanti.BIT_IM_MASTER | Costanti.BITS_DEVICE_TERMOT1 | Costanti.BITS_VIDEATA_MASTER);
+                while (d >= 0)
+                {
+                    byte b = (byte)(d & 0xff);
+                    clsHandler.decode(b, this);
                     d = clsSerial.pop(Costanti.BIT_IM_MASTER | Costanti.BITS_DEVICE_TERMOT1 | Costanti.BITS_VIDEATA_MASTER);
                     // handelrData
                 }
@@ -569,7 +577,7 @@ namespace configuratore
 
                                     // devForm = new frmCassette("CASSETTE: ", clsMsg.getInfoMsg() + " " + clsSerial.getSelectedPortName(), this, false, richiestoDa);
                                 }
-                                statusWinddows.setFinestraAperta(Costanti.CASSETTE);
+                                statusWinddows.setFinestraAperta(Costanti.FANCOIL);
                                 FanCoilmyForm.Show();
                                 clsArbitrator.setLoadingParameter();
                                 while (clsArbitrator.isInEsecuzione() == true)

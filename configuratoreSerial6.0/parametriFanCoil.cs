@@ -143,13 +143,13 @@ namespace configuratoreSerial6._0
         public const int KF_KV_PERC_RISCALDAMENTO = 114;
         public const int KF_KV_PERC_RAFFREDDAMENTO = 115;
         public const int KF_KV_PERC_SERRANDA = 116;
+        public const int KF_INCR_ZM_RISC_TIPO1_MBUS = 117;
+        public const int KF_INCR_ZM_RAFF_TIPO1_MBUS = 118;
+        public const int KF_INCR_ZM_RISC_TIPO2_MBUS = 119;
+        public const int KF_INCR_ZM_RAFF_TIPO2_MBUS = 120;
+        public const int KF_ECONOMY_TYPE_MBUS = 121;
 
-
-
-
-
-
-        public const int NUMERO_PARAMETRI_KF = (KF_INDIRIZZO_SLAVE + 1);
+        public const int NUMERO_PARAMETRI_KF = (KF_ECONOMY_TYPE_MBUS + 1);
 
     }
 }

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using static configuratore.frmCassette;
 using static configuratore.statoCassette.frmStatoCassette;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System.Diagnostics;
+
+
+
 namespace configuratore
 {
     internal class classGroupBoxT1
@@ -17,7 +22,7 @@ namespace configuratore
         System.Windows.Forms.GroupBox myGbox;
 
         int richiestoDa;
-
+        bool doNotChargeTimer;
         struct posControl
         {
             public int pos;
@@ -123,10 +128,87 @@ namespace configuratore
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.DecimalPlaces = GroupBpoxInfo.cfgUpDown[i].nDec;
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.Value = GroupBpoxInfo.cfgUpDown[i].vDefault;
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.ValueChanged += new System.EventHandler(ValueChanged);
+                    GroupBpoxInfo.cfgUpDown[i].numUpDown.TextChanged += new System.EventHandler(Ctl_TextChanged);
+                    GroupBpoxInfo.cfgUpDown[i].lTimer = -1;
+                    GroupBpoxInfo.cfgUpDown[i].oldValue = -1000;
 
                     // selezione item di  default
                 }
             }
+
+            // Enable the Timer
+            doNotChargeTimer = false;
+        }
+
+        public void Tick(gbOxConfig GroupBpox)
+        {
+
+
+            if (GroupBpox.cfgUpDown != null)
+            {
+
+                int i;
+                for (i = 0; i < GroupBpox.cfgUpDown.Length; i++)
+                {
+                    if (GroupBpox.cfgUpDown[i].lTimer >= 0)
+                    {
+                        GroupBpox.cfgUpDown[i].lTimer--;
+                        if (GroupBpox.cfgUpDown[i].lTimer < 0)
+                        {
+                            GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.White;
+                            if (GroupBpox.cfgUpDown[i].numUpDown.Value > GroupBpox.cfgUpDown[i].numUpDown.Maximum)
+                                GroupBpox.cfgUpDown[i].numUpDown.Value = GroupBpox.cfgUpDown[i].numUpDown.Maximum;
+                            if (GroupBpox.cfgUpDown[i].numUpDown.Value < GroupBpox.cfgUpDown[i].numUpDown.Minimum)
+                                GroupBpox.cfgUpDown[i].numUpDown.Value = GroupBpox.cfgUpDown[i].numUpDown.Minimum;
+
+                            //int nByte = utility.cacSize((int)GroupBpox.cfgUpDown[i].numUpDown.Minimum, (int)GroupBpox.cfgUpDown[i].numUpDown.Maximum, GroupBpox.cfgUpDown[i].numUpDown.DecimalPlaces);
+                            //int txData = (int)(GroupBpox.cfgUpDown[i].numUpDown.Value * utility.potDieci(GroupBpox.cfgUpDown[i].numUpDown.DecimalPlaces));
+                            //if (clsArbitrator.isDoNotLoop() == false)
+                            //{
+                            //    switch (nByte)
+                            //    {
+                            //        case 1:
+                            //            txMsg.txMsgOne(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //        case 2:
+                            //            txMsg.txMsg2(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //        case 3:
+                            //            txMsg.txMsg3(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //    }
+                            //}
+                            //global.glbfrmT1.campoDinamico(GroupBpox.cfgUpDown[i].numParametro, txData);
+                        }
+                    }
+                }
+            }
+        }
+
+        String aa;
+        private void Ctl_TextChanged(object sender, System.EventArgs e)
+        {
+            int i;
+          
+            if (doNotChargeTimer == false)
+            {
+                if (clsArbitrator.isDoNotLoop() == false)
+                {
+                    for (i = 0; i < GroupBpox.cfgUpDown.Length; i++)
+                    {
+                        if (sender == GroupBpox.cfgUpDown[i].numUpDown)
+                        {
+                            GroupBpox.cfgUpDown[i].lTimer = 3;
+                            GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.Yellow;
+
+                        }
+                    }
+                }
+            } else
+            {
+                doNotChargeTimer = false;
+            }
+            
         }
 
         private void SelectedIndexChanged(object sender, EventArgs e)
@@ -138,7 +220,7 @@ namespace configuratore
                 {
                     if (clsArbitrator.isDoNotLoop() == false)
                         txMsg.txMsgOne(GroupBpox.cfgCombo[i].numParametro, GroupBpox.cfgCombo[i].combo.SelectedIndex, richiestoDa);
-                    
+
                 }
             }
         }
@@ -186,6 +268,9 @@ namespace configuratore
                                 txMsg.txMsg3(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
                                 break;
                         }
+                        doNotChargeTimer = true;
+                        GroupBpox.cfgUpDown[i].lTimer = -1;
+                        GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.White;
                     }
                     global.glbfrmT1.campoDinamico(GroupBpox.cfgUpDown[i].numParametro, txData);
                 }

@@ -72,6 +72,8 @@ namespace configuratore
         public const int NETLIST=0;
         public const int NETSTATUS=1;
 
+        public const int ABILITA_SERRANDA = 0x01;
+
 
         static public string[] FUNZIONAMENTO =
         {

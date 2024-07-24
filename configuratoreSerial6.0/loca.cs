@@ -463,8 +463,8 @@ namespace configuratore
 		/*  16 ON                                  */ {"ON","ON"},
 		/*  17 OFF                                 */ {"OFF","OFF"},
 		/*  18 GB4_IMP_REG_AMP                     */ {"Impostazione regolazione ambiente","Room temperature setting"},
-		/*  19 SETPOINT_DEFAULT                    */ {"Setpoint default [C°]","Default temperatrure setpoint [C°]"},
-		/*  20 DEV_MAX_SETPOINT                    */ {"Deviazione maxsetpoint default [C°] ±","Max. default setpoint deviation [C°] ±"},
+		/*  19 SETPOINT_DEFAULT                    */ {"Setpoint temperatura di default [C°]","Default temperatrure setpoint [C°]"},
+		/*  20 DEV_MAX_SETPOINT                    */ {"Deviazione max. setpoint default [C°] ±","Max. default setpoint deviation [C°] ±"},
 		/*  21 INCR_ZONA_MORTA_DZI                 */ {"Incremento zona morta risc./raff. in \neconomy mode D.Z.I.","Heating/cooling dead zone increase in\neconomy mode D.Z.I. [C°]"},
 		/*  22 GB5_REGOLAZIONTEMP_INTERNA          */ {"Regolazione temperatura interna","Internal temperature management"},
 		/*  23 PRIMA_SOGLIA                        */ {"1ª soglia OFF resistenza [C°]","1ª el. heater OFF threshold [C°]"},
@@ -680,7 +680,7 @@ namespace configuratore
 /* 228 FC_LBL_7_12                         */ { "Setpoint portata economy [m³/h]","Economy mode air flow set point  [m³/h]"},
 /* 229 FC_CB_7_00                          */ { "CO₂","CO₂"},
 /* 230 FC_CB_7_01                          */ { "Economy","Economy "},
-/* 231 FC_CB_7_02                          */ { "Damper","Damper"},
+/* 231 FC_CB_7_02                          */ { "Portata","Air flow"},
 /* 232 FC_TAB_2                            */ { "Impostazioni","Settings"},
 /* 233 FC_GB_8_IMPOSTAZIONE_SONDA          */ { "Impostazione sonda e setpoint temperatura","Regulation probe and temperature setpoint setting"},
 /* 234 FC_LBL_8_00                         */ { "Tipo sonda regolazione","Regulation probe"},
@@ -802,8 +802,8 @@ namespace configuratore
 /* 342 T2_CB_0_05                          */ { "2 tasti","2 switches"},
 /* 343 T2_LBL_1_01                         */ { "Ablilta/Disabilita","Enable/Disable"},
 /* 344 T2_LBL_0_06                         */ { "Buzzer On/Off","Buzzer On/Off"},
-/* 345 T2_LBL_0_07                         */ { "Compensation temperatura P1","Temperature compensation P1"},
-/* 346 T2_LBL_0_08                         */ { "Compensation temperatura P2","Temperature compensation P2"},
+/* 345 T2_LBL_0_07                         */ { "Compensazione temperatura P1","Temperature compensation P1"},
+/* 346 T2_LBL_0_08                         */ { "Compensazione temperatura P2","Temperature compensation P2"},
 
 
 // ------------------------------ MASTER NETWORK
