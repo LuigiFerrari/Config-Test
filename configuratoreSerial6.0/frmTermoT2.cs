@@ -1377,7 +1377,10 @@ namespace configuratore
             if (richiestoDa == 0)
                 parent.abilitaMenu();
             else
+            {
                 clsArbitrator.setriabilitaBottoni();
+                clsArbitrator.clsFinestraAperta();
+            }
             this.Close();
         }
 
@@ -1488,6 +1491,7 @@ namespace configuratore
             t2_s1_btn_00.Image = y.img;
             t2_s1_btn_00.Text = y.txt;
             txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, getStato(t2_s1_btn_00), richiestoDa);
+            
         }
 
         private void t2_s1_nud_00_ValueChanged(object sender, EventArgs e)

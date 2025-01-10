@@ -34,6 +34,8 @@
             tabControl = new TabControl();
             tabPage1 = new TabPage();
             t1_gb_s2_matricola = new GroupBox();
+            t1_val_s2_04_sw_rel = new Label();
+            label1 = new Label();
             t1_val_s2_02 = new Label();
             t2_lbl_s2_02 = new Label();
             t1_val_s2_01 = new Label();
@@ -116,6 +118,14 @@
             timerRefresh = new System.Windows.Forms.Timer(components);
             timer1 = new System.Windows.Forms.Timer(components);
             timerUnSecondo = new System.Windows.Forms.Timer(components);
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            apriToolStripMenuItem = new ToolStripMenuItem();
+            salvaToolStripMenuItem = new ToolStripMenuItem();
+            salvaComeToolStripMenuItem = new ToolStripMenuItem();
+            esciToolStripMenuItem = new ToolStripMenuItem();
+            saveFileDialog1 = new SaveFileDialog();
+            openFileDialog1 = new OpenFileDialog();
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             t1_gb_s2_matricola.SuspendLayout();
@@ -136,6 +146,7 @@
             t1_gb_1.SuspendLayout();
             panel20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)t1_nud_1_01_Indirizzo).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // colorDialog1
@@ -172,6 +183,8 @@
             // t1_gb_s2_matricola
             // 
             t1_gb_s2_matricola.BackColor = Color.Silver;
+            t1_gb_s2_matricola.Controls.Add(t1_val_s2_04_sw_rel);
+            t1_gb_s2_matricola.Controls.Add(label1);
             t1_gb_s2_matricola.Controls.Add(t1_val_s2_02);
             t1_gb_s2_matricola.Controls.Add(t2_lbl_s2_02);
             t1_gb_s2_matricola.Controls.Add(t1_val_s2_01);
@@ -187,10 +200,29 @@
             t1_gb_s2_matricola.TabStop = false;
             t1_gb_s2_matricola.Text = "Impostazioni";
             // 
+            // t1_val_s2_04_sw_rel
+            // 
+            t1_val_s2_04_sw_rel.BackColor = Color.White;
+            t1_val_s2_04_sw_rel.Location = new Point(324, 25);
+            t1_val_s2_04_sw_rel.Margin = new Padding(4, 0, 4, 0);
+            t1_val_s2_04_sw_rel.Name = "t1_val_s2_04_sw_rel";
+            t1_val_s2_04_sw_rel.Size = new Size(126, 15);
+            t1_val_s2_04_sw_rel.TabIndex = 88;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(260, 25);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(64, 15);
+            label1.TabIndex = 87;
+            label1.Text = "Sw. release";
+            // 
             // t1_val_s2_02
             // 
             t1_val_s2_02.BackColor = Color.White;
-            t1_val_s2_02.Location = new Point(394, 51);
+            t1_val_s2_02.Location = new Point(422, 51);
             t1_val_s2_02.Margin = new Padding(4, 0, 4, 0);
             t1_val_s2_02.Name = "t1_val_s2_02";
             t1_val_s2_02.Size = new Size(28, 15);
@@ -199,7 +231,7 @@
             // t2_lbl_s2_02
             // 
             t2_lbl_s2_02.AutoSize = true;
-            t2_lbl_s2_02.Location = new Point(278, 51);
+            t2_lbl_s2_02.Location = new Point(260, 51);
             t2_lbl_s2_02.Margin = new Padding(4, 0, 4, 0);
             t2_lbl_s2_02.Name = "t2_lbl_s2_02";
             t2_lbl_s2_02.Size = new Size(51, 15);
@@ -209,7 +241,7 @@
             // t1_val_s2_01
             // 
             t1_val_s2_01.BackColor = Color.White;
-            t1_val_s2_01.Location = new Point(144, 51);
+            t1_val_s2_01.Location = new Point(172, 51);
             t1_val_s2_01.Margin = new Padding(4, 0, 4, 0);
             t1_val_s2_01.Name = "t1_val_s2_01";
             t1_val_s2_01.Size = new Size(55, 15);
@@ -218,7 +250,7 @@
             // t1_val_s2_00
             // 
             t1_val_s2_00.BackColor = Color.White;
-            t1_val_s2_00.Location = new Point(211, 25);
+            t1_val_s2_00.Location = new Point(81, 25);
             t1_val_s2_00.Margin = new Padding(4, 0, 4, 0);
             t1_val_s2_00.Name = "t1_val_s2_00";
             t1_val_s2_00.Size = new Size(146, 15);
@@ -1017,7 +1049,7 @@
             // labelIndice
             // 
             labelIndice.BackColor = Color.Lime;
-            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelIndice.Location = new Point(280, 15);
             labelIndice.Margin = new Padding(4, 0, 4, 0);
             labelIndice.Name = "labelIndice";
@@ -1028,7 +1060,7 @@
             // labelFondo
             // 
             labelFondo.BackColor = SystemColors.MenuText;
-            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelFondo.ForeColor = Color.White;
             labelFondo.Location = new Point(262, 12);
             labelFondo.Margin = new Padding(4, 0, 4, 0);
@@ -1040,7 +1072,7 @@
             // labelPleaseWait
             // 
             labelPleaseWait.BackColor = Color.Transparent;
-            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelPleaseWait.ForeColor = Color.Black;
             labelPleaseWait.Location = new Point(276, -3);
             labelPleaseWait.Margin = new Padding(4, 0, 4, 0);
@@ -1070,6 +1102,53 @@
             timerUnSecondo.Interval = 1000;
             timerUnSecondo.Tick += timerUnSecondo_Tick;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(976, 24);
+            menuStrip1.TabIndex = 92;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { apriToolStripMenuItem, salvaToolStripMenuItem, salvaComeToolStripMenuItem, esciToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // apriToolStripMenuItem
+            // 
+            apriToolStripMenuItem.Name = "apriToolStripMenuItem";
+            apriToolStripMenuItem.Size = new Size(143, 22);
+            apriToolStripMenuItem.Text = "Apri";
+            apriToolStripMenuItem.Click += apriToolStripMenuItem_Click;
+            // 
+            // salvaToolStripMenuItem
+            // 
+            salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
+            salvaToolStripMenuItem.Size = new Size(143, 22);
+            salvaToolStripMenuItem.Text = "Salva";
+            salvaToolStripMenuItem.Click += salvaToolStripMenuItem_Click;
+            // 
+            // salvaComeToolStripMenuItem
+            // 
+            salvaComeToolStripMenuItem.Name = "salvaComeToolStripMenuItem";
+            salvaComeToolStripMenuItem.Size = new Size(143, 22);
+            salvaComeToolStripMenuItem.Text = "Salva come ..";
+            salvaComeToolStripMenuItem.Click += salvaComeToolStripMenuItem_Click;
+            // 
+            // esciToolStripMenuItem
+            // 
+            esciToolStripMenuItem.Name = "esciToolStripMenuItem";
+            esciToolStripMenuItem.Size = new Size(143, 22);
+            esciToolStripMenuItem.Text = "Esci";
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
             // frmTermoT1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1079,7 +1158,9 @@
             Controls.Add(labelFondo);
             Controls.Add(labelPleaseWait);
             Controls.Add(tabControl);
+            Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmTermoT1";
             Text = "frmTermoT1";
@@ -1111,7 +1192,10 @@
             panel20.ResumeLayout(false);
             panel20.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)t1_nud_1_01_Indirizzo).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -1204,5 +1288,15 @@
         private Label t1_lbl_s0_15;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timerUnSecondo;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem salvaToolStripMenuItem;
+        private ToolStripMenuItem salvaComeToolStripMenuItem;
+        private ToolStripMenuItem esciToolStripMenuItem;
+        private SaveFileDialog saveFileDialog1;
+        private OpenFileDialog openFileDialog1;
+        private ToolStripMenuItem apriToolStripMenuItem;
+        private Label t1_val_s2_04_sw_rel;
+        private Label label1;
     }
 }

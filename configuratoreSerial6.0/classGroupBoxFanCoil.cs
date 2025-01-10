@@ -18,6 +18,7 @@ namespace configuratore
 
         int richiestoDa;
         int indirizzo;
+
         struct posControl
         {
             public int pos;
@@ -129,7 +130,10 @@ namespace configuratore
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.DecimalPlaces = GroupBpoxInfo.cfgUpDown[i].nDec;
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.Value = GroupBpoxInfo.cfgUpDown[i].vDefault;
                     GroupBpoxInfo.cfgUpDown[i].numUpDown.ValueChanged += new System.EventHandler(ValueChanged);
-
+                    GroupBpoxInfo.cfgUpDown[i].numUpDown.TextChanged += new System.EventHandler(Ctl_TextChanged);
+                    GroupBpoxInfo.cfgUpDown[i].lTimer = -1;
+                    GroupBpoxInfo.cfgUpDown[i].UpDownFLG = 0;
+                    GroupBpoxInfo.cfgUpDown[i].oldValue = -1000;
                     // selezione item di  default
                 }
             }
@@ -195,7 +199,15 @@ namespace configuratore
                                 txMsg.txMsg3(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa | indirizzo);
                                 break;
                         }
+                        // doNotChargeTimer = true;
+                        GroupBpox.cfgUpDown[i].lTimer = -1;
+                        GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.White;
+                        GroupBpox.cfgUpDown[i].UpDownFLG = 2;
+
                     }
+                } else
+                {
+                    clsArbitrator.clrDoNotLoop2();
                 }
             }
         }
@@ -204,6 +216,78 @@ namespace configuratore
 
         public System.Windows.Forms.GroupBox getGroupBox() { return myGbox; }
 
+        private void Ctl_TextChanged(object sender, System.EventArgs e)
+        {
+            int i;
+
+            if (clsArbitrator.isDoNotLoop() == false)
+            {
+                for (i = 0; i < GroupBpox.cfgUpDown.Length; i++)
+                {
+                    if (sender == GroupBpox.cfgUpDown[i].numUpDown)
+                    {
+                        if (GroupBpox.cfgUpDown[i].UpDownFLG == 0)
+                        {
+                            // non si è premuto Up Down ma è stato editato il  valore
+                            GroupBpox.cfgUpDown[i].lTimer = 3;
+                            GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            GroupBpox.cfgUpDown[i].UpDownFLG = 0;
+                        }
+
+
+                    }
+                }
+            }
+
+        }
+
+        public void Tick(gbOxConfig GroupBpox)
+        {
+
+
+            if (GroupBpox.cfgUpDown != null)
+            {
+
+                int i;
+                for (i = 0; i < GroupBpox.cfgUpDown.Length; i++)
+                {
+                    if (GroupBpox.cfgUpDown[i].lTimer >= 0)
+                    {
+                        GroupBpox.cfgUpDown[i].lTimer--;
+                        if (GroupBpox.cfgUpDown[i].lTimer < 0)
+                        {
+                            GroupBpox.cfgUpDown[i].numUpDown.BackColor = Color.White;
+                            if (GroupBpox.cfgUpDown[i].numUpDown.Value > GroupBpox.cfgUpDown[i].numUpDown.Maximum)
+                                GroupBpox.cfgUpDown[i].numUpDown.Value = GroupBpox.cfgUpDown[i].numUpDown.Maximum;
+                            if (GroupBpox.cfgUpDown[i].numUpDown.Value < GroupBpox.cfgUpDown[i].numUpDown.Minimum)
+                                GroupBpox.cfgUpDown[i].numUpDown.Value = GroupBpox.cfgUpDown[i].numUpDown.Minimum;
+
+                            //int nByte = utility.cacSize((int)GroupBpox.cfgUpDown[i].numUpDown.Minimum, (int)GroupBpox.cfgUpDown[i].numUpDown.Maximum, GroupBpox.cfgUpDown[i].numUpDown.DecimalPlaces);
+                            //int txData = (int)(GroupBpox.cfgUpDown[i].numUpDown.Value * utility.potDieci(GroupBpox.cfgUpDown[i].numUpDown.DecimalPlaces));
+                            //if (clsArbitrator.isDoNotLoop() == false)
+                            //{
+                            //    switch (nByte)
+                            //    {
+                            //        case 1:
+                            //            txMsg.txMsgOne(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //        case 2:
+                            //            txMsg.txMsg2(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //        case 3:
+                            //            txMsg.txMsg3(GroupBpox.cfgUpDown[i].numParametro, txData, richiestoDa);
+                            //            break;
+                            //    }
+                            //}
+                            //global.glbfrmT1.campoDinamico(GroupBpox.cfgUpDown[i].numParametro, txData);
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

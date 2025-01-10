@@ -72,6 +72,8 @@
             val10_TemperaturaAmbiente = new Label();
             lbl10_TemperaturaAnbienta = new Label();
             gpInfoMatricola = new GroupBox();
+            val24_sw_release = new Label();
+            label1 = new Label();
             lbl_imgPS = new Label();
             pictureBoxPrimaryDevice = new PictureBox();
             lbl23_Primary = new Label();
@@ -203,8 +205,8 @@
             // val10_TensioneSerranda
             // 
             val10_TensioneSerranda.BackColor = SystemColors.ButtonFace;
-            val10_TensioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val10_TensioneSerranda.Location = new Point(266, 285);
+            val10_TensioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val10_TensioneSerranda.Location = new Point(296, 285);
             val10_TensioneSerranda.Margin = new Padding(4, 0, 4, 0);
             val10_TensioneSerranda.Name = "val10_TensioneSerranda";
             val10_TensioneSerranda.Size = new Size(47, 18);
@@ -215,8 +217,8 @@
             // lbl09_TensioneSerranda
             // 
             lbl09_TensioneSerranda.AutoSize = true;
-            lbl09_TensioneSerranda.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl09_TensioneSerranda.Location = new Point(40, 285);
+            lbl09_TensioneSerranda.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbl09_TensioneSerranda.Location = new Point(37, 285);
             lbl09_TensioneSerranda.Margin = new Padding(4, 0, 4, 0);
             lbl09_TensioneSerranda.Name = "lbl09_TensioneSerranda";
             lbl09_TensioneSerranda.Size = new Size(104, 13);
@@ -226,8 +228,8 @@
             // val09_LetturadeltaPressioneSicurezza
             // 
             val09_LetturadeltaPressioneSicurezza.BackColor = SystemColors.ButtonFace;
-            val09_LetturadeltaPressioneSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val09_LetturadeltaPressioneSicurezza.Location = new Point(264, 233);
+            val09_LetturadeltaPressioneSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val09_LetturadeltaPressioneSicurezza.Location = new Point(296, 233);
             val09_LetturadeltaPressioneSicurezza.Margin = new Padding(4, 0, 4, 0);
             val09_LetturadeltaPressioneSicurezza.Name = "val09_LetturadeltaPressioneSicurezza";
             val09_LetturadeltaPressioneSicurezza.Size = new Size(47, 18);
@@ -238,8 +240,8 @@
             // val08_LetturadeltaPressioneMassima
             // 
             val08_LetturadeltaPressioneMassima.BackColor = SystemColors.ButtonFace;
-            val08_LetturadeltaPressioneMassima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val08_LetturadeltaPressioneMassima.Location = new Point(264, 172);
+            val08_LetturadeltaPressioneMassima.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val08_LetturadeltaPressioneMassima.Location = new Point(296, 172);
             val08_LetturadeltaPressioneMassima.Margin = new Padding(4, 0, 4, 0);
             val08_LetturadeltaPressioneMassima.Name = "val08_LetturadeltaPressioneMassima";
             val08_LetturadeltaPressioneMassima.Size = new Size(47, 18);
@@ -250,8 +252,8 @@
             // val07_LetturadeltaPressioneMinima
             // 
             val07_LetturadeltaPressioneMinima.BackColor = SystemColors.ButtonFace;
-            val07_LetturadeltaPressioneMinima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val07_LetturadeltaPressioneMinima.Location = new Point(264, 125);
+            val07_LetturadeltaPressioneMinima.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val07_LetturadeltaPressioneMinima.Location = new Point(296, 125);
             val07_LetturadeltaPressioneMinima.Margin = new Padding(4, 0, 4, 0);
             val07_LetturadeltaPressioneMinima.Name = "val07_LetturadeltaPressioneMinima";
             val07_LetturadeltaPressioneMinima.Size = new Size(47, 18);
@@ -262,8 +264,8 @@
             // val06_LetturadeltaPressioneIstantanea
             // 
             val06_LetturadeltaPressioneIstantanea.BackColor = SystemColors.ButtonFace;
-            val06_LetturadeltaPressioneIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val06_LetturadeltaPressioneIstantanea.Location = new Point(265, 67);
+            val06_LetturadeltaPressioneIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val06_LetturadeltaPressioneIstantanea.Location = new Point(296, 67);
             val06_LetturadeltaPressioneIstantanea.Margin = new Padding(4, 0, 4, 0);
             val06_LetturadeltaPressioneIstantanea.Name = "val06_LetturadeltaPressioneIstantanea";
             val06_LetturadeltaPressioneIstantanea.Size = new Size(47, 18);
@@ -274,8 +276,8 @@
             // val06_LetturaPosizioneSerranda
             // 
             val06_LetturaPosizioneSerranda.BackColor = SystemColors.ButtonHighlight;
-            val06_LetturaPosizioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val06_LetturaPosizioneSerranda.Location = new Point(265, 315);
+            val06_LetturaPosizioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val06_LetturaPosizioneSerranda.Location = new Point(296, 315);
             val06_LetturaPosizioneSerranda.Margin = new Padding(4, 0, 4, 0);
             val06_LetturaPosizioneSerranda.Name = "val06_LetturaPosizioneSerranda";
             val06_LetturaPosizioneSerranda.Size = new Size(47, 18);
@@ -286,8 +288,8 @@
             // val04_MofulazioneSerranda
             // 
             val04_MofulazioneSerranda.BackColor = SystemColors.ButtonHighlight;
-            val04_MofulazioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val04_MofulazioneSerranda.Location = new Point(265, 263);
+            val04_MofulazioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val04_MofulazioneSerranda.Location = new Point(296, 263);
             val04_MofulazioneSerranda.Margin = new Padding(4, 0, 4, 0);
             val04_MofulazioneSerranda.Name = "val04_MofulazioneSerranda";
             val04_MofulazioneSerranda.Size = new Size(47, 18);
@@ -298,8 +300,8 @@
             // val03_PortataMinimaSicurezza
             // 
             val03_PortataMinimaSicurezza.BackColor = SystemColors.ButtonHighlight;
-            val03_PortataMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val03_PortataMinimaSicurezza.Location = new Point(265, 215);
+            val03_PortataMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val03_PortataMinimaSicurezza.Location = new Point(296, 215);
             val03_PortataMinimaSicurezza.Margin = new Padding(4, 0, 4, 0);
             val03_PortataMinimaSicurezza.Name = "val03_PortataMinimaSicurezza";
             val03_PortataMinimaSicurezza.Size = new Size(47, 18);
@@ -310,8 +312,8 @@
             // val02_PortataMassima
             // 
             val02_PortataMassima.BackColor = SystemColors.ButtonHighlight;
-            val02_PortataMassima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val02_PortataMassima.Location = new Point(265, 153);
+            val02_PortataMassima.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val02_PortataMassima.Location = new Point(296, 153);
             val02_PortataMassima.Margin = new Padding(4, 0, 4, 0);
             val02_PortataMassima.Name = "val02_PortataMassima";
             val02_PortataMassima.Size = new Size(47, 18);
@@ -322,8 +324,8 @@
             // val01_PortataMinima
             // 
             val01_PortataMinima.BackColor = SystemColors.ButtonHighlight;
-            val01_PortataMinima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val01_PortataMinima.Location = new Point(265, 106);
+            val01_PortataMinima.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val01_PortataMinima.Location = new Point(296, 106);
             val01_PortataMinima.Margin = new Padding(4, 0, 4, 0);
             val01_PortataMinima.Name = "val01_PortataMinima";
             val01_PortataMinima.Size = new Size(47, 18);
@@ -334,8 +336,8 @@
             // val00_PortatataIstantanea
             // 
             val00_PortatataIstantanea.BackColor = SystemColors.ButtonHighlight;
-            val00_PortatataIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val00_PortatataIstantanea.Location = new Point(265, 48);
+            val00_PortatataIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val00_PortatataIstantanea.Location = new Point(296, 48);
             val00_PortatataIstantanea.Margin = new Padding(4, 0, 4, 0);
             val00_PortatataIstantanea.Name = "val00_PortatataIstantanea";
             val00_PortatataIstantanea.Size = new Size(47, 18);
@@ -346,7 +348,7 @@
             // lbl08_MofulazioneSerranda
             // 
             lbl08_MofulazioneSerranda.AutoSize = true;
-            lbl08_MofulazioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl08_MofulazioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl08_MofulazioneSerranda.Location = new Point(37, 263);
             lbl08_MofulazioneSerranda.Margin = new Padding(4, 0, 4, 0);
             lbl08_MofulazioneSerranda.Name = "lbl08_MofulazioneSerranda";
@@ -357,7 +359,7 @@
             // lbl10_LetturaPosizioneSerranda
             // 
             lbl10_LetturaPosizioneSerranda.AutoSize = true;
-            lbl10_LetturaPosizioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl10_LetturaPosizioneSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl10_LetturaPosizioneSerranda.Location = new Point(37, 315);
             lbl10_LetturaPosizioneSerranda.Margin = new Padding(4, 0, 4, 0);
             lbl10_LetturaPosizioneSerranda.Name = "lbl10_LetturaPosizioneSerranda";
@@ -368,7 +370,7 @@
             // lbl06_PortataMinimaSicurezza
             // 
             lbl06_PortataMinimaSicurezza.AutoSize = true;
-            lbl06_PortataMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl06_PortataMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl06_PortataMinimaSicurezza.Location = new Point(37, 215);
             lbl06_PortataMinimaSicurezza.Margin = new Padding(4, 0, 4, 0);
             lbl06_PortataMinimaSicurezza.Name = "lbl06_PortataMinimaSicurezza";
@@ -379,7 +381,7 @@
             // lbl07_deltaPressioneMinimaSicurezza
             // 
             lbl07_deltaPressioneMinimaSicurezza.AutoSize = true;
-            lbl07_deltaPressioneMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl07_deltaPressioneMinimaSicurezza.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbl07_deltaPressioneMinimaSicurezza.Location = new Point(37, 233);
             lbl07_deltaPressioneMinimaSicurezza.Margin = new Padding(4, 0, 4, 0);
             lbl07_deltaPressioneMinimaSicurezza.Name = "lbl07_deltaPressioneMinimaSicurezza";
@@ -390,7 +392,7 @@
             // lbl04_PortataMassima
             // 
             lbl04_PortataMassima.AutoSize = true;
-            lbl04_PortataMassima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl04_PortataMassima.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl04_PortataMassima.Location = new Point(37, 153);
             lbl04_PortataMassima.Margin = new Padding(4, 0, 4, 0);
             lbl04_PortataMassima.Name = "lbl04_PortataMassima";
@@ -401,7 +403,7 @@
             // lbl05_deltaPressioneMassima
             // 
             lbl05_deltaPressioneMassima.AutoSize = true;
-            lbl05_deltaPressioneMassima.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl05_deltaPressioneMassima.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbl05_deltaPressioneMassima.Location = new Point(37, 172);
             lbl05_deltaPressioneMassima.Margin = new Padding(4, 0, 4, 0);
             lbl05_deltaPressioneMassima.Name = "lbl05_deltaPressioneMassima";
@@ -412,7 +414,7 @@
             // lbl02_PortataMinima
             // 
             lbl02_PortataMinima.AutoSize = true;
-            lbl02_PortataMinima.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl02_PortataMinima.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl02_PortataMinima.Location = new Point(37, 106);
             lbl02_PortataMinima.Margin = new Padding(4, 0, 4, 0);
             lbl02_PortataMinima.Name = "lbl02_PortataMinima";
@@ -423,7 +425,7 @@
             // lbl03_deltaPressioneMinima
             // 
             lbl03_deltaPressioneMinima.AutoSize = true;
-            lbl03_deltaPressioneMinima.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl03_deltaPressioneMinima.Font = new Font("Microsoft Sans Serif", 8.25F);
             lbl03_deltaPressioneMinima.Location = new Point(37, 125);
             lbl03_deltaPressioneMinima.Margin = new Padding(4, 0, 4, 0);
             lbl03_deltaPressioneMinima.Name = "lbl03_deltaPressioneMinima";
@@ -444,7 +446,7 @@
             // lbl00_PortatataIstantanea
             // 
             lbl00_PortatataIstantanea.AutoSize = true;
-            lbl00_PortatataIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl00_PortatataIstantanea.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl00_PortatataIstantanea.Location = new Point(37, 48);
             lbl00_PortatataIstantanea.Margin = new Padding(4, 0, 4, 0);
             lbl00_PortatataIstantanea.Name = "lbl00_PortatataIstantanea";
@@ -485,8 +487,8 @@
             // val18_AdjSetp
             // 
             val18_AdjSetp.BackColor = SystemColors.ButtonHighlight;
-            val18_AdjSetp.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val18_AdjSetp.Location = new Point(265, 254);
+            val18_AdjSetp.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val18_AdjSetp.Location = new Point(296, 254);
             val18_AdjSetp.Margin = new Padding(4, 0, 4, 0);
             val18_AdjSetp.Name = "val18_AdjSetp";
             val18_AdjSetp.Size = new Size(47, 18);
@@ -497,8 +499,8 @@
             // lbl18_AsdjTmpSetpoint
             // 
             lbl18_AsdjTmpSetpoint.AutoSize = true;
-            lbl18_AsdjTmpSetpoint.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl18_AsdjTmpSetpoint.Location = new Point(32, 255);
+            lbl18_AsdjTmpSetpoint.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lbl18_AsdjTmpSetpoint.Location = new Point(33, 255);
             lbl18_AsdjTmpSetpoint.Margin = new Padding(4, 0, 4, 0);
             lbl18_AsdjTmpSetpoint.Name = "lbl18_AsdjTmpSetpoint";
             lbl18_AsdjTmpSetpoint.Size = new Size(146, 16);
@@ -508,8 +510,8 @@
             // val17_TempTermostato
             // 
             val17_TempTermostato.BackColor = SystemColors.ButtonHighlight;
-            val17_TempTermostato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val17_TempTermostato.Location = new Point(265, 220);
+            val17_TempTermostato.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val17_TempTermostato.Location = new Point(296, 220);
             val17_TempTermostato.Margin = new Padding(4, 0, 4, 0);
             val17_TempTermostato.Name = "val17_TempTermostato";
             val17_TempTermostato.Size = new Size(47, 18);
@@ -520,8 +522,8 @@
             // lbl17_TempTermostato
             // 
             lbl17_TempTermostato.AutoSize = true;
-            lbl17_TempTermostato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl17_TempTermostato.Location = new Point(32, 221);
+            lbl17_TempTermostato.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lbl17_TempTermostato.Location = new Point(33, 221);
             lbl17_TempTermostato.Margin = new Padding(4, 0, 4, 0);
             lbl17_TempTermostato.Name = "lbl17_TempTermostato";
             lbl17_TempTermostato.Size = new Size(147, 16);
@@ -531,8 +533,8 @@
             // val16_DCmassimoIstantaneo
             // 
             val16_DCmassimoIstantaneo.BackColor = SystemColors.ButtonFace;
-            val16_DCmassimoIstantaneo.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val16_DCmassimoIstantaneo.Location = new Point(265, 110);
+            val16_DCmassimoIstantaneo.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val16_DCmassimoIstantaneo.Location = new Point(296, 110);
             val16_DCmassimoIstantaneo.Margin = new Padding(4, 0, 4, 0);
             val16_DCmassimoIstantaneo.Name = "val16_DCmassimoIstantaneo";
             val16_DCmassimoIstantaneo.Size = new Size(47, 18);
@@ -543,8 +545,8 @@
             // val15_TemperaturaMandata
             // 
             val15_TemperaturaMandata.BackColor = SystemColors.ButtonHighlight;
-            val15_TemperaturaMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val15_TemperaturaMandata.Location = new Point(265, 187);
+            val15_TemperaturaMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val15_TemperaturaMandata.Location = new Point(296, 187);
             val15_TemperaturaMandata.Margin = new Padding(4, 0, 4, 0);
             val15_TemperaturaMandata.Name = "val15_TemperaturaMandata";
             val15_TemperaturaMandata.Size = new Size(47, 18);
@@ -555,7 +557,7 @@
             // lbl16_TemperaturaMandata
             // 
             lbl16_TemperaturaMandata.AutoSize = true;
-            lbl16_TemperaturaMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl16_TemperaturaMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl16_TemperaturaMandata.Location = new Point(33, 187);
             lbl16_TemperaturaMandata.Margin = new Padding(4, 0, 4, 0);
             lbl16_TemperaturaMandata.Name = "lbl16_TemperaturaMandata";
@@ -566,8 +568,8 @@
             // val14_TemperaturaInterna
             // 
             val14_TemperaturaInterna.BackColor = SystemColors.ButtonHighlight;
-            val14_TemperaturaInterna.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val14_TemperaturaInterna.Location = new Point(265, 158);
+            val14_TemperaturaInterna.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val14_TemperaturaInterna.Location = new Point(296, 158);
             val14_TemperaturaInterna.Margin = new Padding(4, 0, 4, 0);
             val14_TemperaturaInterna.Name = "val14_TemperaturaInterna";
             val14_TemperaturaInterna.Size = new Size(47, 18);
@@ -578,7 +580,7 @@
             // lbl15_TemperaturaInterna
             // 
             lbl15_TemperaturaInterna.AutoSize = true;
-            lbl15_TemperaturaInterna.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl15_TemperaturaInterna.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl15_TemperaturaInterna.Location = new Point(33, 158);
             lbl15_TemperaturaInterna.Margin = new Padding(4, 0, 4, 0);
             lbl15_TemperaturaInterna.Name = "lbl15_TemperaturaInterna";
@@ -589,8 +591,8 @@
             // val13_RiduzioneRiscaldamento
             // 
             val13_RiduzioneRiscaldamento.BackColor = SystemColors.ButtonHighlight;
-            val13_RiduzioneRiscaldamento.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val13_RiduzioneRiscaldamento.Location = new Point(265, 127);
+            val13_RiduzioneRiscaldamento.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val13_RiduzioneRiscaldamento.Location = new Point(296, 127);
             val13_RiduzioneRiscaldamento.Margin = new Padding(4, 0, 4, 0);
             val13_RiduzioneRiscaldamento.Name = "val13_RiduzioneRiscaldamento";
             val13_RiduzioneRiscaldamento.Size = new Size(47, 18);
@@ -601,7 +603,7 @@
             // lbl14_RiduzioneRiscaldamento
             // 
             lbl14_RiduzioneRiscaldamento.AutoSize = true;
-            lbl14_RiduzioneRiscaldamento.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl14_RiduzioneRiscaldamento.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl14_RiduzioneRiscaldamento.Location = new Point(33, 127);
             lbl14_RiduzioneRiscaldamento.Margin = new Padding(4, 0, 4, 0);
             lbl14_RiduzioneRiscaldamento.Name = "lbl14_RiduzioneRiscaldamento";
@@ -612,8 +614,8 @@
             // lbl13_DCMassimoIstantaneo
             // 
             lbl13_DCMassimoIstantaneo.AutoSize = true;
-            lbl13_DCMassimoIstantaneo.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl13_DCMassimoIstantaneo.Location = new Point(33, 98);
+            lbl13_DCMassimoIstantaneo.Font = new Font("Microsoft Sans Serif", 8.25F);
+            lbl13_DCMassimoIstantaneo.Location = new Point(33, 113);
             lbl13_DCMassimoIstantaneo.Margin = new Padding(4, 0, 4, 0);
             lbl13_DCMassimoIstantaneo.Name = "lbl13_DCMassimoIstantaneo";
             lbl13_DCMassimoIstantaneo.Size = new Size(141, 13);
@@ -623,8 +625,8 @@
             // val12_ResistenzaElettrica
             // 
             val12_ResistenzaElettrica.BackColor = SystemColors.ButtonHighlight;
-            val12_ResistenzaElettrica.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val12_ResistenzaElettrica.Location = new Point(265, 80);
+            val12_ResistenzaElettrica.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val12_ResistenzaElettrica.Location = new Point(296, 80);
             val12_ResistenzaElettrica.Margin = new Padding(4, 0, 4, 0);
             val12_ResistenzaElettrica.Name = "val12_ResistenzaElettrica";
             val12_ResistenzaElettrica.Size = new Size(47, 18);
@@ -635,7 +637,7 @@
             // lbl12_ResistenzaElettrica
             // 
             lbl12_ResistenzaElettrica.AutoSize = true;
-            lbl12_ResistenzaElettrica.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl12_ResistenzaElettrica.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl12_ResistenzaElettrica.Location = new Point(33, 80);
             lbl12_ResistenzaElettrica.Margin = new Padding(4, 0, 4, 0);
             lbl12_ResistenzaElettrica.Name = "lbl12_ResistenzaElettrica";
@@ -646,8 +648,8 @@
             // val11_SetpointTemperatura
             // 
             val11_SetpointTemperatura.BackColor = SystemColors.ButtonHighlight;
-            val11_SetpointTemperatura.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val11_SetpointTemperatura.Location = new Point(265, 48);
+            val11_SetpointTemperatura.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val11_SetpointTemperatura.Location = new Point(296, 48);
             val11_SetpointTemperatura.Margin = new Padding(4, 0, 4, 0);
             val11_SetpointTemperatura.Name = "val11_SetpointTemperatura";
             val11_SetpointTemperatura.Size = new Size(47, 18);
@@ -658,7 +660,7 @@
             // lbl11_SetpointTemperatura
             // 
             lbl11_SetpointTemperatura.AutoSize = true;
-            lbl11_SetpointTemperatura.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl11_SetpointTemperatura.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl11_SetpointTemperatura.Location = new Point(33, 48);
             lbl11_SetpointTemperatura.Margin = new Padding(4, 0, 4, 0);
             lbl11_SetpointTemperatura.Name = "lbl11_SetpointTemperatura";
@@ -669,8 +671,8 @@
             // val10_TemperaturaAmbiente
             // 
             val10_TemperaturaAmbiente.BackColor = SystemColors.ButtonHighlight;
-            val10_TemperaturaAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            val10_TemperaturaAmbiente.Location = new Point(265, 18);
+            val10_TemperaturaAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val10_TemperaturaAmbiente.Location = new Point(296, 16);
             val10_TemperaturaAmbiente.Margin = new Padding(4, 0, 4, 0);
             val10_TemperaturaAmbiente.Name = "val10_TemperaturaAmbiente";
             val10_TemperaturaAmbiente.Size = new Size(47, 18);
@@ -681,7 +683,7 @@
             // lbl10_TemperaturaAnbienta
             // 
             lbl10_TemperaturaAnbienta.AutoSize = true;
-            lbl10_TemperaturaAnbienta.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl10_TemperaturaAnbienta.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl10_TemperaturaAnbienta.Location = new Point(33, 18);
             lbl10_TemperaturaAnbienta.Margin = new Padding(4, 0, 4, 0);
             lbl10_TemperaturaAnbienta.Name = "lbl10_TemperaturaAnbienta";
@@ -693,6 +695,8 @@
             // gpInfoMatricola
             // 
             gpInfoMatricola.BackColor = SystemColors.Control;
+            gpInfoMatricola.Controls.Add(val24_sw_release);
+            gpInfoMatricola.Controls.Add(label1);
             gpInfoMatricola.Controls.Add(lbl_imgPS);
             gpInfoMatricola.Controls.Add(pictureBoxPrimaryDevice);
             gpInfoMatricola.Controls.Add(lbl23_Primary);
@@ -706,15 +710,37 @@
             gpInfoMatricola.Margin = new Padding(4, 3, 4, 3);
             gpInfoMatricola.Name = "gpInfoMatricola";
             gpInfoMatricola.Padding = new Padding(4, 3, 4, 3);
-            gpInfoMatricola.Size = new Size(720, 48);
+            gpInfoMatricola.Size = new Size(720, 64);
             gpInfoMatricola.TabIndex = 2;
             gpInfoMatricola.TabStop = false;
             gpInfoMatricola.Text = "gpInfoMatricola";
             // 
+            // val24_sw_release
+            // 
+            val24_sw_release.BackColor = SystemColors.ButtonHighlight;
+            val24_sw_release.Font = new Font("Microsoft Sans Serif", 9.75F);
+            val24_sw_release.Location = new Point(104, 43);
+            val24_sw_release.Margin = new Padding(4, 0, 4, 0);
+            val24_sw_release.Name = "val24_sw_release";
+            val24_sw_release.Size = new Size(118, 18);
+            val24_sw_release.TabIndex = 11;
+            val24_sw_release.Text = "Ver";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 9.75F);
+            label1.Location = new Point(8, 45);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(80, 16);
+            label1.TabIndex = 10;
+            label1.Text = "Sw. release:";
+            // 
             // lbl_imgPS
             // 
             lbl_imgPS.BackColor = SystemColors.ButtonHighlight;
-            lbl_imgPS.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl_imgPS.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl_imgPS.Location = new Point(709, 21);
             lbl_imgPS.Margin = new Padding(4, 0, 4, 0);
             lbl_imgPS.Name = "lbl_imgPS";
@@ -734,7 +760,7 @@
             // lbl23_Primary
             // 
             lbl23_Primary.AutoSize = true;
-            lbl23_Primary.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl23_Primary.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl23_Primary.Location = new Point(531, 18);
             lbl23_Primary.Margin = new Padding(4, 0, 4, 0);
             lbl23_Primary.Name = "lbl23_Primary";
@@ -745,7 +771,7 @@
             // val22_MasterSlave
             // 
             val22_MasterSlave.BackColor = SystemColors.ButtonHighlight;
-            val22_MasterSlave.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val22_MasterSlave.Font = new Font("Microsoft Sans Serif", 9.75F);
             val22_MasterSlave.Location = new Point(484, 17);
             val22_MasterSlave.Margin = new Padding(4, 0, 4, 0);
             val22_MasterSlave.Name = "val22_MasterSlave";
@@ -756,7 +782,7 @@
             // lbl22_MasterSlave
             // 
             lbl22_MasterSlave.AutoSize = true;
-            lbl22_MasterSlave.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl22_MasterSlave.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl22_MasterSlave.Location = new Point(386, 18);
             lbl22_MasterSlave.Margin = new Padding(4, 0, 4, 0);
             lbl22_MasterSlave.Name = "lbl22_MasterSlave";
@@ -767,7 +793,7 @@
             // val21_IndirizzoSlave
             // 
             val21_IndirizzoSlave.BackColor = SystemColors.ButtonHighlight;
-            val21_IndirizzoSlave.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val21_IndirizzoSlave.Font = new Font("Microsoft Sans Serif", 9.75F);
             val21_IndirizzoSlave.Location = new Point(335, 18);
             val21_IndirizzoSlave.Margin = new Padding(4, 0, 4, 0);
             val21_IndirizzoSlave.Name = "val21_IndirizzoSlave";
@@ -778,7 +804,7 @@
             // val20_Matricola
             // 
             val20_Matricola.BackColor = SystemColors.ButtonHighlight;
-            val20_Matricola.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val20_Matricola.Font = new Font("Microsoft Sans Serif", 9.75F);
             val20_Matricola.Location = new Point(104, 18);
             val20_Matricola.Margin = new Padding(4, 0, 4, 0);
             val20_Matricola.Name = "val20_Matricola";
@@ -789,7 +815,7 @@
             // lbl21_IndirizzoSlave
             // 
             lbl21_IndirizzoSlave.AutoSize = true;
-            lbl21_IndirizzoSlave.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl21_IndirizzoSlave.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl21_IndirizzoSlave.Location = new Point(230, 18);
             lbl21_IndirizzoSlave.Margin = new Padding(4, 0, 4, 0);
             lbl21_IndirizzoSlave.Name = "lbl21_IndirizzoSlave";
@@ -800,7 +826,7 @@
             // lbl20_Matricola
             // 
             lbl20_Matricola.AutoSize = true;
-            lbl20_Matricola.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl20_Matricola.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl20_Matricola.Location = new Point(6, 18);
             lbl20_Matricola.Margin = new Padding(4, 0, 4, 0);
             lbl20_Matricola.Name = "lbl20_Matricola";
@@ -833,7 +859,7 @@
             gpSegnalazioni.Controls.Add(lbl32_ModalitaEconDaID1);
             gpSegnalazioni.Controls.Add(lbl31_ModalitaEcoDaTermostato);
             gpSegnalazioni.Controls.Add(lbl30_ModalitaOffdaRemoto);
-            gpSegnalazioni.Location = new Point(369, 60);
+            gpSegnalazioni.Location = new Point(369, 77);
             gpSegnalazioni.Margin = new Padding(4, 3, 4, 3);
             gpSegnalazioni.Name = "gpSegnalazioni";
             gpSegnalazioni.Padding = new Padding(4, 3, 4, 3);
@@ -844,7 +870,7 @@
             // 
             // val3A_RiduzuineDCMaxResPerPort
             // 
-            val3A_RiduzuineDCMaxResPerPort.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val3A_RiduzuineDCMaxResPerPort.Font = new Font("Microsoft Sans Serif", 9.75F);
             val3A_RiduzuineDCMaxResPerPort.Location = new Point(24, 421);
             val3A_RiduzuineDCMaxResPerPort.Margin = new Padding(4, 0, 4, 0);
             val3A_RiduzuineDCMaxResPerPort.Name = "val3A_RiduzuineDCMaxResPerPort";
@@ -854,7 +880,7 @@
             // 
             // val39_LimiteMassimoTMandata
             // 
-            val39_LimiteMassimoTMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val39_LimiteMassimoTMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
             val39_LimiteMassimoTMandata.Location = new Point(24, 382);
             val39_LimiteMassimoTMandata.Margin = new Padding(4, 0, 4, 0);
             val39_LimiteMassimoTMandata.Name = "val39_LimiteMassimoTMandata";
@@ -864,7 +890,7 @@
             // 
             // val38_OffResistPrimaSoglia
             // 
-            val38_OffResistPrimaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val38_OffResistPrimaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F);
             val38_OffResistPrimaSoglia.Location = new Point(24, 343);
             val38_OffResistPrimaSoglia.Margin = new Padding(4, 0, 4, 0);
             val38_OffResistPrimaSoglia.Name = "val38_OffResistPrimaSoglia";
@@ -874,7 +900,7 @@
             // 
             // val37_ModalitaEcondaMODBUS
             // 
-            val37_ModalitaEcondaMODBUS.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val37_ModalitaEcondaMODBUS.Font = new Font("Microsoft Sans Serif", 9.75F);
             val37_ModalitaEcondaMODBUS.Location = new Point(24, 303);
             val37_ModalitaEcondaMODBUS.Margin = new Padding(4, 0, 4, 0);
             val37_ModalitaEcondaMODBUS.Name = "val37_ModalitaEcondaMODBUS";
@@ -884,7 +910,7 @@
             // 
             // val36_ModalitaEcondaPLCinRete
             // 
-            val36_ModalitaEcondaPLCinRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val36_ModalitaEcondaPLCinRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             val36_ModalitaEcondaPLCinRete.Location = new Point(24, 264);
             val36_ModalitaEcondaPLCinRete.Margin = new Padding(4, 0, 4, 0);
             val36_ModalitaEcondaPLCinRete.Name = "val36_ModalitaEcondaPLCinRete";
@@ -894,7 +920,7 @@
             // 
             // val35_ModalitaEcondaAnal
             // 
-            val35_ModalitaEcondaAnal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val35_ModalitaEcondaAnal.Font = new Font("Microsoft Sans Serif", 9.75F);
             val35_ModalitaEcondaAnal.Location = new Point(24, 225);
             val35_ModalitaEcondaAnal.Margin = new Padding(4, 0, 4, 0);
             val35_ModalitaEcondaAnal.Name = "val35_ModalitaEcondaAnal";
@@ -904,7 +930,7 @@
             // 
             // val34_ModalitaEconDaID3
             // 
-            val34_ModalitaEconDaID3.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val34_ModalitaEconDaID3.Font = new Font("Microsoft Sans Serif", 9.75F);
             val34_ModalitaEconDaID3.Location = new Point(24, 186);
             val34_ModalitaEconDaID3.Margin = new Padding(4, 0, 4, 0);
             val34_ModalitaEconDaID3.Name = "val34_ModalitaEconDaID3";
@@ -914,7 +940,7 @@
             // 
             // val33_ModalitaEconDaID2
             // 
-            val33_ModalitaEconDaID2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val33_ModalitaEconDaID2.Font = new Font("Microsoft Sans Serif", 9.75F);
             val33_ModalitaEconDaID2.Location = new Point(24, 147);
             val33_ModalitaEconDaID2.Margin = new Padding(4, 0, 4, 0);
             val33_ModalitaEconDaID2.Name = "val33_ModalitaEconDaID2";
@@ -924,7 +950,7 @@
             // 
             // val32_ModalitaEconDaID1
             // 
-            val32_ModalitaEconDaID1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val32_ModalitaEconDaID1.Font = new Font("Microsoft Sans Serif", 9.75F);
             val32_ModalitaEconDaID1.Location = new Point(24, 107);
             val32_ModalitaEconDaID1.Margin = new Padding(4, 0, 4, 0);
             val32_ModalitaEconDaID1.Name = "val32_ModalitaEconDaID1";
@@ -934,7 +960,7 @@
             // 
             // val31_ModalitaEcoDaTermostato
             // 
-            val31_ModalitaEcoDaTermostato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val31_ModalitaEcoDaTermostato.Font = new Font("Microsoft Sans Serif", 9.75F);
             val31_ModalitaEcoDaTermostato.Location = new Point(24, 68);
             val31_ModalitaEcoDaTermostato.Margin = new Padding(4, 0, 4, 0);
             val31_ModalitaEcoDaTermostato.Name = "val31_ModalitaEcoDaTermostato";
@@ -944,7 +970,7 @@
             // 
             // val30_ModalitaOffdaRemoto
             // 
-            val30_ModalitaOffdaRemoto.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val30_ModalitaOffdaRemoto.Font = new Font("Microsoft Sans Serif", 9.75F);
             val30_ModalitaOffdaRemoto.Location = new Point(24, 29);
             val30_ModalitaOffdaRemoto.Margin = new Padding(4, 0, 4, 0);
             val30_ModalitaOffdaRemoto.Name = "val30_ModalitaOffdaRemoto";
@@ -955,7 +981,7 @@
             // lbl3A_RiduzuineDCMaxResPerPort
             // 
             lbl3A_RiduzuineDCMaxResPerPort.AutoSize = true;
-            lbl3A_RiduzuineDCMaxResPerPort.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl3A_RiduzuineDCMaxResPerPort.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl3A_RiduzuineDCMaxResPerPort.Location = new Point(59, 421);
             lbl3A_RiduzuineDCMaxResPerPort.Margin = new Padding(4, 0, 4, 0);
             lbl3A_RiduzuineDCMaxResPerPort.Name = "lbl3A_RiduzuineDCMaxResPerPort";
@@ -966,7 +992,7 @@
             // lbl39_LimiteMassimoTMandata
             // 
             lbl39_LimiteMassimoTMandata.AutoSize = true;
-            lbl39_LimiteMassimoTMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl39_LimiteMassimoTMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl39_LimiteMassimoTMandata.Location = new Point(59, 382);
             lbl39_LimiteMassimoTMandata.Margin = new Padding(4, 0, 4, 0);
             lbl39_LimiteMassimoTMandata.Name = "lbl39_LimiteMassimoTMandata";
@@ -977,7 +1003,7 @@
             // lbl38_OffResistPrimaSoglia
             // 
             lbl38_OffResistPrimaSoglia.AutoSize = true;
-            lbl38_OffResistPrimaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl38_OffResistPrimaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl38_OffResistPrimaSoglia.Location = new Point(59, 343);
             lbl38_OffResistPrimaSoglia.Margin = new Padding(4, 0, 4, 0);
             lbl38_OffResistPrimaSoglia.Name = "lbl38_OffResistPrimaSoglia";
@@ -988,7 +1014,7 @@
             // lbl37_ModalitaEcondaMODBUS
             // 
             lbl37_ModalitaEcondaMODBUS.AutoSize = true;
-            lbl37_ModalitaEcondaMODBUS.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl37_ModalitaEcondaMODBUS.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl37_ModalitaEcondaMODBUS.Location = new Point(59, 303);
             lbl37_ModalitaEcondaMODBUS.Margin = new Padding(4, 0, 4, 0);
             lbl37_ModalitaEcondaMODBUS.Name = "lbl37_ModalitaEcondaMODBUS";
@@ -999,7 +1025,7 @@
             // lbl36_ModalitaEcondaPLCinRete
             // 
             lbl36_ModalitaEcondaPLCinRete.AutoSize = true;
-            lbl36_ModalitaEcondaPLCinRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl36_ModalitaEcondaPLCinRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl36_ModalitaEcondaPLCinRete.Location = new Point(59, 264);
             lbl36_ModalitaEcondaPLCinRete.Margin = new Padding(4, 0, 4, 0);
             lbl36_ModalitaEcondaPLCinRete.Name = "lbl36_ModalitaEcondaPLCinRete";
@@ -1010,7 +1036,7 @@
             // lbl35_ModalitaEcondaAnal
             // 
             lbl35_ModalitaEcondaAnal.AutoSize = true;
-            lbl35_ModalitaEcondaAnal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl35_ModalitaEcondaAnal.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl35_ModalitaEcondaAnal.Location = new Point(59, 225);
             lbl35_ModalitaEcondaAnal.Margin = new Padding(4, 0, 4, 0);
             lbl35_ModalitaEcondaAnal.Name = "lbl35_ModalitaEcondaAnal";
@@ -1021,7 +1047,7 @@
             // lbl34_ModalitaEconDaID3
             // 
             lbl34_ModalitaEconDaID3.AutoSize = true;
-            lbl34_ModalitaEconDaID3.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl34_ModalitaEconDaID3.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl34_ModalitaEconDaID3.Location = new Point(59, 186);
             lbl34_ModalitaEconDaID3.Margin = new Padding(4, 0, 4, 0);
             lbl34_ModalitaEconDaID3.Name = "lbl34_ModalitaEconDaID3";
@@ -1032,7 +1058,7 @@
             // lbl33_ModalitaEconDaID2
             // 
             lbl33_ModalitaEconDaID2.AutoSize = true;
-            lbl33_ModalitaEconDaID2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl33_ModalitaEconDaID2.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl33_ModalitaEconDaID2.Location = new Point(59, 147);
             lbl33_ModalitaEconDaID2.Margin = new Padding(4, 0, 4, 0);
             lbl33_ModalitaEconDaID2.Name = "lbl33_ModalitaEconDaID2";
@@ -1043,7 +1069,7 @@
             // lbl32_ModalitaEconDaID1
             // 
             lbl32_ModalitaEconDaID1.AutoSize = true;
-            lbl32_ModalitaEconDaID1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl32_ModalitaEconDaID1.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl32_ModalitaEconDaID1.Location = new Point(59, 107);
             lbl32_ModalitaEconDaID1.Margin = new Padding(4, 0, 4, 0);
             lbl32_ModalitaEconDaID1.Name = "lbl32_ModalitaEconDaID1";
@@ -1054,7 +1080,7 @@
             // lbl31_ModalitaEcoDaTermostato
             // 
             lbl31_ModalitaEcoDaTermostato.AutoSize = true;
-            lbl31_ModalitaEcoDaTermostato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl31_ModalitaEcoDaTermostato.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl31_ModalitaEcoDaTermostato.Location = new Point(59, 68);
             lbl31_ModalitaEcoDaTermostato.Margin = new Padding(4, 0, 4, 0);
             lbl31_ModalitaEcoDaTermostato.Name = "lbl31_ModalitaEcoDaTermostato";
@@ -1065,7 +1091,7 @@
             // lbl30_ModalitaOffdaRemoto
             // 
             lbl30_ModalitaOffdaRemoto.AutoSize = true;
-            lbl30_ModalitaOffdaRemoto.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl30_ModalitaOffdaRemoto.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl30_ModalitaOffdaRemoto.Location = new Point(59, 29);
             lbl30_ModalitaOffdaRemoto.Margin = new Padding(4, 0, 4, 0);
             lbl30_ModalitaOffdaRemoto.Name = "lbl30_ModalitaOffdaRemoto";
@@ -1100,7 +1126,7 @@
             gbAllarmi.Controls.Add(lbl41_SondaTempMandata);
             gbAllarmi.Controls.Add(val40_SondaTempInterna);
             gbAllarmi.Controls.Add(lbl40_SondaTempInterna);
-            gbAllarmi.Location = new Point(736, 61);
+            gbAllarmi.Location = new Point(736, 78);
             gbAllarmi.Margin = new Padding(4, 3, 4, 3);
             gbAllarmi.Name = "gbAllarmi";
             gbAllarmi.Padding = new Padding(4, 3, 4, 3);
@@ -1112,7 +1138,7 @@
             // 
             // val4B_PortataBassa
             // 
-            val4B_PortataBassa.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val4B_PortataBassa.Font = new Font("Microsoft Sans Serif", 9.75F);
             val4B_PortataBassa.Location = new Point(19, 410);
             val4B_PortataBassa.Margin = new Padding(4, 0, 4, 0);
             val4B_PortataBassa.Name = "val4B_PortataBassa";
@@ -1123,7 +1149,7 @@
             // lbl4B_PortataBassa
             // 
             lbl4B_PortataBassa.AutoSize = true;
-            lbl4B_PortataBassa.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl4B_PortataBassa.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl4B_PortataBassa.Location = new Point(50, 410);
             lbl4B_PortataBassa.Margin = new Padding(4, 0, 4, 0);
             lbl4B_PortataBassa.Name = "lbl4B_PortataBassa";
@@ -1133,7 +1159,7 @@
             // 
             // val4A_SensorePressione
             // 
-            val4A_SensorePressione.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val4A_SensorePressione.Font = new Font("Microsoft Sans Serif", 9.75F);
             val4A_SensorePressione.Location = new Point(19, 375);
             val4A_SensorePressione.Margin = new Padding(4, 0, 4, 0);
             val4A_SensorePressione.Name = "val4A_SensorePressione";
@@ -1144,7 +1170,7 @@
             // lbl4A_SensorePressione
             // 
             lbl4A_SensorePressione.AutoSize = true;
-            lbl4A_SensorePressione.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl4A_SensorePressione.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl4A_SensorePressione.Location = new Point(50, 375);
             lbl4A_SensorePressione.Margin = new Padding(4, 0, 4, 0);
             lbl4A_SensorePressione.Name = "lbl4A_SensorePressione";
@@ -1154,7 +1180,7 @@
             // 
             // val49_Serranda
             // 
-            val49_Serranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val49_Serranda.Font = new Font("Microsoft Sans Serif", 9.75F);
             val49_Serranda.Location = new Point(19, 340);
             val49_Serranda.Margin = new Padding(4, 0, 4, 0);
             val49_Serranda.Name = "val49_Serranda";
@@ -1165,7 +1191,7 @@
             // lbl49_Serranda
             // 
             lbl49_Serranda.AutoSize = true;
-            lbl49_Serranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl49_Serranda.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl49_Serranda.Location = new Point(50, 340);
             lbl49_Serranda.Margin = new Padding(4, 0, 4, 0);
             lbl49_Serranda.Name = "lbl49_Serranda";
@@ -1175,7 +1201,7 @@
             // 
             // val48_CircInnescoRes
             // 
-            val48_CircInnescoRes.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val48_CircInnescoRes.Font = new Font("Microsoft Sans Serif", 9.75F);
             val48_CircInnescoRes.Location = new Point(19, 306);
             val48_CircInnescoRes.Margin = new Padding(4, 0, 4, 0);
             val48_CircInnescoRes.Name = "val48_CircInnescoRes";
@@ -1186,7 +1212,7 @@
             // lbl48_CircInnescoRes
             // 
             lbl48_CircInnescoRes.AutoSize = true;
-            lbl48_CircInnescoRes.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl48_CircInnescoRes.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl48_CircInnescoRes.Location = new Point(50, 306);
             lbl48_CircInnescoRes.Margin = new Padding(4, 0, 4, 0);
             lbl48_CircInnescoRes.Name = "lbl48_CircInnescoRes";
@@ -1196,7 +1222,7 @@
             // 
             // val47_CircResistenzaAperta
             // 
-            val47_CircResistenzaAperta.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val47_CircResistenzaAperta.Font = new Font("Microsoft Sans Serif", 9.75F);
             val47_CircResistenzaAperta.Location = new Point(19, 271);
             val47_CircResistenzaAperta.Margin = new Padding(4, 0, 4, 0);
             val47_CircResistenzaAperta.Name = "val47_CircResistenzaAperta";
@@ -1207,7 +1233,7 @@
             // lbl47_CircResistenzaAperta
             // 
             lbl47_CircResistenzaAperta.AutoSize = true;
-            lbl47_CircResistenzaAperta.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl47_CircResistenzaAperta.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl47_CircResistenzaAperta.Location = new Point(50, 271);
             lbl47_CircResistenzaAperta.Margin = new Padding(4, 0, 4, 0);
             lbl47_CircResistenzaAperta.Name = "lbl47_CircResistenzaAperta";
@@ -1217,7 +1243,7 @@
             // 
             // val46_SondaTemStanza
             // 
-            val46_SondaTemStanza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val46_SondaTemStanza.Font = new Font("Microsoft Sans Serif", 9.75F);
             val46_SondaTemStanza.Location = new Point(19, 237);
             val46_SondaTemStanza.Margin = new Padding(4, 0, 4, 0);
             val46_SondaTemStanza.Name = "val46_SondaTemStanza";
@@ -1228,7 +1254,7 @@
             // lbl46_SondaTemStanza
             // 
             lbl46_SondaTemStanza.AutoSize = true;
-            lbl46_SondaTemStanza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl46_SondaTemStanza.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl46_SondaTemStanza.Location = new Point(50, 237);
             lbl46_SondaTemStanza.Margin = new Padding(4, 0, 4, 0);
             lbl46_SondaTemStanza.Name = "lbl46_SondaTemStanza";
@@ -1238,7 +1264,7 @@
             // 
             // val45_TermStanzaNonCollegato
             // 
-            val45_TermStanzaNonCollegato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val45_TermStanzaNonCollegato.Font = new Font("Microsoft Sans Serif", 9.75F);
             val45_TermStanzaNonCollegato.Location = new Point(19, 202);
             val45_TermStanzaNonCollegato.Margin = new Padding(4, 0, 4, 0);
             val45_TermStanzaNonCollegato.Name = "val45_TermStanzaNonCollegato";
@@ -1249,7 +1275,7 @@
             // lbl45_TermStanzaNonCollegato
             // 
             lbl45_TermStanzaNonCollegato.AutoSize = true;
-            lbl45_TermStanzaNonCollegato.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl45_TermStanzaNonCollegato.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl45_TermStanzaNonCollegato.Location = new Point(50, 202);
             lbl45_TermStanzaNonCollegato.Margin = new Padding(4, 0, 4, 0);
             lbl45_TermStanzaNonCollegato.Name = "lbl45_TermStanzaNonCollegato";
@@ -1259,7 +1285,7 @@
             // 
             // val44_InterventoTermResistenza
             // 
-            val44_InterventoTermResistenza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val44_InterventoTermResistenza.Font = new Font("Microsoft Sans Serif", 9.75F);
             val44_InterventoTermResistenza.Location = new Point(19, 167);
             val44_InterventoTermResistenza.Margin = new Padding(4, 0, 4, 0);
             val44_InterventoTermResistenza.Name = "val44_InterventoTermResistenza";
@@ -1270,7 +1296,7 @@
             // lbl44_InterventoTermResistenza
             // 
             lbl44_InterventoTermResistenza.AutoSize = true;
-            lbl44_InterventoTermResistenza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl44_InterventoTermResistenza.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl44_InterventoTermResistenza.Location = new Point(50, 167);
             lbl44_InterventoTermResistenza.Margin = new Padding(4, 0, 4, 0);
             lbl44_InterventoTermResistenza.Name = "lbl44_InterventoTermResistenza";
@@ -1280,7 +1306,7 @@
             // 
             // val43_AltaTemIntSecondaSoglia
             // 
-            val43_AltaTemIntSecondaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val43_AltaTemIntSecondaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F);
             val43_AltaTemIntSecondaSoglia.Location = new Point(19, 133);
             val43_AltaTemIntSecondaSoglia.Margin = new Padding(4, 0, 4, 0);
             val43_AltaTemIntSecondaSoglia.Name = "val43_AltaTemIntSecondaSoglia";
@@ -1291,7 +1317,7 @@
             // lbl43_AltaTemIntSecondaSoglia
             // 
             lbl43_AltaTemIntSecondaSoglia.AutoSize = true;
-            lbl43_AltaTemIntSecondaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl43_AltaTemIntSecondaSoglia.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl43_AltaTemIntSecondaSoglia.Location = new Point(50, 133);
             lbl43_AltaTemIntSecondaSoglia.Margin = new Padding(4, 0, 4, 0);
             lbl43_AltaTemIntSecondaSoglia.Name = "lbl43_AltaTemIntSecondaSoglia";
@@ -1301,7 +1327,7 @@
             // 
             // val42_SondaTempAmbiente
             // 
-            val42_SondaTempAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val42_SondaTempAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F);
             val42_SondaTempAmbiente.Location = new Point(19, 98);
             val42_SondaTempAmbiente.Margin = new Padding(4, 0, 4, 0);
             val42_SondaTempAmbiente.Name = "val42_SondaTempAmbiente";
@@ -1312,7 +1338,7 @@
             // lbl42_SondaTempAmbiente
             // 
             lbl42_SondaTempAmbiente.AutoSize = true;
-            lbl42_SondaTempAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl42_SondaTempAmbiente.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl42_SondaTempAmbiente.Location = new Point(50, 98);
             lbl42_SondaTempAmbiente.Margin = new Padding(4, 0, 4, 0);
             lbl42_SondaTempAmbiente.Name = "lbl42_SondaTempAmbiente";
@@ -1322,7 +1348,7 @@
             // 
             // val41_SondaTempMandata
             // 
-            val41_SondaTempMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val41_SondaTempMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
             val41_SondaTempMandata.Location = new Point(19, 63);
             val41_SondaTempMandata.Margin = new Padding(4, 0, 4, 0);
             val41_SondaTempMandata.Name = "val41_SondaTempMandata";
@@ -1333,7 +1359,7 @@
             // lbl41_SondaTempMandata
             // 
             lbl41_SondaTempMandata.AutoSize = true;
-            lbl41_SondaTempMandata.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl41_SondaTempMandata.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl41_SondaTempMandata.Location = new Point(50, 63);
             lbl41_SondaTempMandata.Margin = new Padding(4, 0, 4, 0);
             lbl41_SondaTempMandata.Name = "lbl41_SondaTempMandata";
@@ -1343,7 +1369,7 @@
             // 
             // val40_SondaTempInterna
             // 
-            val40_SondaTempInterna.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val40_SondaTempInterna.Font = new Font("Microsoft Sans Serif", 9.75F);
             val40_SondaTempInterna.Location = new Point(19, 29);
             val40_SondaTempInterna.Margin = new Padding(4, 0, 4, 0);
             val40_SondaTempInterna.Name = "val40_SondaTempInterna";
@@ -1354,7 +1380,7 @@
             // lbl40_SondaTempInterna
             // 
             lbl40_SondaTempInterna.AutoSize = true;
-            lbl40_SondaTempInterna.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl40_SondaTempInterna.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl40_SondaTempInterna.Location = new Point(50, 29);
             lbl40_SondaTempInterna.Margin = new Padding(4, 0, 4, 0);
             lbl40_SondaTempInterna.Name = "lbl40_SondaTempInterna";
@@ -1377,7 +1403,7 @@
             gbPLC.Controls.Add(lbl51_FrequenzaRete);
             gbPLC.Controls.Add(val50_TemperaturaScheda);
             gbPLC.Controls.Add(lbl50_TemperaturaScheda);
-            gbPLC.Location = new Point(369, 525);
+            gbPLC.Location = new Point(369, 542);
             gbPLC.Margin = new Padding(4, 3, 4, 3);
             gbPLC.Name = "gbPLC";
             gbPLC.Padding = new Padding(4, 3, 4, 3);
@@ -1389,7 +1415,7 @@
             // val55_RS485ErrOriz
             // 
             val55_RS485ErrOriz.BackColor = SystemColors.ButtonHighlight;
-            val55_RS485ErrOriz.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val55_RS485ErrOriz.Font = new Font("Microsoft Sans Serif", 9.75F);
             val55_RS485ErrOriz.Location = new Point(650, 83);
             val55_RS485ErrOriz.Margin = new Padding(4, 0, 4, 0);
             val55_RS485ErrOriz.Name = "val55_RS485ErrOriz";
@@ -1401,7 +1427,7 @@
             // lbl55_RS485ErrOriz
             // 
             lbl55_RS485ErrOriz.AutoSize = true;
-            lbl55_RS485ErrOriz.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl55_RS485ErrOriz.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl55_RS485ErrOriz.Location = new Point(372, 83);
             lbl55_RS485ErrOriz.Margin = new Padding(4, 0, 4, 0);
             lbl55_RS485ErrOriz.Name = "lbl55_RS485ErrOriz";
@@ -1412,7 +1438,7 @@
             // val54_vRete
             // 
             val54_vRete.BackColor = SystemColors.ButtonHighlight;
-            val54_vRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val54_vRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             val54_vRete.Location = new Point(650, 53);
             val54_vRete.Margin = new Padding(4, 0, 4, 0);
             val54_vRete.Name = "val54_vRete";
@@ -1424,7 +1450,7 @@
             // lbl54_VRete
             // 
             lbl54_VRete.AutoSize = true;
-            lbl54_VRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl54_VRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl54_VRete.Location = new Point(372, 53);
             lbl54_VRete.Margin = new Padding(4, 0, 4, 0);
             lbl54_VRete.Name = "lbl54_VRete";
@@ -1435,7 +1461,7 @@
             // val52_RiduzioneDC
             // 
             val52_RiduzioneDC.BackColor = SystemColors.ButtonHighlight;
-            val52_RiduzioneDC.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val52_RiduzioneDC.Font = new Font("Microsoft Sans Serif", 9.75F);
             val52_RiduzioneDC.Location = new Point(318, 53);
             val52_RiduzioneDC.Margin = new Padding(4, 0, 4, 0);
             val52_RiduzioneDC.Name = "val52_RiduzioneDC";
@@ -1447,7 +1473,7 @@
             // lbl53_RiduzioneDC
             // 
             lbl53_RiduzioneDC.AutoSize = true;
-            lbl53_RiduzioneDC.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl53_RiduzioneDC.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl53_RiduzioneDC.Location = new Point(7, 53);
             lbl53_RiduzioneDC.Margin = new Padding(4, 0, 4, 0);
             lbl53_RiduzioneDC.Name = "lbl53_RiduzioneDC";
@@ -1458,7 +1484,7 @@
             // val52_24Volt
             // 
             val52_24Volt.BackColor = SystemColors.ButtonHighlight;
-            val52_24Volt.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val52_24Volt.Font = new Font("Microsoft Sans Serif", 9.75F);
             val52_24Volt.Location = new Point(318, 83);
             val52_24Volt.Margin = new Padding(4, 0, 4, 0);
             val52_24Volt.Name = "val52_24Volt";
@@ -1470,7 +1496,7 @@
             // lbl52_24Volt
             // 
             lbl52_24Volt.AutoSize = true;
-            lbl52_24Volt.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl52_24Volt.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl52_24Volt.Location = new Point(7, 83);
             lbl52_24Volt.Margin = new Padding(4, 0, 4, 0);
             lbl52_24Volt.Name = "lbl52_24Volt";
@@ -1481,7 +1507,7 @@
             // val51_FrequenzaRete
             // 
             val51_FrequenzaRete.BackColor = SystemColors.ButtonHighlight;
-            val51_FrequenzaRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val51_FrequenzaRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             val51_FrequenzaRete.Location = new Point(650, 18);
             val51_FrequenzaRete.Margin = new Padding(4, 0, 4, 0);
             val51_FrequenzaRete.Name = "val51_FrequenzaRete";
@@ -1493,7 +1519,7 @@
             // lbl51_FrequenzaRete
             // 
             lbl51_FrequenzaRete.AutoSize = true;
-            lbl51_FrequenzaRete.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl51_FrequenzaRete.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl51_FrequenzaRete.Location = new Point(369, 18);
             lbl51_FrequenzaRete.Margin = new Padding(4, 0, 4, 0);
             lbl51_FrequenzaRete.Name = "lbl51_FrequenzaRete";
@@ -1504,7 +1530,7 @@
             // val50_TemperaturaScheda
             // 
             val50_TemperaturaScheda.BackColor = SystemColors.ButtonHighlight;
-            val50_TemperaturaScheda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            val50_TemperaturaScheda.Font = new Font("Microsoft Sans Serif", 9.75F);
             val50_TemperaturaScheda.Location = new Point(318, 18);
             val50_TemperaturaScheda.Margin = new Padding(4, 0, 4, 0);
             val50_TemperaturaScheda.Name = "val50_TemperaturaScheda";
@@ -1516,7 +1542,7 @@
             // lbl50_TemperaturaScheda
             // 
             lbl50_TemperaturaScheda.AutoSize = true;
-            lbl50_TemperaturaScheda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl50_TemperaturaScheda.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl50_TemperaturaScheda.Location = new Point(7, 18);
             lbl50_TemperaturaScheda.Margin = new Padding(4, 0, 4, 0);
             lbl50_TemperaturaScheda.Name = "lbl50_TemperaturaScheda";
@@ -1535,11 +1561,11 @@
             gbForzature.Controls.Add(lbl62_RichMaxRaffreddamento);
             gbForzature.Controls.Add(lbl61_ComadoResistenza);
             gbForzature.Controls.Add(lbl60_ApertutaSerranda);
-            gbForzature.Location = new Point(2, 654);
+            gbForzature.Location = new Point(2, 670);
             gbForzature.Margin = new Padding(4, 3, 4, 3);
             gbForzature.Name = "gbForzature";
             gbForzature.Padding = new Padding(4, 3, 4, 3);
-            gbForzature.Size = new Size(1086, 99);
+            gbForzature.Size = new Size(1086, 75);
             gbForzature.TabIndex = 2;
             gbForzature.TabStop = false;
             gbForzature.Text = "gbForzature";
@@ -1550,7 +1576,7 @@
             btn62_RichMaxRaffreddamento.FlatAppearance.BorderSize = 0;
             btn62_RichMaxRaffreddamento.FlatStyle = FlatStyle.Flat;
             btn62_RichMaxRaffreddamento.Image = configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
-            btn62_RichMaxRaffreddamento.Location = new Point(321, 59);
+            btn62_RichMaxRaffreddamento.Location = new Point(363, 45);
             btn62_RichMaxRaffreddamento.Margin = new Padding(4, 3, 4, 3);
             btn62_RichMaxRaffreddamento.Name = "btn62_RichMaxRaffreddamento";
             btn62_RichMaxRaffreddamento.Size = new Size(40, 39);
@@ -1564,7 +1590,7 @@
             btn61_ComadoResistenza.FlatAppearance.BorderSize = 0;
             btn61_ComadoResistenza.FlatStyle = FlatStyle.Flat;
             btn61_ComadoResistenza.Image = configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
-            btn61_ComadoResistenza.Location = new Point(670, 15);
+            btn61_ComadoResistenza.Location = new Point(712, 14);
             btn61_ComadoResistenza.Margin = new Padding(4, 3, 4, 3);
             btn61_ComadoResistenza.Name = "btn61_ComadoResistenza";
             btn61_ComadoResistenza.Size = new Size(40, 39);
@@ -1578,7 +1604,7 @@
             btn60_ApertutaSerranda.FlatAppearance.BorderSize = 0;
             btn60_ApertutaSerranda.FlatStyle = FlatStyle.Flat;
             btn60_ApertutaSerranda.Image = configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
-            btn60_ApertutaSerranda.Location = new Point(321, 13);
+            btn60_ApertutaSerranda.Location = new Point(363, 12);
             btn60_ApertutaSerranda.Margin = new Padding(4, 3, 4, 3);
             btn60_ApertutaSerranda.Name = "btn60_ApertutaSerranda";
             btn60_ApertutaSerranda.Size = new Size(40, 39);
@@ -1589,7 +1615,7 @@
             // 
             // num61_ComadoResistenza
             // 
-            num61_ComadoResistenza.Location = new Point(588, 18);
+            num61_ComadoResistenza.Location = new Point(630, 17);
             num61_ComadoResistenza.Margin = new Padding(4, 3, 4, 3);
             num61_ComadoResistenza.Name = "num61_ComadoResistenza";
             num61_ComadoResistenza.Size = new Size(64, 23);
@@ -1599,7 +1625,7 @@
             // 
             // num60_ApertutaSerranda
             // 
-            num60_ApertutaSerranda.Location = new Point(250, 18);
+            num60_ApertutaSerranda.Location = new Point(292, 17);
             num60_ApertutaSerranda.Margin = new Padding(4, 3, 4, 3);
             num60_ApertutaSerranda.Name = "num60_ApertutaSerranda";
             num60_ApertutaSerranda.Size = new Size(62, 23);
@@ -1610,8 +1636,8 @@
             // lbl62_RichMaxRaffreddamento
             // 
             lbl62_RichMaxRaffreddamento.AutoSize = true;
-            lbl62_RichMaxRaffreddamento.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl62_RichMaxRaffreddamento.Location = new Point(31, 69);
+            lbl62_RichMaxRaffreddamento.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lbl62_RichMaxRaffreddamento.Location = new Point(31, 56);
             lbl62_RichMaxRaffreddamento.Margin = new Padding(4, 0, 4, 0);
             lbl62_RichMaxRaffreddamento.Name = "lbl62_RichMaxRaffreddamento";
             lbl62_RichMaxRaffreddamento.Size = new Size(191, 16);
@@ -1621,8 +1647,8 @@
             // lbl61_ComadoResistenza
             // 
             lbl61_ComadoResistenza.AutoSize = true;
-            lbl61_ComadoResistenza.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl61_ComadoResistenza.Location = new Point(391, 18);
+            lbl61_ComadoResistenza.Font = new Font("Microsoft Sans Serif", 9.75F);
+            lbl61_ComadoResistenza.Location = new Point(433, 17);
             lbl61_ComadoResistenza.Margin = new Padding(4, 0, 4, 0);
             lbl61_ComadoResistenza.Name = "lbl61_ComadoResistenza";
             lbl61_ComadoResistenza.Size = new Size(161, 16);
@@ -1632,7 +1658,7 @@
             // lbl60_ApertutaSerranda
             // 
             lbl60_ApertutaSerranda.AutoSize = true;
-            lbl60_ApertutaSerranda.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl60_ApertutaSerranda.Font = new Font("Microsoft Sans Serif", 9.75F);
             lbl60_ApertutaSerranda.Location = new Point(31, 18);
             lbl60_ApertutaSerranda.Margin = new Padding(4, 0, 4, 0);
             lbl60_ApertutaSerranda.Name = "lbl60_ApertutaSerranda";
@@ -1671,6 +1697,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmStatoCassette";
             Text = "frmStatoCassette";
+            FormClosing += frmStatoCassette_FormClosing;
             Load += frmStatoCassette_Load;
             gpGestionePortata.ResumeLayout(false);
             gpGestionePortata.PerformLayout();
@@ -1819,5 +1846,7 @@
         private Label lbl23_Primary;
         private PictureBox pictureBoxPrimaryDevice;
         private Label lbl_imgPS;
+        private Label val24_sw_release;
+        private Label label1;
     }
 }

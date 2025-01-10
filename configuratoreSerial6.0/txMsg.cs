@@ -114,6 +114,23 @@ namespace configuratore
 
         }
 
+        static public void requireNetworkStatus()
+        {
+            txBuffer[Costanti.RESERVED] = (byte)'N';
+            txBuffer[Costanti.FANCAS] = (byte)'E';
+            txBuffer[Costanti.MSG_VERSION0] = (byte)'T';
+            txBuffer[Costanti.MSG_VERSION1] = (byte)'_';
+            txBuffer[Costanti.RESERVED_2] = (byte)'I';
+            txBuffer[Costanti.DATASETGET] = (byte)'N';
+            txBuffer[Costanti.MSG_H] = (byte)'F';
+            txBuffer[Costanti.MSG_L] = (byte)'O';
+            txBuffer[Costanti.MSG_L + 1] = 0;
+            txBuffer[Costanti.MSG_L + 2] = 0;
+            txBuffer[Costanti.MSG_L + 4] = 0xF7;
+            clsSerial.txData(txBuffer, (Costanti.MSG_L + 5));
+
+        }
+
         static public void requireNetworkInfo()
         {
             txBuffer[0] = 0xf0;

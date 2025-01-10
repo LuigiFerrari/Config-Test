@@ -1,4 +1,5 @@
 ﻿using configuratore.stato;
+using configuratoreSerial6._0;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,6 +53,8 @@ namespace configuratore.statoCassette
 
         int richiestoDa;
         int indirizzo;
+        public bool forzaChiusura = true;
+        Label[] labelGialle;
         public frmStatoCassette(String Type, String Info, int lrichiestoDa)
         {
             InitializeComponent();
@@ -61,12 +64,14 @@ namespace configuratore.statoCassette
             rxBuffer = new clsRxBuffer();
             richiestoDa = lrichiestoDa;// & Costanti.RICHIESTA_DA_MASTER;
             indirizzo = lrichiestoDa & (~Costanti.RICHIESTA_DA_MASTER);
-            if(lrichiestoDa>=0)
+            if (lrichiestoDa >= 0)
                 timerTick.Enabled = true;
-            String sRichiestoDa="";
+            String sRichiestoDa = "";
             if (richiestoDa != 0)
                 sRichiestoDa = " (MASTER)";
             this.Text = Type + Info + sRichiestoDa;
+            global.setStatoCassette(this);
+
 
         }
 
@@ -85,6 +90,7 @@ namespace configuratore.statoCassette
             updateAllLAbel();
             richiedi();
             this.MaximizeBox = false;
+            labelGialle = cercaLabel(val30_ModalitaOffdaRemoto);
 
         }
 
@@ -168,12 +174,12 @@ namespace configuratore.statoCassette
             }
         }
 
-        void continuaRichiesta()
+        void continuaRichiesta(int skipNum)
         {
             if (statoDaRichiedere >= 0)
             {
                 rchiedi = 1;
-                statoDaRichiedere++;
+                statoDaRichiedere = statoDaRichiedere + skipNum;
                 if (statoDaRichiedere < costAl.VV_NUMERO_STATI)
                 {
                     richiedi();
@@ -369,8 +375,8 @@ namespace configuratore.statoCassette
                         text=lStat.Indice.LBL_58_PRIMARYDEVICE,
                     }
                 },
-                    valLabel = new Label[] { val20_Matricola, val21_IndirizzoSlave,val22_MasterSlave,lbl_imgPS },
-                    vvParametro = new int[] { costAl.VV_MATRICOLA, costAl.VV_INDIRIZZO_SLAVE , costAl .VV_MASTER_SLAVE, costAl.VV_DISP_PRIMARIO}
+                    valLabel = new Label[] { val20_Matricola, val21_IndirizzoSlave,val22_MasterSlave,lbl_imgPS,val24_sw_release },
+                    vvParametro = new int[] { costAl.VV_MATRICOLA_00, costAl.VV_INDIRIZZO_SLAVE , costAl .VV_MASTER_SLAVE, costAl.VV_DISP_PRIMARIO, costAl.VV_VERSIONE_00 }
             },
              // ----- 3 -------
             new gbOx()
@@ -624,10 +630,11 @@ namespace configuratore.statoCassette
 
             int d;
             d = clsSerial.pop(Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_STATO);
-            if (d >= 0)
+            while (d >= 0)
             {
                 byte b = (byte)(d & 0xff);
                 clsHandler.decode(b, this);
+                d = clsSerial.pop(Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_STATO);
                 // handelrData
             }
 
@@ -645,7 +652,11 @@ namespace configuratore.statoCassette
         {
             if (v != 0)
             {
-                l.BackColor = Color.Red;
+                if (isGialla(l))
+                    l.BackColor = Color.Yellow;
+                else
+                    l.BackColor = Color.Red;
+                l.Text = "";
             }
             else
             {
@@ -664,6 +675,7 @@ namespace configuratore.statoCassette
             int v;
             int trovato = -1;
             string s = "";
+            int skipNum = 1;
 
             //for (g = 0; buffer[g] != 0xf7; g++)
             //{
@@ -704,6 +716,15 @@ namespace configuratore.statoCassette
                                         s = s + (char)buffer[pos + i + 1];
                                     statoCassetteGrp[g].valLabel[j].Text = s;
                                     // Debug.WriteLine(s);
+                                    skipNum = costAl.MAX_SIZE_STRING / 2;
+                                    break;
+                                case 'V':
+                                    s = "";
+                                    for (int i = 0; i < costAl.MAX_SIZE_VERSIONE; i++)
+                                        s = s + (char)buffer[pos + i + 1];
+                                    statoCassetteGrp[g].valLabel[j].Text = s;
+                                    // Debug.WriteLine(s);
+                                    skipNum = costAl.MAX_SIZE_VERSIONE / 2;
                                     break;
                                 case 'N':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
@@ -745,7 +766,7 @@ namespace configuratore.statoCassette
             {
                 Debug.WriteLine("Stato " + p.ToString() + " non in videata");
             }
-            continuaRichiesta();
+            continuaRichiesta(skipNum);
         }
 
 
@@ -849,6 +870,72 @@ namespace configuratore.statoCassette
         {
             if (!clsSerial.serialPortIsOpen())
                 this.Close();
+            else
+            {
+
+                    if(comTask.ImMaster()==true)
+                    {
+                        // master disabilita parametri slave
+                        disabilitaInfoMaster();
+
+                    } else
+                    {
+                        abilitaInfoMaster();
+                    }
+
+                
+            }
+        }
+
+        private void disabilitaInfoMaster()
+        {
+            lbl21_IndirizzoSlave.Enabled = false;
+            val21_IndirizzoSlave.Enabled = false;
+        }
+
+        private void abilitaInfoMaster()
+        {
+            lbl21_IndirizzoSlave.Enabled = true;
+            val21_IndirizzoSlave.Enabled = true;
+        }
+
+        private void frmStatoCassette_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = forzaChiusura;
+        }
+
+        Label[] cercaLabel(Label lbl) //  val_3_00)
+        {
+            int g;
+            int trovato = -1;
+            int trovatog = -1;
+            for (g = 0; g < statoCassetteGrp.Length && trovatog < 0; g++)
+            {
+                if (statoCassetteGrp[g].valLabel != null)
+                {
+                    for (int k = 0; k < statoCassetteGrp[g].valLabel.Length && trovato < 0; k++)
+                    {
+                        if (statoCassetteGrp[g].valLabel[k] == lbl)
+                        {
+                            trovato = k;
+                            trovatog = g;
+                        }
+                    }
+                }
+            }
+            return statoCassetteGrp[trovatog].valLabel;
+        }
+        Boolean isGialla(Label l)
+        {
+            Boolean trovato = false;
+            for (int i = 0; i < labelGialle.Length && trovato == false; i++)
+            {
+                if (l == labelGialle[i])
+                {
+                    trovato = true;
+                }
+            }
+            return trovato;
         }
     }
 

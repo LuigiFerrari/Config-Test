@@ -424,14 +424,18 @@ namespace configuratore
 /* 363 */ MNET_MSG_NO_PRINCIPALE,
 /* 364 */ MNET_H_SW_RELEASE,
 /* 365 */ MNET_MSG_RESATART,
+/* 366 */ MNET_MSG_RETE_NON_SALVATA,
+
 
 
 
 
 // ---------- STARTUP
-/* 366 */ STARTUP_DISCONNSSIONE_INCORSO,
-/* 367 */ STARTUP_DISCONNESSO,
-/* 368 */ STARTUP_CONNECTION_ERROR,
+/* 367 */ STARTUP_DISCONNSSIONE_INCORSO,
+/* 368 */ STARTUP_DISCONNESSO,
+/* 369 */ STARTUP_CONNECTION_ERROR,
+/* 370 */ STARTUP_INVALID_CHAR,
+
 
 
             /* 282 */
@@ -551,7 +555,7 @@ namespace configuratore
 		/* 104 SONDA_MAND                          */ { "SONDA MANDATA", "FLOW PROBE" },
 		/* 105 SONDA_AMB                           */ { "SONDA AMBIENTE", "ENVIRONMENT PROBE" },
 		/* 106 GB11_INTENSITALED                   */ { "Intensita LED","LED intensity" },
-		/* 107 STR_SET_INTENSITALED                */ { "Impostazione intensità LED","Set LED intensity" },
+		/* 107 STR_SET_INTENSITALED                */ { "On/Off LED","On/Off LED" },
 		/* 110 PORTATA_LS                          */ { "[l/s]","[l/s]" },
 		/* 109 STR_INT_MANDATA                     */ { "SONDA INTERNA + MANDATA","INTERNAL + FLOW PROBE" },
 		/* 110 STR_CARICA_PARAMETRI                */ { "Caricamento parametri. Attendere.","Loading parameters. Please wait." },
@@ -563,7 +567,6 @@ namespace configuratore
 
 
 			// -----------------------------------------------------------------------  FANCOIL
-
 
 /* 116 FC_TAB_0                            */ { "Ingressi – Uscite","Inputs – Outputs"},
 /* 117 FC_GB_0_STR_INGRESSI                */ { "Ingressi","Input"},
@@ -584,7 +587,7 @@ namespace configuratore
 /* 132 FC_LBL_0_14                         */ { "tessera magnetica","keycard holder"},
 /* 133 FC_LBL_0_15                         */ { "feedback ventilatore","fan feedback"},
 /* 134 FC_LBL_0_16                         */ { "termostato sicurezza resistenza","electric heater safety switch"},
-/* 135 FC_LBL_0_17                         */ { "temperatura mandata","send temperature"},
+/* 135 FC_LBL_0_17                         */ { "temperatura mandata","supply temperature"},
 /* 136 FC_LBL_0_19                         */ { "temperatura ripresa","return temperature"},
 /* 137 FC_CB_0_00_0                        */ { "contatto presenza","presence contact"},
 /* 138 FC_CB_0_00_1                        */ { "pressostato filtro","filter pressure switch"},
@@ -617,7 +620,7 @@ namespace configuratore
 /* 165 FC_CMB_2_05                         */ { "TR2 batt. promiscua PWM + TR1 valvola change over ON/OFF                  ","TR2 promiscuous coil PWM + TR1 change over valve ON/OFF"},
 /* 166 FC_CMB_2_06                         */ { "AO2 batt. promiscua 0-10V + TR1 valvola change over ON/OFF                ","AO2 promiscuous coil 0-10V + TR1 change over valve ON/OFF"},
 /* 167 FC_CMB_2_07                         */ { "TR1 batt. el. + TR2 batt. H2O fredda PWM + AO2 serr. mod.                 ","TR1 el. heater + TR2 H2O cooling coil PWM + AO2 damper. mod."},
-/* 168 FC_CMB_2_08                         */ { "TR1 batt. H2O calda PWM + TR2 batt. H2O fredda PWM + AO2 serr. mod.       ","TR1 batt H2O calda PWM + TR2 batt. H2O fredda PWM + AO2 damper. mod."},
+/* 168 FC_CMB_2_08                         */ { "TR1 batt. H2O calda PWM + TR2 batt. H2O fredda PWM + AO2 serr. mod.       ","TR1 batt H2O heating  PWM + TR2 batt. H2O cooling PWM + AO2 damper. mod."},
 /* 169 FC_CMB_2_09                         */ { "TR2 batt. promiscua PWM + TR1 valvola change over ON/OFF + AO2 serr. mod. ","TR2 promiscuous coil PWM + TR1 change over valve ON/OFF + AO2 damper mod."},
 /* 170 FC_RB_2_00_0                        */ { "OFF","OFF"},
 /* 171 FC_RB_2_00_1                        */ { "SERRANDA","DAMPER"},
@@ -626,7 +629,7 @@ namespace configuratore
 /* 174 FC_RB_2_01_1                        */ { "PWM","PWM"},
 /* 175 FC_RB_2_02_0                        */ { "OFF","OFF"},
 /* 176 FC_RB_2_02_1                        */ { "ON ","ON"},
-/* 177 FC_GB_3_SEGN_FILTRO_SPORCO          */ { "Segnalazione filtro sporco","Dirty filter SW signal"},
+/* 177 FC_GB_3_SEGN_FILTRO_SPORCO          */ { "Segnalazione filtro sporco","Dirty filter signal"},
 /* 178 FC_LBL_3_00                         */ { "Abilitazione","Enabling"},
 /* 179 FC_LBL_3_01                         */ { "Tempo segnalazione [giorni]","Reporting time [days]"},
 /* 180 FC_LBL_3_02                         */ { "Reset contatore","Counter reset"},
@@ -636,7 +639,7 @@ namespace configuratore
 /* 184 FC_LBL_4_00                         */ { "Zona morta riscaldamento H.D.Z. [C°]","Heating dead zone H.D.Z. [C°]"},
 /* 185 FC_LBL_4_01                         */ { "Banda di regolazione risc. H.B. [C°]","El. heater heating band  H.B. [C°]"},
 /* 186 FC_LBL_4_02                         */ { "KI regolazione riscaldamento [%]","KI heating regulation [%]"},
-/* 187 FC_LBL_4_03                         */ { "Periodo modulazione PWM  [s]","EL. heater éWM modulation period"},
+/* 187 FC_LBL_4_03                         */ { "Periodo modulazione PWM  [s]","EL. heater PWM modulation period"},
 /* 188 FC_LBL_4_04                         */ { "Minimo duty cycle resistenza [%]","Minimum duty cycle [%]"},
 /* 189 FC_LBL_4_05                         */ { "Massimo duty cycle resistenza [%]","Maximum duty cycle [%]"},
 /* 190 FC_LBL_4_06                         */ { "Abilitazioni allarmi resistenza elettrica","El. heater alarms enabling"},
@@ -644,29 +647,29 @@ namespace configuratore
 /* 192 FC_LBL_5_00                         */ { "Zona morta raffreddamento C.D.Z. [C°]","Cooling dead zone  C.D.Z. [C°]"},
 /* 193 FC_LBL_5_01                         */ { "Banda di reg. valvola raff.  C.B [C°]","Valve actuator cooling band  C.B. [C°]"},
 /* 194 FC_LBL_5_02                         */ { "KI regolazione valvola raffreddamento [%]","KI cooling valve regulation [%]"},
-/* 195 FC_LBL_5_03                         */ { "Isteresi valvola ON-OFF C.HY. [C°]","ON-OFF valve cool. Hyser. C.HY. [C°]"},
-/* 196 FC_LBL_5_04                         */ { "Periodo modulazinoe PWM valvola  [s]","PWM valve modulation period"},
+/* 195 FC_LBL_5_03                         */ { "Isteresi valvola ON-OFF C.HY. [C°]","ON-OFF valve cool. Hyster. C.HY. [C°]"},
+/* 196 FC_LBL_5_04                         */ { "Periodo modulazione PWM valvola  [s]","PWM valve modulation period"},
 /* 197 FC_LBL_5_05                         */ { "Minimo duty cycle valvola [%]","Minimum valve duty cycle [%]"},
 /* 198 FC_LBL_5_06                         */ { "Massimo duty cycle valvola [%]","Maximum valve duty cycle [%]"},
-/* 199 FC_LBL_5_07                         */ { "Durata ‘raffreddamento rapido’ [m]","'Quick cooleng”’duration [s]"},
-/* 200 FC_LBL_5_08                         */ { "Potenza ‘raffreddamento rapido’ [%]","'Quick cooleng”’power [%]"},
+/* 199 FC_LBL_5_07                         */ { "Tempo ‘raffreddamento rapido’ [m]","'Quick cooling’ time [s]"},
+/* 200 FC_LBL_5_08                         */ { "Potenza ‘raffreddamento rapido’ [%]","'Quick cooling’ power [%]"},
 /* 201 FC_GB_6_REGOLAZIONE_VENTILATORE     */ { "Regolazione ventilatore","Fan settinhg"},
-/* 202 FC_LBL_6_00                         */ { "Modalita venrilaz. Min. In zona morta","Min. ventilation mode in dead zone"},
-/* 203 FC_LBL_6_01                         */ { "Abilitazione ventilazione manuale","manual ventilation enabling"},
-/* 204 FC_LBL_6_02                         */ { "Tempo post ventilazinoe [s]","Post ventilation time [s]"},
-/* 205 FC_LBL_6_03                         */ { "Tensione ventilatore allo 0% (min. Speed) [V]","Fan voltage at 0% (min speed)  [V}"},
-/* 206 FC_LBL_6_04                         */ { "Tensione ventilatore allo 100% (max. Speed) [V]","Fan voltage at 100% (max. speed)  [V}"},
-/* 207 FC_LBL_6_05                         */ { "Tensione minima attivazine bentilatore Vact, [V]","Minimum fan activaton voltage Vac. [V]"},
-/* 208 FC_LBL_6_06                         */ { "Minimo numero giri in ON [giri/minuto]","Minumun fan turns in IN [rpm]"},
+/* 202 FC_LBL_6_00                         */ { "Modalita ventilaz. Min. In zona morta","Min. ventilation mode in dead zone"},
+/* 203 FC_LBL_6_01                         */ { "Abilitazione ventilazione manuale","Manual ventilation enabling"},
+/* 204 FC_LBL_6_02                         */ { "Tempo post ventilazione [s]","Post ventilation time [s]"},
+/* 205 FC_LBL_6_03                         */ { "Tensione ventilatore allo 0% (min. Speed) [V]","Fan voltage at 0% (min speed)  [V]"},
+/* 206 FC_LBL_6_04                         */ { "Tensione ventilatore allo 100% (max. Speed) [V]","Fan voltage at 100% (max. speed)  [V]"},
+/* 207 FC_LBL_6_05                         */ { "Tensione minima attivazione ventilatore Vact, [V]","Minimum fan activaton voltage Vac. [V]"},
+/* 208 FC_LBL_6_06                         */ { "Minimo numero giri in ON [giri/minuto]","Minumun fan turns in ON [rpm]"},
 /* 209 FC_LBL_6_07                         */ { "Banda di regolazione vent. In risc. F.H.B. [C°]","Fan heating regulation band F.H.B. [C°]"},
 /* 210 FC_LBL_6_08                         */ { "Banda di regolazione vent. In raff. F.C.B. [C°]","Fan cooling regulation band F.C.B. [C°]"},
 /* 211 FC_LBL_6_09                         */ { "KI regolazione raff./risc. [%]","KI fan cool/heat. Regulation [%]"},
 /* 212 FC_LBL_6_10                         */ { "Azione OFF","OFF action"},
-/* 213 FC_CB_6_00_0                         */ { "OFF","OFF"},
-/* 214 FC_CB_6_00_1                        */ { "Velocità minima","Min. Speed"},
+/* 213 FC_CB_6_00                          */ { "OFF","OFF"},
+/* 214 FC_CB_6_01                          */ { "Velocità minima","Min. Speed"},
 /* 215 FC_GB_7_REGOLAZIONE_SERRANDA_FA     */ { "Regolazione serranda fresh air","Fresh air damper settings"},
 /* 216 FC_LBL_7_00                         */ { "Modalità gestione serranda","Damper managment mode"},
-/* 217 FC_LBL_7_01                         */ { "Setpoint CO₂CO2.S.P. [ppm]","CO₂setpoint CO2.S.P. [ppm]"},
+/* 217 FC_LBL_7_01                         */ { "Setpoint CO₂CO2.S.P. [ppm]","CO₂ setpoint CO2.S.P. [ppm]"},
 /* 218 FC_LBL_7_02                         */ { "Banda regolazione CO₂CO2.B. [ppm]","CO₂ regulation band CO2.B. [ppm]"},
 /* 219 FC_LBL_7_03                         */ { "Setpoint VOC VOC.S.P. [%]","VOC setpoint VOC.S.P. [ppm]"},
 /* 220 FC_LBL_7_04                         */ { "Banda regolazione VOC VOC.B. [%]","VOC regulation band VOC.B. [ppm]"},
@@ -680,27 +683,27 @@ namespace configuratore
 /* 228 FC_LBL_7_12                         */ { "Setpoint portata economy [m³/h]","Economy mode air flow set point  [m³/h]"},
 /* 229 FC_CB_7_00                          */ { "CO₂","CO₂"},
 /* 230 FC_CB_7_01                          */ { "Economy","Economy "},
-/* 231 FC_CB_7_02                          */ { "Portata","Air flow"},
+/* 231 FC_CB_7_02                          */ { "Damper","Damper"},
 /* 232 FC_TAB_2                            */ { "Impostazioni","Settings"},
 /* 233 FC_GB_8_IMPOSTAZIONE_SONDA          */ { "Impostazione sonda e setpoint temperatura","Regulation probe and temperature setpoint setting"},
 /* 234 FC_LBL_8_00                         */ { "Tipo sonda regolazione","Regulation probe"},
 /* 235 FC_LBL_8_01                         */ { "Setpoint di temperatura di default [C°]","Default temperature setpoint [C°]"},
 /* 236 FC_LBL_8_02                         */ { "Deviazione max. setpoint di default [C°]","Max default setpoin deviation [C°]"},
 /* 237 FC_CB_8_00_00                       */ { "",""},
-/* 238 FC_CB_8_00_01                       */ { "termostato ambiente","room thermostat"},
+/* 238 FC_CB_8_00_01                       */ { "Termostato ambiente","Room thermostat"},
 /* 239 FC_CB_8_00_02                       */ { "NTC1 mandata","NTC1 supply"},
 /* 240 FC_CB_8_00_03                       */ { "NTC2 ripresa","NTC2 return"},
 /* 241 FC_CB_8_00_04                       */ { "Modbus (domotica)","Modbus (domotic)"},
-/* 242 FC_CB_8_01_00                       */ { "1) aumento xona morta e ris.bande","1)"},
+/* 242 FC_CB_8_01_00                       */ { "1) aumento zona morta e ris.bande","1)"},
 /* 243 FC_CB_8_01_01                       */ { "2) aumento zona morta","2)"},
 /* 244 FC_CB_8_01_02                       */ { "3) OFF","3) OFF"},
 /* 245 FC_GB_9_SENSORE_PRESSIONE           */ { "Sensore pressione","Pressure sensor"},
 /* 246 FC_LBL_9_00                         */ { "Soglia intasamento filtro [Pa]","Filter clogging threshold (Pa)"},
 /* 247 FC_LBL_9_01                         */ { "Isteresi soglia intasamento filtro [Pa]","Filter clogging th hysteresis (Pa)"},
 /* 248 FC_LBL_9_02                         */ { "Soglia alta pressione [Pa]","Hi pressure alarm threshold [Pa]"},
-/* 249 FC_LBL_9_03                         */ { "Istsresi soglia alta pressione [Pa]","Hi pressure alarm th. Hysteresis [Pa]"},
+/* 249 FC_LBL_9_03                         */ { "Isteresi soglia alta pressione [Pa]","Hi pressure alarm th. Hysteresis [Pa]"},
 /* 250 FC_LBL_9_04                         */ { "Soglia bassa pressione [Pa]","Low pressure alarm threshold [Pa]"},
-/* 251 FC_LBL_9_05                         */ { "Istsresi soglia bassa pressione [Pa]","Low pressure alarm th. Hysteresis [Pa]"},
+/* 251 FC_LBL_9_05                         */ { "Isteresi soglia bassa pressione [Pa]","Low pressure alarm th. Hysteresis [Pa]"},
 /* 252 FC_LBL_9_06                         */ { "Ritardo abil. Allarme bassa pressione [s]","Low pressure alarm enabling delay [s]"},
 /* 253 FC_GB_10_TEMP_INTERNA               */ { "Gestione temperatura interna","Internal temperature management"},
 /* 254 FC_LBL_10_00                        */ { "Soglia di sicurezza [C°]","Safety temperature threshold [C°]"},
@@ -734,7 +737,7 @@ namespace configuratore
 /* 282 FC_CB_13_01_00_DISPARI              */ { "Dispari","Odd"},
 /* 283 FC_CB_13_02_BITSTOP_1               */ { "1","1"},
 /* 284 FC_BC_13_02_BITSTOP_2               */ { "2","2"},
-/* 285 FC_GB15_RegolazioneChangeOver       */ { "Regolazione Change Over","Change over setiing"},
+/* 285 FC_GB15_RegolazioneChangeOver       */ { "Regolazione Change Over","Change over setting"},
 /* 286 FC_LBL_15_00                        */ { "Isteresi valv. ch.ov. ON-OFF CO.HY [C°]","ON-OFF ch.ov. valve Histeresis CH.HY [C°]"},
 /* 287 FC_LBL_15_01                        */ { "Logica valvola","Valve logic"},
 /* 288 FC_LBL_15_02                        */ { "Tempo ritardo attivazione uscite risc./raff. [s]","Heating and cooling outputs activation delay time [s]"},
@@ -749,8 +752,8 @@ namespace configuratore
 /* 297 FC_LBL_17_05_CDZI1                  */ { "Incremento zona morta raff. in economy mode TIPO 1 C.D.Z.I.1  [C°]","Cooling dead zone increase in TYPE 1 economy mode C.D.Z.I 1 [C°]"},
 /* 298 FC_LBL_17_06_HDZI2                  */ { "Incremento zona morta risc. in economy mode TIPO 1 H.D.Z.I.2  [C°]","Heating dead zone increase in TYPE 2 economy mode H.D.Z.I 2 [C°]"},
 /* 299 FC_LBL_17_07_CDZI2                  */ { "Incremento zona morta raff. in economy mode TIPO 1 C.D.Z.I.2  [C°]","Cooling dead zone increase in TYPE 2 economy mode C.D.Z.I 2 [C°]"},
-/* 300 FC_CB_17_00_TIPO_ECONOMY_00         */ { "1) TIPO 1 aumrnto zona morta 1","1) TYPE 1 dead zone inc. 1"},
-/* 301 FC_CB_17_00_TIPO_ECONOMY_01         */ { "2) TIPO 2 aumrnto zona morta 2","2) TYPE 1 dead zone inc. 2"},
+/* 300 FC_CB_17_00_TIPO_ECONOMY_00         */ { "1) TIPO 1 aumento zona morta 1","1) TYPE 1 dead zone inc. 1"},
+/* 301 FC_CB_17_00_TIPO_ECONOMY_01         */ { "2) TIPO 2 aumento zona morta 2","2) TYPE 1 dead zone inc. 2"},
 /* 302 FC_CB_17_00_TIPO_ECONOMY_02         */ { "3) TIPO 3 OFF","3) TYPE 3 OFF"},
 /* 303 FC_CB_17_00_TIPO_ECONOMY_03         */ { "4) TIPO 4 ventilazione minima","4) TYPE 4 minimum ventilation"},
 /* 304 FC_CB_17_01_PRIOROTA_00             */ { "1) DI1, DI2, DI3","1) DI1, DI2, DI3"},
@@ -759,7 +762,7 @@ namespace configuratore
 /* 307 FC_CB_17_01_PRIOROTA_03             */ { "4) DI2, DI3, DI1","4) DI2, DI3, DI1"},
 /* 308 FC_CB_17_01_PRIOROTA_04             */ { "5) DI3, DI1, DI2","5) DI3, DI1, DI2"},
 /* 309 FC_CB_17_01_PRIOROTA_05             */ { "6) DI3, DI2, DI1","6) DI3, DI2, DI1"},
-/* 310 FC_GB16_ExtPressSens                */ { "Sensore di pressione esterno","Extarnal pressure sensor"},
+/* 310 FC_GB16_ExtPressSens                */ { "Sensore di pressione esterno","External pressure sensor"},
 /* 311 FC_LBL_16_00_VoltageRange           */ { "Range tensione [V}","Voltage range [V]"},
 /* 312 FC_LBL_16_01_PressRange             */ { "Range pressione  [Pa]","Pressure range [Pa]"},
 /* 313 FC_LBL_16_02_AlarmTreshold          */ { "Soglia allarme [V}","Alarm threshold [V]"},
@@ -771,6 +774,7 @@ namespace configuratore
 /* 319 FC_CB_16_01_RANGEPRESSIONE_03       */ { "0..250","0..250"},
 /* 320 FC_CB_16_01_RANGEPRESSIONE_04       */ { "0..500","0..500"},
 /* 321 FC_CB_16_01_RANGEPRESSIONE_05       */ { "0..1000","0..1000"},
+
 
 
 
@@ -826,15 +830,19 @@ namespace configuratore
 /* 363 MNET_MSG_NO_PRINCIPALE              */ { "Almeno un elemento deve essere etichettato come principale","At least one element must be tagged as principal "},
 /* 364 MNET_H_SW_RELEASE                   */ { "Versione software","Software release"},
 /* 365 MNET_MSG_RESATART                   */ { "Riavviare il master","Please restart master"},
+/* 366 MNET_MSG_RETE_NON_SALVATA           */ { "La nuova configurazione non è stata salvata.","The new configuration has not been saved."},
+
 
 
 
 
 
 // -------------------------------  STARTUP
-/* 366 STARTUP_DISCONNSSIONE_INCORSO       */ { "DISCONNESSIONE ….","UNCONNECTING …."},
-/* 367 STARTUP_DISCONNESSO                 */ { "DISCONNESSO","UNCONNECTED"},
-/* 368 STARTUP_CONNECTION_ERROR            */ { "USB errore connessione","USB connection error"},
+/* 367 STARTUP_DISCONNSSIONE_INCORSO       */ { "DISCONNESSIONE ….","UNCONNECTING …."},
+/* 368 STARTUP_DISCONNESSO                 */ { "DISCONNESSO","UNCONNECTED"},
+/* 369 STARTUP_CONNECTION_ERROR            */ { "USB errore connessione","USB connection error"},
+/* 370 STARTUP_INVALID_CHAR                */ { "Carattere non valido","Invalid input char"},
+
 
 
 

@@ -15,6 +15,7 @@ using static configuratore.Costanti;
 using static configuratore.statoCassette.frmStatoCassette;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics;
+using configuratoreSerial6._0;
 
 namespace configuratore
 {
@@ -48,6 +49,7 @@ namespace configuratore
             public int Enabled;
             public int Visible;
             public int lTimer;
+            public int UpDownFLG;
             public decimal oldValue;
         }
 
@@ -80,6 +82,7 @@ namespace configuratore
         NumericUpDown[] DisabPrimaryNudArray;
         ComboBox[] DisabPrimaryCBArray;
 
+        String CurrentFileName = "";
 
 
         public int getRichiestoDa() { return richiestoDa; }
@@ -248,12 +251,21 @@ namespace configuratore
         private void frmCassette_FormClosing(object sender, FormClosingEventArgs e)
         {
             // startupData.getgfrmStartUp().enableDevice(); 
+            chiudi();
+
+        }
+
+        void chiudi()
+        {
             clsArbitrator.clrEsecuzione();
             //clsArbitrator.clrLoadingParameter();
             if (richiestoDa == 0)
                 parent.abilitaMenu();
             else
                 clsArbitrator.setriabilitaBottoni();
+            global.abilitaChiusuraStatoCassette();
+            clsArbitrator.clsFinestraAperta();
+            global.frmStatoCassette.Close();
         }
 
 
@@ -357,6 +369,11 @@ namespace configuratore
                             // trasformare decimali
                             v = utility.conv728(buffer, pos + 1, nbyte);
                             decimal d = utility.convert2Decimal(v, LayOutCassetteGrp[g].cfgUpDown[j].nDec);
+                            if (d > LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Maximum)
+                                d = LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Maximum;
+                            if (d < LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Minimum)
+                                d = LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Minimum;
+
                             LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Value = d;
                             calcoli(p);
                             campoDinamico(p, g, j, v);
@@ -793,13 +810,13 @@ namespace configuratore
                         {
                             numUpDown = nud_TensioneSerrandaMinima,
                             numParametro = parametriCassetta.KK_TENSIONE_SERRANDA_MIN,
-                            vDefault =(decimal) 0, vMin =(decimal) 0, vMax =(decimal) 10, vInc =(decimal) 0.1, nDec =(int) 1
+                            vDefault =(decimal)2,vMin =(decimal) 0,vMax =(decimal) 9.9,vInc =(decimal) 0.1,nDec =(int) 1
                         },
                         new upDownInfo
                         {
                             numUpDown = nud_TensioneSerrandaMassima,
                             numParametro = parametriCassetta.KK_TENSIONE_SERRANDA_MAX,
-                            vDefault =(decimal) 10, vMin =(decimal) 0, vMax =(decimal) 10, vInc =(decimal) 0.1, nDec =(int) 1
+                            vDefault =(decimal)10,vMin =(decimal) 0.1,vMax =(decimal) 10,vInc =(decimal) 0.1,nDec =(int) 1
                         },
 
                     },
@@ -1242,7 +1259,7 @@ namespace configuratore
                         {
                             numUpDown = nud_IntensitaLED,
                             numParametro = parametriCassetta.KK_INTENSITA_LED,
-                            vDefault =(decimal) 4, vMin =(decimal) 1, vMax =(decimal) 7, vInc =(decimal) 1, nDec =(int) 0
+                            vDefault =(decimal)1,vMin =(decimal) 0,vMax =(decimal) 1,vInc =(decimal) 1,nDec =(int) 0
                         },
 
                     },
@@ -1302,7 +1319,7 @@ namespace configuratore
                      {
                          new comboInfo() {
                              combo = cb_13_02_Baudrate,
-                             lista = new loca.indice[] { loca.indice.FC_CB_13_00_2400, loca.indice.FC_CB_13_00_4800, loca.indice.FC_CB_13_00_9600, loca.indice.FC_CB_13_00_19200, loca.indice.FC_CB_13_00_19200,loca.indice.FC_CB_13_00_57600,loca.indice.FC_CB_13_00_115200, },
+                             lista = new loca.indice[] { loca.indice.FC_CB_13_00_2400, loca.indice.FC_CB_13_00_4800, loca.indice.FC_CB_13_00_9600, loca.indice.FC_CB_13_00_19200, loca.indice.FC_CB_13_00_38400, loca.indice.FC_CB_13_00_57600,loca.indice.FC_CB_13_00_115200, },
                              vDefault = 2,
                              numParametro = parametriCassetta.KK_BAUDRATE,
                         },
@@ -1347,10 +1364,11 @@ namespace configuratore
         {
             int d;
             d = clsSerial.pop(Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_PARAMETRI);
-            if (d >= 0)
+            while (d >= 0)
             {
                 byte b = (byte)(d & 0xff);
                 clsHandler.decode(b, this);
+                d = clsSerial.pop(Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_PARAMETRI);
                 // handelrData
             }
         }
@@ -1705,8 +1723,8 @@ namespace configuratore
 
         private void esciToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (richiestoDa == 0)
-                parent.abilitaMenu();
+            chiudi();
+
             this.Close();
         }
 
@@ -1787,11 +1805,16 @@ namespace configuratore
 
         private void salvaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if(FileName=="")
-            //{
-            //    saveFileDialog1.
-            //}
-            //salvaFile();
+            if (CurrentFileName != null)
+            {
+                datiConfig.setDefaultDirFancoil(CurrentFileName);
+                datiConfig.saveFile();
+                datiCassette.saveFile(CurrentFileName);
+            }
+            else
+            {
+                saveAs();
+            }
         }
 
         private void rb_13_00_TipDisp_MASTER_CheckedChanged(object sender, EventArgs e)
@@ -1882,7 +1905,7 @@ namespace configuratore
             };
             DisabPrimaryCBArray = new ComboBox[] { comboTipoEcomomy };
 
-            oldPrimaryValue = -1;
+            oldPrimaryValue = 0;
         }
 
         void forzaDisabilitazioni()
@@ -1916,15 +1939,243 @@ namespace configuratore
         private void systemTimer_Tick(object sender, EventArgs e)
         {
             timerAbilitaDisabilitaPrimary();
+            comTask.setAddressMasterSlave(nud_13_01_Indirizzo.Value, rb_13_00_TipDisp_MASTER.Checked);
+
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String Filename = datiConfig.getDefaultDirFancoil();
+            String directoryName = Path.GetDirectoryName(Filename);
+            String myFile = Path.GetFileName(Filename);
+
+            openFileDialog1.FileName = myFile;
+            openFileDialog1.InitialDirectory = directoryName;
+            openFileDialog1.Filter = "Cassette parameter (*.prm)|*.prm|All files (*.*)|*.*";
+            openFileDialog1.DefaultExt = "s19";
+
+            DialogResult dr = openFileDialog1.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                Filename = openFileDialog1.FileName;
+                datiConfig.setDefaultDirFancoil(Filename);
+                datiConfig.saveFile();
+                datiCassette.Initdati(Filename);
+                AggiornaCampi();
+                CurrentFileName = Filename;
+            }
         }
 
 
+        void AggiornaCampi()
+        {
+            for (int r = 0; r < datiCassette.getNumeroTtaleParametri(); r++)
+            {
+                String Nome = datiCassette.getNomefromTabella(r);
+                int p = datiCassette.getIDParametro(Nome);
+                if (p >= 0)
+                {
+                    int v = datiCassette.getValorefromTabella(r);
+                    aggiornaParametroDaFile(p, v);
+                }
+            }
+        }
+
+        public void aggiornaParametroDaFile(int p, int v)
+        // p = numero parametro
+        // v = valore parametro
+
+        {
+            Debug.WriteLine("Par: " + p.ToString());
+            int g;
+            int j;
+            int trovato = -1;
+
+            for (g = 0; g < LayOutCassetteGrp.Length && trovato < 0; g++)
+            {
+                if (LayOutCassetteGrp[g].cfgCombo != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgCombo.Length && trovato < 0; j++)
+                    {
+                        if (LayOutCassetteGrp[g].cfgCombo[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            LayOutCassetteGrp[g].cfgCombo[j].combo.SelectedIndex = v;
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+
+                }
+                // ----------------------------------
+                if (LayOutCassetteGrp[g].cfgUpDown != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgUpDown.Length && trovato < 0; j++)
+                    {
+                        if (LayOutCassetteGrp[g].cfgUpDown[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            // trasformare decimali
+                            decimal d = utility.convert2Decimal(v, LayOutCassetteGrp[g].cfgUpDown[j].nDec);
+                            LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Value = d;
+                            // calcoli(p);
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+                }
+                // ----------------------------------
+                if (LayOutCassetteGrp[g].cfgRadioButton != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgRadioButton.Length && trovato < 0; j++)
+                    {
+                        if (LayOutCassetteGrp[g].cfgRadioButton[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            for (int k = 0; k < LayOutCassetteGrp[g].cfgRadioButton[trovato].rButton.Length; k++)
+                            {
+                                LayOutCassetteGrp[g].cfgRadioButton[trovato].rButton[k].Checked = (k == v);
+                            }
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+                }
+                // ----------------------------------
+
+            }
+            if (trovato < 0)
+            {
+                Debug.WriteLine("Parametro non trovato" + p.ToString());
+            }
+        }
+
+        void saveAs()
+        {
+            String Filename = datiConfig.getDefaultDirCassette();
+            String directoryName = Path.GetDirectoryName(Filename);
+            saveFileDialog1.InitialDirectory = directoryName;
+            saveFileDialog1.DefaultExt = "prm";
+            saveFileDialog1.Filter = "Cassette parameter (*.prm)|*.prm";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Filename = saveFileDialog1.FileName;
+                preparaTabellaDatiParametri();
+                datiConfig.setDefaultDirCassette(Filename);
+                datiConfig.saveFile();
+                datiCassette.saveFile(Filename);
+                // datiFancoil.Initdati(Filename);
+                CurrentFileName = Filename;
+
+            }
+        }
+
+        private void salvaComeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveAs();
+        }
+
+        void preparaTabellaDatiParametri()
+        {
+            // legge tutti i dati dei parametri e li salva nella relativa tabella
+            int g;
+            int j;
+            int v;
+            datiCassette.cancellaTabella();
+            int numeroTotaleParametri = datiCassette.getNumeroTtaleParametri();
+            for (g = 0; g < LayOutCassetteGrp.Length; g++)
+            {
+                if (LayOutCassetteGrp[g].cfgCombo != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgCombo.Length; j++)
+                    {
+                        int ID = LayOutCassetteGrp[g].cfgCombo[j].numParametro;
+                        String nomeParametro = datiCassette.getNomeParametro(ID);
+                        v = LayOutCassetteGrp[g].cfgCombo[j].combo.SelectedIndex;
+                        datiCassette.salvaParametro(ID, nomeParametro, v);
+
+
+
+                    }
+
+                }
+                // ----------------------------------
+                if (LayOutCassetteGrp[g].cfgUpDown != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgUpDown.Length; j++)
+                    {
+
+                        int ID = LayOutCassetteGrp[g].cfgUpDown[j].numParametro;
+                        String nomeParametro = datiCassette.getNomeParametro(ID);
+                        decimal x = LayOutCassetteGrp[g].cfgUpDown[j].numUpDown.Value;
+                        v = (int)(x * (decimal)utility.potDieci(LayOutCassetteGrp[g].cfgUpDown[j].nDec));
+
+                        datiCassette.salvaParametro(ID, nomeParametro, v);
+                    }
+                }
+                // ----------------------------------
+                if (LayOutCassetteGrp[g].cfgRadioButton != null)
+                {
+                    for (j = 0; j < LayOutCassetteGrp[g].cfgRadioButton.Length; j++)
+                    {
+
+                        int ID = LayOutCassetteGrp[g].cfgRadioButton[j].numParametro;
+                        String nomeParametro = datiCassette.getNomeParametro(ID);
+                        for (int k = 0; k < LayOutCassetteGrp[g].cfgRadioButton[j].rButton.Length; k++)
+                        {
+
+                            if (LayOutCassetteGrp[g].cfgRadioButton[j].rButton[k].Checked)
+                            {
+                                v = k;
+                                datiCassette.salvaParametro(ID, nomeParametro, v);
+                            }
+                        }
+                        // campoDinamico(p, g, j, v);
+                    }
+
+                }
+            }
+            //// ----------------------------------
+
+        }
+
+        private void lbl_TensioneSerrandaMinima_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nud_TensioneSerrandaMinima_ValueChanged(object sender, EventArgs e)
+        {
+            if (nud_TensioneSerrandaMinima.Value >= nud_TensioneSerrandaMassima.Value)
+            {
+                if (nud_TensioneSerrandaMassima.Value != 0)
+                    nud_TensioneSerrandaMinima.Value = nud_TensioneSerrandaMassima.Value - (decimal)0.1;
+            }
+
+        }
+
+        private void nud_TensioneSerrandaMassima_ValueChanged(object sender, EventArgs e)
+        {
+            if (nud_TensioneSerrandaMassima.Value <= nud_TensioneSerrandaMinima.Value)
+                nud_TensioneSerrandaMassima.Value = nud_TensioneSerrandaMinima.Value + (decimal)0.1;
+        }
+
+        private void lblIntensitaLED_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_ZomaMortaRiscaldamento_Click(object sender, EventArgs e)
+        {
+
+        }
+        // tabella disabilitazione
+
     }
-
-
-
-    // tabella disabilitazione
-
 }
 
 

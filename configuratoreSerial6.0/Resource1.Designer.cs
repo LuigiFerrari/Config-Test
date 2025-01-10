@@ -193,6 +193,26 @@ namespace configuratoreSerial6._0 {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LedBluONPiccolo {
+            get {
+                object obj = ResourceManager.GetObject("LedBluONPiccolo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LedGrigioONPiccolo {
+            get {
+                object obj = ResourceManager.GetObject("LedGrigioONPiccolo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LedRossoOFF {
             get {
                 object obj = ResourceManager.GetObject("LedRossoOFF", resourceCulture);
@@ -213,6 +233,16 @@ namespace configuratoreSerial6._0 {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LedRossoONPiccolo {
+            get {
+                object obj = ResourceManager.GetObject("LedRossoONPiccolo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LedVerdeOFF {
             get {
                 object obj = ResourceManager.GetObject("LedVerdeOFF", resourceCulture);
@@ -226,6 +256,16 @@ namespace configuratoreSerial6._0 {
         internal static System.Drawing.Bitmap LedVerdeON {
             get {
                 object obj = ResourceManager.GetObject("LedVerdeON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LedVerdeONPiccolo {
+            get {
+                object obj = ResourceManager.GetObject("LedVerdeONPiccolo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

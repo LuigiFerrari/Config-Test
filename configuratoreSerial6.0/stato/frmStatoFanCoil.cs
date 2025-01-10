@@ -24,8 +24,9 @@ namespace configuratore.stato
         int richiestoDa;
         int indirizzo;
 
+        Label[] labelGialle;
 
-
+        public bool forzaChiusura = true;
         public frmStatoFanCoil(String Type, String Info, int lrichiestoDa)
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace configuratore.stato
             path.AddEllipse(0, 0, val_2_13.Width, val_2_13.Height);
 
             this.val_2_13.Region = new Region(path);
-            
+
             costAlFanCoil.init();
             initStatoFancoil();
             rxBuffer = new clsRxBuffer();
@@ -46,6 +47,10 @@ namespace configuratore.stato
             if (richiestoDa != 0)
                 sRichiestoDa = " (MASTER)";
             this.Text = Type + Info + sRichiestoDa;
+            initButtonArray();
+            global.setStatoFanCoil(this);
+            initForzarure();
+            labelGialle = cercaLabel(val_3_00); //  val_3_00)
         }
 
         public byte[] getRxBuffr() { return rxBuffer.getRxBuffer(); }
@@ -104,20 +109,43 @@ namespace configuratore.stato
             }
         }
 
+        Boolean isGialla(Label l)
+        {
+            Boolean trovato = false;
+            for (int i = 0; i < labelGialle.Length && trovato == false; i++)
+            {
+                if (l == labelGialle[i])
+                {
+                    trovato = true;
+                }
+            }
+            return trovato;
+        }
+
         void setAlarm(Label l, int v)
         {
-            if (v != 0)
+            if (v == 0 || v < 0)
             {
-                l.BackColor = Color.Red;
+                l.BackColor = Color.Gray;
+                l.Text = "";
             }
             else
             {
-                l.BackColor = Color.Gray;
+                if (v != 0)
+                {
+                    if (isGialla(l))
+                        l.BackColor = Color.Yellow;
+                    else
+                        l.BackColor = Color.Red;
+                    l.Text = "";
+                }
             }
         }
 
 
         // in realtà aggiorna lo stato anche se si chiama aggiorna parametro
+
+        String[] bStati = new string[costAlFanCoil.FCS_NUMERO_STATI];
         public void aggiornaParametro(int p, byte[] buffer, int pos)
         // p = numero stato
         // buffer = buffer ricezione (F0 ... F7
@@ -159,9 +187,10 @@ namespace configuratore.stato
                             {
                                 case 'B':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
-
+                                    s = v.ToString();
                                     setAlarm(statoFancoilGrp[g].valLabel[j], v);
                                     // Debug.WriteLine(v);
+
                                     break;
                                 case 'S':
                                     s = "";
@@ -171,14 +200,32 @@ namespace configuratore.stato
                                     skipNum = costAl.MAX_SIZE_STRING / 2;
                                     // Debug.WriteLine(s);
                                     break;
+                                case 'V':
+                                    s = "";
+                                    for (int i = 0; i < costAl.MAX_SIZE_VERSIONE; i++)
+                                        s = s + (char)buffer[pos + i + 1];
+                                    statoFancoilGrp[g].valLabel[j].Text = s;
+                                    // Debug.WriteLine(s);
+                                    skipNum = costAl.MAX_SIZE_VERSIONE / 2;
+                                    break;
                                 case 'N':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
                                     int d = costAlFanCoil.getdecimali(p);
                                     s = utility.convertToString(v, d);
                                     switch (p)
                                     {
+                                        case costAlFanCoil.FCS_TEMPERATURA_RIPRESA:
+                                            if (!global.isNTC2on())
+                                                s = "--";
+                                            break;
+                                        case costAlFanCoil.FCS_TEMPERATURA_MANDATA:
+                                            if (!global.isNTC1on())
+                                                s = "--";
+                                            break;
+                                        //case costAlFanCoil.FCS_AL_SONDA_TEMP_MANDATA:
+                                        //    if()
                                         case costAlFanCoil.FCS_SONDA_REGOLAZIONE:
-                                            switch(v)
+                                            switch (v)
                                             {
                                                 case 0:
                                                     s = loca.getStr(loca.indice.FC_CB_8_00_01);
@@ -196,9 +243,12 @@ namespace configuratore.stato
                                             }
                                             break;
                                         case costAlFanCoil.FCS_ECONOMY_TYPE:
-                                            String str="";
+                                            String str = "";
                                             switch (v)
                                             {
+                                                case 0:
+                                                    str = "";
+                                                    break;
                                                 case 1:
                                                     str = loca.getStr(loca.indice.FC_CB_17_00_TIPO_ECONOMY_00);
                                                     break;
@@ -253,11 +303,28 @@ namespace configuratore.stato
 
                 }
             }
+            bStati[p] = s;
             if (trovato < 0)
             {
-                Debug.WriteLine("Stato " + p.ToString() + " non in videata");
+                // Debug.WriteLine("Stato " + p.ToString() + " non in videata");
+                switch (p)
+                {
+                    case costAlFanCoil.FCS_TIPO_SENS_PRESSIONE:
+                        v = utility.conv728(buffer, pos + 1, nbyte);
+                        if (v == 0)
+                        {
+                            // sensore di press. differenziale
+                            lbl_1_03.Text = lStat.getStr(lStat.Indice.FS_LBL_1_03);
+                        }
+                        else
+                        {
+                            lbl_1_03.Text = lStat.getStr(lStat.Indice.FS_LBL_1_07);
+
+                        }
+                        break;
+                }
             }
-            continuaRichiesta (skipNum);
+            continuaRichiesta(skipNum);
         }
 
 
@@ -290,6 +357,29 @@ namespace configuratore.stato
 
                 }
             }
+        }
+
+
+        Label[] cercaLabel(Label lbl) //  val_3_00)
+        {
+            int g;
+            int trovato = -1;
+            int trovatog = -1;
+            for (g = 0; g < statoFancoilGrp.Length && trovatog < 0; g++)
+            {
+                if (statoFancoilGrp[g].valLabel != null)
+                {
+                    for (int k = 0; k < statoFancoilGrp[g].valLabel.Length && trovato < 0; k++)
+                    {
+                        if (statoFancoilGrp[g].valLabel[k] == lbl)
+                        {
+                            trovato = k;
+                            trovatog = g;
+                        }
+                    }
+                }
+            }
+            return statoFancoilGrp[trovatog].valLabel;
         }
 
         void initStatoFancoil()
@@ -328,9 +418,10 @@ namespace configuratore.stato
                             mlabel = lbl_0_03,
                             text = lStat.Indice.FS_LBL_0_03,
                         },
+
                     },
-                    valLabel = new Label[] { val_0_00_Matricola, val_0_01_Indirizzo, val_0_02_MS, val_0_03_PS },
-                    vvParametro = new int[] { costAlFanCoil.FCS_MATRICOLA_00, costAlFanCoil.FCS_INDIRIZZO_SLAVE, costAlFanCoil.FCS_MASTER_SLAVE, costAlFanCoil.FCS_DISP_PRIMARIO }
+                    valLabel = new Label[] { val_0_00_Matricola, val_0_01_Indirizzo, val_0_02_MS, val_0_03_PS,val_SoftwareRelease },
+                    vvParametro = new int[] { costAlFanCoil.FCS_MATRICOLA_00, costAlFanCoil.FCS_INDIRIZZO_SLAVE, costAlFanCoil.FCS_MASTER_SLAVE, costAlFanCoil.FCS_DISP_PRIMARIO, costAlFanCoil.FCS_VERSIONE_00 }
                 },   // ---------- 0
 
                 new gbOx()    // ---------- 1
@@ -380,18 +471,24 @@ namespace configuratore.stato
                             mlabel = lbl_1_07,
                             text = lStat.Indice.LBL_57_ADJTEMPTERM,
                         },
-                                                new sLabel()
+                        new sLabel()
                         {
                             mlabel = lbl_1_08,
                             text = lStat.Indice.FS_LBL_1_06,
                         },
+                         new sLabel()
+                        {
+                            mlabel = lbl_1_09,
+                            text = lStat.Indice.FS_LBL_1_08,
+                        },
 
                     },
-                    valLabel = new Label[] { val_1_00, val_1_01, val_1_02, val_1_03, val_1_04, val_1_05, val_1_06,val_1_07 ,val_1_08},
+                    valLabel = new Label[] { val_1_00, val_1_01, val_1_02, val_1_03, val_1_09, val_1_04, val_1_05, val_1_06,val_1_07 ,val_1_08},
                     vvParametro = new int[] { costAlFanCoil.FCS_SONDA_REGOLAZIONE,
                         costAlFanCoil.FCS_TEMP_SONDA,
                         costAlFanCoil.FCS_SETPOINT_TEMP   ,
-                        costAlFanCoil.FCS_TEMPERATURA_INTERNA,
+                        costAlFanCoil.FCS_TEMPERATURA_MANDATA,
+                        costAlFanCoil.FCS_TEMPERATURA_RIPRESA,
                         costAlFanCoil.FCS_PRESSIONE_DIFFER,
                         costAlFanCoil.FCS_CO2,
                         costAlFanCoil.FCS_VOC,
@@ -632,9 +729,6 @@ costAlFanCoil.FCS_SPENTO_BMS,
 costAlFanCoil.FCS_SPENTO_DA_TASTO,
 costAlFanCoil.FCS_SPENTO_D1,
 costAlFanCoil.FCS_SPENTO_ECONOMY,
-//costAlFanCoil.FCS_MOD_ECONOMY_MODBUS_DI1,
-//costAlFanCoil.FCS_MOD_ECONOMY_MODBUS_DI2,
-//costAlFanCoil.FCS_MOD_ECONOMY_MODBUS_DI3,
 costAlFanCoil.FCS_MOD_ECONOMY_DI1,
 costAlFanCoil.FCS_MOD_ECONOMY_DI2,
 costAlFanCoil.FCS_MOD_ECONOMY_DI3,
@@ -686,17 +780,17 @@ costAlFanCoil.FCS_FANCOIL_OFF
                             mlabel = lbl_4_04,
                             text = lStat.Indice.FS_LBL_4_04,
                         },
-                        new sLabel()
-                        {
-                            mlabel = lbl_4_05,
-                            text = lStat.Indice.FS_LBL_4_05,
-                        },
+                        //new sLabel()
+                        //{
+                        //    mlabel = lbl_4_05,
+                        //    text = lStat.Indice.FS_LBL_4_05,
+                        //},
 
-                        new sLabel()
-                        {
-                            mlabel = lbl_4_06,
-                            text = lStat.Indice.FS_LBL_4_06,
-                        },
+                        //new sLabel()
+                        //{
+                        //    mlabel = lbl_4_06,
+                        //    text = lStat.Indice.FS_LBL_4_06,
+                        //},
 
                         new sLabel()
                         {
@@ -771,15 +865,16 @@ costAlFanCoil.FCS_FANCOIL_OFF
                             text = lStat.Indice.FS_LBL_4_20,
                         },
                 },
-                        valLabel = new Label[] { val_4_00, val_4_01, val_4_02, val_4_03, val_4_04, val_4_05, val_4_06, val_4_07, val_4_08, val_4_09, val_4_10, val_4_11, val_4_12, val_4_13, val_4_14, val_4_15, val_4_16 , val_4_17 , val_4_18 , val_4_19 , val_4_20 },
+                        valLabel = new Label[] { val_4_00, val_4_01, val_4_02, val_4_03, val_4_04,val_4_07, val_4_08, val_4_09, val_4_10, val_4_11, val_4_12, val_4_13, val_4_14, val_4_15, val_4_16 , val_4_17 , val_4_18 , val_4_19 , val_4_20 },
+                        // valLabel = new Label[] { val_4_00, val_4_01, val_4_02, val_4_03, val_4_04, val_4_05, val_4_06, val_4_07, val_4_08, val_4_09, val_4_10, val_4_11, val_4_12, val_4_13, val_4_14, val_4_15, val_4_16 , val_4_17 , val_4_18 , val_4_19 , val_4_20 },
                     vvParametro = new int[] {
                         costAlFanCoil.FCS_AL_SONDA_REGOLAZIONE,
                         costAlFanCoil.FCS_AL_SONDA_TEMP_RIPRESA,
                         costAlFanCoil.FCS_AL_SONDA_TEMP_MANDATA,
                         costAlFanCoil.FCS_AL_TEMP_SICUREZZA,
                         costAlFanCoil.FCS_AL_INTERVENTO_TERM_SICUREZZA,
-                        costAlFanCoil.FCS_AL_TEMP_MANDATA_CALDO,           
-                        costAlFanCoil.FCS_AL_TEMP_MANDATA_FREDDO,
+                        //costAlFanCoil.FCS_AL_TEMP_MANDATA_CALDO,
+                        //costAlFanCoil.FCS_AL_TEMP_MANDATA_FREDDO,
                         costAlFanCoil.FCS_AL_TER_STANZA_NON_COLL,
                         costAlFanCoil.FCS_AL_SONDA_TEMP_STANZA,
                         costAlFanCoil.FCS_AL_CIRC_RES_APERTO,
@@ -876,7 +971,7 @@ costAlFanCoil.FCS_FANCOIL_OFF
                 this.Close();
                 clsSerial.USBerrorRestart();
             }
-               
+
         }
 
         private void timerRxParametri_Tick(object sender, EventArgs e)
@@ -899,128 +994,60 @@ costAlFanCoil.FCS_FANCOIL_OFF
             richiedi();
             timerRefresh.Enabled = false;
         }
-        struct retStat
+
+
+
+
+        Button[] lButton = new Button[4];
+        forzaturaCls[] forzatura;
+
+        void initButtonArray()
         {
-            public Image img;
-            public String txt;
+            lButton[0] = btn60_AccensioneVentilatore;
+            lButton[1] = btn61_ComandoRiscaldamento;
+            lButton[2] = btn62_ComandoRaffreddamento;
+            lButton[3] = btn63_ComandoAperturaSerranda;
         }
 
-        const String V_OFF = "  ";
-        const String V_ON = " ";
-
-
-        retStat toggleStatus(Button b)
+        void initForzarure()
         {
-            retStat x;
-            if (b.Text == V_OFF)
-            {
-                x.txt = V_ON;
-                x.img = global::configuratoreSerial6._0.Resource1.FrecciaDestraON;
-            }
-            else
-            {
-                x.txt = V_OFF;
-                x.img = global::configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
-            }
-            return x;
+            forzatura = new forzaturaCls[4];
+
+            forzatura[0] = new forzaturaCls(btn60_AccensioneVentilatore, nud_5_00_PercVentola, 0, richiestoDa | indirizzo);
+            forzatura[1] = new forzaturaCls(btn61_ComandoRiscaldamento, nud_5_01_PercRisc, 1, richiestoDa | indirizzo);
+            forzatura[2] = new forzaturaCls(btn62_ComandoRaffreddamento, nud_5_02_PercRaff, 2, richiestoDa | indirizzo);
+            forzatura[3] = new forzaturaCls(btn63_ComandoAperturaSerranda, nud_5_03_PercSerr, 3, richiestoDa | indirizzo);
+
         }
 
-
-
-        int getStato(Button b)
+        private void systemTimer_Tick(object sender, EventArgs e)
         {
-            int x;
-            if (b.Text == V_OFF)
+            for (int i = 0; i < 4; i++)
             {
-                x = 0;
+                forzatura[i].TickTimer(i);
+                //if (comTask.isOn(i) == true)
+                //{
+                //    if (forzatura[0].getStato() == 0)
+                //        // forzatura è in ON
+                //        setStatoOn(lButton[i]);
+                //}
+                //else
+                //{
+                //    if (getStato(lButton[i]) == 1)
+                //        // forzatura è in ON
+                //        setStatoOff(lButton[i]);
+                //}
             }
-            else
-            {
-                x = 1;
-            }
-            return x;
         }
 
-        void setStatoOff(Button b)
+        private void frmStatoFanCoil_FormClosing(object sender, FormClosingEventArgs e)
         {
-            b.Text = V_OFF;
-            b.Image= global::configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
+            e.Cancel = forzaChiusura;
         }
 
         private void btn60_AccensioneVentilatore_Click(object sender, EventArgs e)
         {
-            retStat y;
-            y = toggleStatus(btn60_AccensioneVentilatore);
-            if(getStato(btn61_ComandoRiscaldamento)==1) {  // forzatura resistenza attiva
-                setStatoOff(btn61_ComandoRiscaldamento);
-                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RISCALDAMENTO, getStato(btn60_AccensioneVentilatore), richiestoDa);
-            }
-            btn60_AccensioneVentilatore.Image = y.img;
-            btn60_AccensioneVentilatore.Text = y.txt;
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_VENTILATORE, getStato(btn60_AccensioneVentilatore), richiestoDa);
-        }
 
-        private void btn61_ComandoRiscaldamento_Click(object sender, EventArgs e)
-        {
-            retStat y;
-            y = toggleStatus(btn61_ComandoRiscaldamento);
-            if (getStato(btn60_AccensioneVentilatore) == 1)
-            {
-                setStatoOff(btn60_AccensioneVentilatore);
-                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_VENTILATORE, getStato(btn60_AccensioneVentilatore), richiestoDa);
-            }
-            btn61_ComandoRiscaldamento.Image = y.img;
-            btn61_ComandoRiscaldamento.Text = y.txt;
-            if(getStato(btn62_ComandoRaffreddamento)!=0) {  // on
-                setStatoOff(btn62_ComandoRaffreddamento);
-                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RAFFREDDAMENTO, getStato(btn62_ComandoRaffreddamento), richiestoDa);
-
-            }
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RISCALDAMENTO, getStato(btn61_ComandoRiscaldamento), richiestoDa);
-        }
-
-        private void btn62_ComandoRaffreddamento_Click(object sender, EventArgs e)
-        {
-            retStat y;
-            y = toggleStatus(btn62_ComandoRaffreddamento);
-            btn62_ComandoRaffreddamento.Image = y.img;
-            btn62_ComandoRaffreddamento.Text = y.txt;
-            if (getStato(btn61_ComandoRiscaldamento) != 0)
-            {  // on
-                setStatoOff(btn61_ComandoRiscaldamento);
-                txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RISCALDAMENTO, getStato(btn61_ComandoRiscaldamento), richiestoDa);
-
-            }
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_RAFFREDDAMENTO, getStato(btn62_ComandoRaffreddamento), richiestoDa);
-        }
-
-        private void btn63_ComandoAperturaSerranda_Click(object sender, EventArgs e)
-        {
-            retStat y;
-            y = toggleStatus(btn63_ComandoAperturaSerranda);
-            btn63_ComandoAperturaSerranda.Image = y.img;
-            btn63_ComandoAperturaSerranda.Text = y.txt;
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_CMD_SERRANDA, getStato(btn63_ComandoAperturaSerranda), richiestoDa);
-        }
-
-        private void nud_5_00_PercVentola_ValueChanged(object sender, EventArgs e)
-        {
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_PERC_VENTILATORE, (int)nud_5_00_PercVentola.Value, richiestoDa);
-        }
-
-        private void nud_5_01_PercRisc_ValueChanged(object sender, EventArgs e)
-        {
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_PERC_RISCALDAMENTO, (int)nud_5_01_PercRisc.Value, richiestoDa);
-        }
-
-        private void nud_5_02_PercRaff_ValueChanged(object sender, EventArgs e)
-        {
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_PERC_RAFFREDDAMENTO, (int)nud_5_02_PercRaff.Value, richiestoDa);
-        }
-
-        private void nud_5_03_PercSerr_ValueChanged(object sender, EventArgs e)
-        {
-            txMsg.txMsgOne(parametriFanCoil.KF_KV_PERC_SERRANDA, (int)nud_5_03_PercSerr.Value, richiestoDa);
         }
     }
 }

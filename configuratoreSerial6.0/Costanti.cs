@@ -71,6 +71,7 @@ namespace configuratore
 
         public const int NETLIST=0;
         public const int NETSTATUS=1;
+        public const int STATO_RETE = 2;
 
         public const int ABILITA_SERRANDA = 0x01;
 
@@ -151,15 +152,18 @@ namespace configuratore
         {
             TBLCONFIG,                          // CONFIG
             TBLCASSETTE,                        // CASSETTE
-            TBLFANCOIL
+            TBLFANCOIL,                         // FANCOIL
+            TBLTERMOSTATO,                     // TERMOSTATO (valido per tutti i modelli)
+
 
         };
 
         static datiVer[] datiVersione =
             new datiVer[]{
-                new datiVer() { tVersion="0.0.0", tNote = "" }, // CONFIG
+                new datiVer() { tVersion="0.0.2", tNote = "" }, // CONFIG
                 new datiVer() { tVersion="1.0.0", tNote = "" }, // CASSETTE         
                 new datiVer() { tVersion="1.0.0", tNote = "" }, // FANCOIL         
+                new datiVer() { tVersion="1.0.0", tNote = "" }, // TERMOSTATO         
             };
 
         static public String getCurrVersionH(tblIndice typ)
@@ -302,6 +306,13 @@ namespace configuratore
 
         public const int MASTER = 0;
         public const int SLAVE = 1;
+
+        static public Bitmap bmpLEDpiccoloBLU = new Bitmap(global::configuratoreSerial6._0.Resource1.LedBluONPiccolo);
+        static public Bitmap bmpLEDpiccoloVERDE = new Bitmap(global::configuratoreSerial6._0.Resource1.LedVerdeONPiccolo);
+        static public Bitmap bmpLEDpiccoloROSSO = new Bitmap(global::configuratoreSerial6._0.Resource1.LedRossoONPiccolo);
+        static public Bitmap bmpLEDpiccoloGRIGIO = new Bitmap(global::configuratoreSerial6._0.Resource1.LedGrigioONPiccolo);
+
+
 
     }
 }

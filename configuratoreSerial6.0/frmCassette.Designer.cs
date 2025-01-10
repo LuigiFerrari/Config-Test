@@ -193,11 +193,10 @@
             labelPleaseWait = new Label();
             menuStrip1 = new MenuStrip();
             fILEToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
             salvaToolStripMenuItem = new ToolStripMenuItem();
             salvaComeToolStripMenuItem = new ToolStripMenuItem();
             esciToolStripMenuItem = new ToolStripMenuItem();
-            tOOLToolStripMenuItem = new ToolStripMenuItem();
-            aproStatoToolStripMenuItem = new ToolStripMenuItem();
             saveFileDialog1 = new SaveFileDialog();
             tabControl = new TabControl();
             tabPage1 = new TabPage();
@@ -222,6 +221,7 @@
             lbl_13_02_Baudrate = new Label();
             timerTick = new System.Windows.Forms.Timer(components);
             systemTimer = new System.Windows.Forms.Timer(components);
+            openFileDialog1 = new OpenFileDialog();
             gbFunzionamentoCassetta.SuspendLayout();
             gbRiepilogoRiscaldamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nud_PotenzaNominaleResistenza).BeginInit();
@@ -533,6 +533,7 @@
             lbl_ZomaMortaRiscaldamento.Size = new Size(207, 15);
             lbl_ZomaMortaRiscaldamento.TabIndex = 0;
             lbl_ZomaMortaRiscaldamento.Text = "Zona morta riscaldamento H.D.Z. [C°]";
+            lbl_ZomaMortaRiscaldamento.Click += lbl_ZomaMortaRiscaldamento_Click;
             // 
             // gbMaxPotenzaResistenzaFunzPortata
             // 
@@ -886,6 +887,7 @@
             nud_TensioneSerrandaMassima.Name = "nud_TensioneSerrandaMassima";
             nud_TensioneSerrandaMassima.Size = new Size(66, 23);
             nud_TensioneSerrandaMassima.TabIndex = 48;
+            nud_TensioneSerrandaMassima.ValueChanged += nud_TensioneSerrandaMassima_ValueChanged;
             // 
             // lbl_TensioneSerrandaMassima
             // 
@@ -893,9 +895,9 @@
             lbl_TensioneSerrandaMassima.Location = new Point(13, 170);
             lbl_TensioneSerrandaMassima.Margin = new Padding(4, 0, 4, 0);
             lbl_TensioneSerrandaMassima.Name = "lbl_TensioneSerrandaMassima";
-            lbl_TensioneSerrandaMassima.Size = new Size(90, 15);
+            lbl_TensioneSerrandaMassima.Size = new Size(71, 15);
             lbl_TensioneSerrandaMassima.TabIndex = 47;
-            lbl_TensioneSerrandaMassima.Text = "Funzionamento";
+            lbl_TensioneSerrandaMassima.Text = "V max 100%";
             // 
             // nud_TensioneSerrandaMinima
             // 
@@ -904,6 +906,7 @@
             nud_TensioneSerrandaMinima.Name = "nud_TensioneSerrandaMinima";
             nud_TensioneSerrandaMinima.Size = new Size(66, 23);
             nud_TensioneSerrandaMinima.TabIndex = 46;
+            nud_TensioneSerrandaMinima.ValueChanged += nud_TensioneSerrandaMinima_ValueChanged;
             // 
             // lbl_TensioneSerrandaMinima
             // 
@@ -911,9 +914,10 @@
             lbl_TensioneSerrandaMinima.Location = new Point(13, 145);
             lbl_TensioneSerrandaMinima.Margin = new Padding(4, 0, 4, 0);
             lbl_TensioneSerrandaMinima.Name = "lbl_TensioneSerrandaMinima";
-            lbl_TensioneSerrandaMinima.Size = new Size(90, 15);
+            lbl_TensioneSerrandaMinima.Size = new Size(57, 15);
             lbl_TensioneSerrandaMinima.TabIndex = 45;
-            lbl_TensioneSerrandaMinima.Text = "Funzionamento";
+            lbl_TensioneSerrandaMinima.Text = "V min 0%";
+            lbl_TensioneSerrandaMinima.Click += lbl_TensioneSerrandaMinima_Click;
             // 
             // panel11
             // 
@@ -2008,6 +2012,7 @@
             lblIntensitaLED.Size = new Size(92, 15);
             lblIntensitaLED.TabIndex = 0;
             lblIntensitaLED.Text = "Luminosita' LED";
+            lblIntensitaLED.Click += lblIntensitaLED_Click;
             // 
             // timerRxDati
             // 
@@ -2018,7 +2023,7 @@
             // labelFondo
             // 
             labelFondo.BackColor = SystemColors.MenuText;
-            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelFondo.ForeColor = Color.White;
             labelFondo.Location = new Point(293, 706);
             labelFondo.Margin = new Padding(4, 0, 4, 0);
@@ -2030,7 +2035,7 @@
             // labelIndice
             // 
             labelIndice.BackColor = Color.Lime;
-            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelIndice.Location = new Point(306, 694);
             labelIndice.Margin = new Padding(4, 0, 4, 0);
             labelIndice.Name = "labelIndice";
@@ -2041,7 +2046,7 @@
             // labelPleaseWait
             // 
             labelPleaseWait.BackColor = Color.Transparent;
-            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelPleaseWait.ForeColor = Color.Black;
             labelPleaseWait.Location = new Point(21, 708);
             labelPleaseWait.Margin = new Padding(4, 0, 4, 0);
@@ -2053,7 +2058,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fILEToolStripMenuItem, tOOLToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fILEToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
@@ -2063,11 +2068,18 @@
             // 
             // fILEToolStripMenuItem
             // 
-            fILEToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { salvaToolStripMenuItem, salvaComeToolStripMenuItem, esciToolStripMenuItem });
+            fILEToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem, salvaToolStripMenuItem, salvaComeToolStripMenuItem, esciToolStripMenuItem });
             fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
             fILEToolStripMenuItem.Size = new Size(40, 20);
             fILEToolStripMenuItem.Text = "FILE";
             fILEToolStripMenuItem.Click += fILEToolStripMenuItem_Click;
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(134, 22);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // salvaToolStripMenuItem
             // 
@@ -2081,6 +2093,7 @@
             salvaComeToolStripMenuItem.Name = "salvaComeToolStripMenuItem";
             salvaComeToolStripMenuItem.Size = new Size(134, 22);
             salvaComeToolStripMenuItem.Text = "Salva come";
+            salvaComeToolStripMenuItem.Click += salvaComeToolStripMenuItem_Click;
             // 
             // esciToolStripMenuItem
             // 
@@ -2088,19 +2101,6 @@
             esciToolStripMenuItem.Size = new Size(134, 22);
             esciToolStripMenuItem.Text = "Esci";
             esciToolStripMenuItem.Click += esciToolStripMenuItem_Click;
-            // 
-            // tOOLToolStripMenuItem
-            // 
-            tOOLToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aproStatoToolStripMenuItem });
-            tOOLToolStripMenuItem.Name = "tOOLToolStripMenuItem";
-            tOOLToolStripMenuItem.Size = new Size(68, 20);
-            tOOLToolStripMenuItem.Text = "FINESTRE";
-            // 
-            // aproStatoToolStripMenuItem
-            // 
-            aproStatoToolStripMenuItem.Name = "aproStatoToolStripMenuItem";
-            aproStatoToolStripMenuItem.Size = new Size(154, 22);
-            aproStatoToolStripMenuItem.Text = "Visualizza Stato";
             // 
             // tabControl
             // 
@@ -2363,6 +2363,10 @@
             systemTimer.Enabled = true;
             systemTimer.Interval = 500;
             systemTimer.Tick += systemTimer_Tick;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // frmCassette
             // 
@@ -2644,8 +2648,6 @@
         private ToolStripMenuItem salvaToolStripMenuItem;
         private ToolStripMenuItem salvaComeToolStripMenuItem;
         private ToolStripMenuItem esciToolStripMenuItem;
-        private ToolStripMenuItem tOOLToolStripMenuItem;
-        private ToolStripMenuItem aproStatoToolStripMenuItem;
         private SaveFileDialog saveFileDialog1;
         private NumericUpDown nud_TensioneSerrandaMassima;
         private Label lbl_TensioneSerrandaMassima;
@@ -2674,5 +2676,7 @@
         private Label lbl_13_02_Baudrate;
         private System.Windows.Forms.Timer timerTick;
         private System.Windows.Forms.Timer systemTimer;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private OpenFileDialog openFileDialog1;
     }
 }

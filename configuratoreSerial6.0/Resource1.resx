@@ -154,17 +154,29 @@
   <data name="LedBluON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedBluON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LedBluONPiccolo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedBluONPiccolo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LedGrigioONPiccolo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedGrigioONPiccolo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LedRossoOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedRossoOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LedRossoON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedRossoON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LedRossoONPiccolo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedRossoONPiccolo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LedVerdeOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedVerdeOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LedVerdeON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedVerdeON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LedVerdeONPiccolo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedVerdeONPiccolo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\logo_x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

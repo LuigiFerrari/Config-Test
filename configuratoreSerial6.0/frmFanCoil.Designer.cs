@@ -333,6 +333,7 @@
             quitToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            timerUnSecondo = new System.Windows.Forms.Timer(components);
             tabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             gb3_filtroSporco.SuspendLayout();
@@ -2701,6 +2702,7 @@
             CB_16_00_RangeTensione.Name = "CB_16_00_RangeTensione";
             CB_16_00_RangeTensione.Size = new Size(108, 23);
             CB_16_00_RangeTensione.TabIndex = 69;
+            CB_16_00_RangeTensione.SelectedIndexChanged += CB_16_00_RangeTensione_SelectedIndexChanged;
             // 
             // nud_16_00_AlarmTreshold
             // 
@@ -3541,7 +3543,7 @@
             // labelIndice
             // 
             labelIndice.BackColor = Color.Lime;
-            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelIndice.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelIndice.Location = new Point(371, 688);
             labelIndice.Margin = new Padding(4, 0, 4, 0);
             labelIndice.Name = "labelIndice";
@@ -3552,7 +3554,7 @@
             // labelFondo
             // 
             labelFondo.BackColor = SystemColors.MenuText;
-            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelFondo.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelFondo.ForeColor = Color.White;
             labelFondo.Location = new Point(354, 685);
             labelFondo.Margin = new Padding(4, 0, 4, 0);
@@ -3564,7 +3566,7 @@
             // labelPleaseWait
             // 
             labelPleaseWait.BackColor = Color.Transparent;
-            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPleaseWait.Font = new Font("Microsoft Sans Serif", 14.25F);
             labelPleaseWait.ForeColor = Color.Black;
             labelPleaseWait.Location = new Point(368, 670);
             labelPleaseWait.Margin = new Padding(4, 0, 4, 0);
@@ -3603,36 +3605,45 @@
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.Click += fileToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(126, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Open";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(126, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAsToolStripMenuItem
             // 
             saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            saveAsToolStripMenuItem.Size = new Size(126, 22);
+            saveAsToolStripMenuItem.Size = new Size(180, 22);
             saveAsToolStripMenuItem.Text = "Save As ...";
             saveAsToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
             // 
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.Size = new Size(126, 22);
+            quitToolStripMenuItem.Size = new Size(180, 22);
             quitToolStripMenuItem.Text = "Quit";
+            quitToolStripMenuItem.Click += quitToolStripMenuItem_Click;
             // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // timerUnSecondo
+            // 
+            timerUnSecondo.Enabled = true;
+            timerUnSecondo.Interval = 1000;
+            timerUnSecondo.Tick += timerUnSecondo_Tick;
             // 
             // frmFanCoil
             // 
@@ -4116,5 +4127,6 @@
         private ToolStripMenuItem quitToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
         private SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Timer timerUnSecondo;
     }
 }

@@ -22,6 +22,19 @@ namespace configuratore
         static int doNotLooop2;
 
         static int Primario; // dispositivo primario;
+        static int FormAperta; // aperta una form da MasterNetwork
+
+        static public void setFinestraAperta()
+        {
+            FormAperta = 1;
+        }
+
+        static public void clsFinestraAperta()
+        {
+            FormAperta = 0;
+        }
+
+        static public Boolean isFinestraAperta() { return FormAperta == 1;  }
 
         static int onClosing;
 

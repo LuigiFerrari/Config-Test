@@ -1,4 +1,6 @@
-﻿using System;
+﻿// #define DEBUGSYS
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,10 @@ using System.IO.Ports;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System.Linq.Expressions;
+using Microsoft.Win32;
+using System.Text.RegularExpressions;
+
+
 
 namespace configuratore
 {
@@ -18,12 +24,13 @@ namespace configuratore
     {
         const int SIZE_FIFO = 1024;
         static SerialPort serialPort;
-        static string[] comPorts;
         static String selectedPortName;
         //static byte[] rxFifo = new byte[SIZE_FIFO];
         //static int rdIndex;
         //static int wrIndex;
         static Boolean Connected;
+
+        static List<String> comPorts = new List<String>();
 
         static byte[] myBuffer = new byte[SIZE_FIFO];
 
@@ -36,7 +43,6 @@ namespace configuratore
 
         public static void initSerial()
         {
-            comPorts = SerialPort.GetPortNames();
             //rdIndex = 0;
             //wrIndex = 1;
             for (int i = 0; i < Costanti.fifoType.Length; i++)
@@ -46,11 +52,74 @@ namespace configuratore
             //for (int i = 0; i < SIZE_FIFO; i++)
             //    rxFifo[i] = 0;
             Connected = false;
+            updateComPorts();
         }
         public static Boolean serialPortIsOpen() { return serialPort.IsOpen; }
         public static void updateComPorts()
         {
-            comPorts = SerialPort.GetPortNames();
+            String[] lComPort  = SerialPort.GetPortNames();
+            updateListPort();
+            comPorts.Clear();
+            
+            for(int i=0;i< lComPort.Length;i++)
+            {
+                int trovato = -1;
+                for (int j = 0; j < comPortsList.Count && trovato<0; j++)
+                {
+                    if (lComPort[i] == comPortsList[j].ComPort)
+                    {
+                        comPorts.Add(lComPort[i]);
+                        trovato = i;
+                    }
+                }
+            }            
+        }
+
+        struct serialDiveceRecord
+        {
+            // public SerialDevice deviceS;
+            public String ComPort;
+            public String intName;
+
+        }
+
+        static List<serialDiveceRecord> comPortsList;
+        static void updateListPort()
+        {
+            String VID = "1FC9";
+            String PID = "0094";
+            if (comPortsList == null)
+            {
+                comPortsList = new List<serialDiveceRecord>();
+            }
+            else
+            {
+                comPortsList.Clear();
+            }
+            String pattern = String.Format("^VID_{0}.PID_{1}", VID, PID);
+            Regex _rx = new Regex(pattern, RegexOptions.IgnoreCase);
+            RegistryKey rk1 = Registry.LocalMachine;
+            RegistryKey rk2 = rk1.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum");
+            foreach (String s3 in rk2.GetSubKeyNames())
+            {
+                RegistryKey rk3 = rk2.OpenSubKey(s3);
+                foreach (String s in rk3.GetSubKeyNames())
+                {
+                    if (_rx.Match(s).Success)
+                    {
+                        RegistryKey rk4 = rk3.OpenSubKey(s);
+                        foreach (String s2 in rk4.GetSubKeyNames())
+                        {
+                            RegistryKey rk5 = rk4.OpenSubKey(s2);
+                            RegistryKey rk6 = rk5.OpenSubKey("Device Parameters");
+                            serialDiveceRecord tmpRec = new serialDiveceRecord();
+                            tmpRec.ComPort = (string)rk6.GetValue("PortName");
+                            tmpRec.intName = "";
+                            comPortsList.Add(tmpRec);
+                        }
+                    }
+                }
+            }
         }
 
         static public Boolean isConnected() { return Connected; }
@@ -106,7 +175,7 @@ namespace configuratore
             //serialPort.DiscardOutBuffer();
         }
 
-        static public int getNumOfSerialPort() { return comPorts.Length; }
+        static public int getNumOfSerialPort() { return comPorts.Count; }
         static public String getSerialPortName(int i) { return comPorts[i]; }
 
 
@@ -171,6 +240,10 @@ namespace configuratore
 
         static int indiceSys = -1;
 
+#if DEBUGSYS
+        static int numsys;
+#endif
+
         static private void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var serialPort = (SerialPort)sender;
@@ -189,13 +262,20 @@ namespace configuratore
                             flg = false;
                         else
                         {
-                            // Debug.Write(" " + utility.convert2Hex((byte)x));
-
+#if DEBUGSYS
+                            if (x == 0xf0)
+                            {
+                                Debug.Write(numsys.ToString() + " - ");
+                                numsys++;
+                            }
+                            Debug.Write(" " + utility.convert2Hex((byte)x));
+#endif
                             switch (x)
                             {
                                 case 0xf0:
                                     indiceSys = 1;
                                     myBuffer[0] = 0xf0;
+                                    
                                     break;
                                 case 0xf7:
                                     if (indiceSys >= 0)
@@ -204,7 +284,9 @@ namespace configuratore
                                         indiceSys++;
                                         push(myBuffer, indiceSys);
                                         indiceSys = -1;
-                                        //Debug.WriteLine("");
+#if DEBUGSYS
+                                        Debug.WriteLine("");
+#endif
 
                                     }
 

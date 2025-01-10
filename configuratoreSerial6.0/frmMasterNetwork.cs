@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,9 @@ namespace configuratore
         int dragRow;
         DataTable tblMirror;
         Boolean masterRunning;
+        int reteSalvata = 0;
+        bool forzaChiusura = true;
+
 
         clsRxBuffer rxBuffer;
         int resetRete = 0;
@@ -147,6 +151,7 @@ namespace configuratore
                     System.Threading.Thread.Sleep(500);
                     parent.abilitaMenu();
                     masterRunning = true;
+                    forzaChiusura = false;
                     this.Close();
                 }
 
@@ -157,6 +162,7 @@ namespace configuratore
                 System.Threading.Thread.Sleep(500);
                 parent.abilitaMenu();
                 masterRunning = true;
+                forzaChiusura = false;
                 this.Close();
             }
         }
@@ -191,6 +197,8 @@ namespace configuratore
             picPleaseWait.Visible = true;
             masterRunning = false;
             resetRete = 1;
+            reteSalvata = 0;
+            disabilitaRichStato();
 
         }
 
@@ -239,14 +247,53 @@ namespace configuratore
                 if (x >= 0)
                 {
                     // controlla messaggistica
-                    picPleaseWait.Visible = false;
-                    btnResetRete.Enabled = true;
+
 
                     // stringa terminata
+                    // Debug.WriteLine(getRxBuffr());
                     String Json = convert2Json(getRxBuffr());
                     JsonNetlist miaRete = new JsonNetlist();
                     switch (miaRete.decodeNET(Json))
                     {
+                        case -1:
+                            abilitaRichStato();
+                            break;
+                        case Costanti.STATO_RETE:
+                            if (clsArbitrator.isFinestraAperta() == false)
+                            {
+                                int numNodi = miaRete.getNumOfStati();
+                                for (int k = 0; k < numNodi; k++)
+                                {
+                                    String m = miaRete.getM(k);
+                                    String v = miaRete.getV(k);
+                                    int s = miaRete.getS(k);
+                                    if (m == null)
+                                        m = "";
+                                    if (v == null)
+                                        v = "";
+                                    // cerca la matricola sulla lista
+                                    for (int n = 0; n < dataGridDevices.RowCount; n++)
+                                    {
+                                        if (dataGridDevices.Rows[n].Cells["MATRICOLA"].Value.ToString().Trim() == m.Trim())
+                                        {
+                                            // trovata matricola
+                                            // metti stato
+                                            if (s == 0)
+                                            {
+                                                dataGridDevices.Rows[n].Cells["STATO"].Value = Costanti.bmpLEDpiccoloVERDE;
+                                            }
+                                            else
+                                            {
+                                                dataGridDevices.Rows[n].Cells["STATO"].Value = Costanti.bmpLEDpiccoloROSSO;
+                                            }
+                                            dataGridDevices.Rows[n].Cells["VERSIONE"].Value = v; 
+                                        }
+                                    }
+                                    // e ne associa lo stato.
+                                }
+                                abilitaRichStato();
+                            }
+                            break;
                         case Costanti.NETLIST:
                             dataGridDevices.Rows.Clear();
                             for (int i = 0; i < miaRete.getNumOfNodi(); i++)
@@ -254,7 +301,7 @@ namespace configuratore
                                 dataGridDevices.Rows.Add();
                                 dataGridDevices.Rows[i].Cells["MATRICOLA"].Value = miaRete.getMatricola(i);
                                 dataGridDevices.Rows[i].Cells["DISPOSITIVO"].Value = Costanti.getNomeDispositivo(miaRete.getTipo(i), miaRete.getSubType(i));
-                                dataGridDevices.Rows[i].Cells["STATO"].Value = miaRete.getStato(i);
+                                dataGridDevices.Rows[i].Cells["STATO"].Value = Costanti.bmpLEDpiccoloBLU;
                                 if (masterRunning)
                                     dataGridDevices.Rows[i].Cells["CONNECT"].Value = global::configuratoreSerial6._0.Resource1.Connetti;
                                 else
@@ -343,7 +390,13 @@ namespace configuratore
                                 MessageBox.Show(message, title);
                             }
                             else
+                            {
                                 btnRestartMaster.Enabled = true;
+                                abilitaRichStato();
+                                systemTimer.Enabled = true; 
+                            }
+                            picPleaseWait.Visible = false;
+                            btnResetRete.Enabled = true;
                             break;
                         case Costanti.NETSTATUS:
 
@@ -371,12 +424,23 @@ namespace configuratore
             String xx = "";
             int i;
             int j;
-            for (j = 0; buffer[j] != 0xf7; j++) ;
+            //for (j = 0; buffer[j] != 0xf7; j++)
+            //{
+            //    Debug.Write(Convert.ToString((int)buffer[j], 16));
+            //    Debug.Write(" ");
+            //}
+            //Debug.WriteLine("F7");
+
+                for (j = 0; buffer[j] != 0xf7; j++) ;
+
+
             j = j - 2;
             for (i = 3; i < j; i++)
             {
                 xx = xx + (char)buffer[i];
             }
+            if(!xx.Contains("netStatus"))
+                Debug.WriteLine(xx);
             return xx;
         }
 
@@ -384,7 +448,8 @@ namespace configuratore
         {
             String name = dataGridDevices.Columns[e.ColumnIndex].Name;
             int riga = e.RowIndex;
-            if (riga >= 0) {
+            if (riga >= 0)
+            {
                 switch (name)
                 {
                     case "CONNECT":
@@ -398,6 +463,7 @@ namespace configuratore
                         }
                         else
                         {
+                            disabilitaRichStato();
                             int device = Convert.ToInt32(dataGridDevices.Rows[riga].Cells["CODICE"].Value) & 0x07;
                             // inserisce nel parametro RICHIESTA_DA_MASTER l'indirizzo del dispositivo
                             int richiestoDa;
@@ -408,6 +474,8 @@ namespace configuratore
                                 richiestoDa = Costanti.RICHIESTA_DA_MASTER | Convert.ToInt32(dataGridDevices.Rows[riga].Cells["INDIRIZZO"].Value);
                             disabilitaBottoni();
                             String relese = dataGridDevices.Rows[riga].Cells["VERSIONE"].Value.ToString();
+                            clsArbitrator.setFinestraAperta();
+                            ledGrigi();
                             parent.openFromRemote(device, true, richiestoDa, matricola, relese);
                             // frmCassette fcassette = new frmCassette("CASSETTE: ", clsMsg.getInfoMsg(), this, false); // String Type, String Info, frmStartUp lparent, Boolean DefaultData
                         }
@@ -479,6 +547,9 @@ namespace configuratore
             {
                 dataGridDevices.Rows[i].Cells["CONNECT"].Value = global::configuratoreSerial6._0.Resource1.Connetti;
             }
+            abilitaRichStato();
+            ledBlu();
+
         }
 
         // ----------- GESTIONE DRAG and DROP
@@ -610,39 +681,42 @@ namespace configuratore
         private void btnSalvaRete_Click(object sender, EventArgs e)
         {
             // controlla che ci sia almeno un MASTER
-            int p = -1;
-            // vede se c'è un solo dispositivo
-            if (dataGridDevices.RowCount == 1)
+            if (testPrincipale())
             {
-                p = 1;
-            }
-            else
-            {
-
-                for (int i = 0; i < dataGridDevices.RowCount && p < 0; i++)
+                int p = -1;
+                // vede se c'è un solo dispositivo
+                if (dataGridDevices.RowCount == 1)
                 {
-                    if (Convert.ToInt32(dataGridDevices.Rows[i].Cells["FLAGPRINCIPALE"].Value) == 1)
+                    p = 1;
+                }
+                else
+                {
+
+                    for (int i = 0; i < dataGridDevices.RowCount && p < 0; i++)
                     {
-                        p = 1;
+                        if (Convert.ToInt32(dataGridDevices.Rows[i].Cells["FLAGPRINCIPALE"].Value) == 1)
+                        {
+                            p = 1;
+                        }
                     }
                 }
-            }
-            if (p <= 0)
-            {
-                var resp = MessageBox.Show(loca.getStr(loca.indice.MNET_MSG_NO_PRINCIPALE), loca.getStr(loca.indice.MNET_MSG_ERROR), MessageBoxButtons.OK);
+                if (p <= 0)
+                {
+                    var resp = MessageBox.Show(loca.getStr(loca.indice.MNET_MSG_NO_PRINCIPALE), loca.getStr(loca.indice.MNET_MSG_ERROR), MessageBoxButtons.OK);
 
-            }
-            else
-            {
-                // crea un stringa JSON con i dati e la spedisce al MASTER
-                picPleaseWait.Visible = true;
-                JsonNetlist miaRete = new JsonNetlist();
-                String jsonSTR = miaRete.encodeNET(dataGridDevices);
-                txMsg.storeNetork(jsonSTR);
+                }
+                else
+                {
+                    // crea un stringa JSON con i dati e la spedisce al MASTER
+                    picPleaseWait.Visible = true;
+                    JsonNetlist miaRete = new JsonNetlist();
+                    String jsonSTR = miaRete.encodeNET(dataGridDevices);
+                    txMsg.storeNetork(jsonSTR);
 
-                add2Mirror(dataGridDevices);
-                Fintosave.Interval = 1500 * dataGridDevices.RowCount;
-                Fintosave.Enabled = true;
+                    add2Mirror(dataGridDevices);
+                    Fintosave.Interval = 1500 * dataGridDevices.RowCount;
+                    Fintosave.Enabled = true;
+                }
             }
         }
 
@@ -652,14 +726,49 @@ namespace configuratore
             picPleaseWait.Visible = false;
             MessageBox.Show(loca.getStr(loca.indice.MNET_MSG_SAVED), loca.getStr(loca.indice.MNET_MSG_INFO), MessageBoxButtons.OK);
             btnSalvaRete.Enabled = false;
+            reteSalvata = 1;
+
         }
+
+        Boolean testPrincipale()
+        {
+            int p = -1;
+            for (int i = 0; i < dataGridDevices.RowCount && p < 0; i++)
+            {
+                if (Convert.ToInt32(dataGridDevices.Rows[i].Cells["FLAGPRINCIPALE"].Value) == 1)
+                {
+                    p = 1;
+                }
+            }
+
+            if (p < 0)
+            {
+                var resp = MessageBox.Show(loca.getStr(loca.indice.MNET_MSG_NO_PRINCIPALE), loca.getStr(loca.indice.MNET_MSG_ERROR), MessageBoxButtons.OK);
+            }
+            return (p > 0);
+        }
+
+
 
         private void btnRestartMaster_Click(object sender, EventArgs e)
         {
             // txMsg.restartMaster();
-            timerDelay.Enabled = true;
-            masterRunning = true;
-            setIconsToConnect();
+            if (testPrincipale())
+            {
+                if (reteSalvata == 1)
+                {
+                    timerDelay.Enabled = true;
+                    masterRunning = true;
+                    setIconsToConnect();
+                    abilitaRichStato();
+                }
+                else
+                {
+                    var resp = MessageBox.Show(loca.getStr(loca.indice.MNET_MSG_RETE_NON_SALVATA), loca.getStr(loca.indice.MNET_MSG_ERROR), MessageBoxButtons.OK);
+
+                }
+            }
+
         }
 
         void enableSalva()
@@ -684,13 +793,72 @@ namespace configuratore
                 this.Close();
                 clsSerial.USBerrorRestart();
             }
-           
+
         }
 
         private void timerDelay_Tick(object sender, EventArgs e)
         {
             txMsg.restartMaster();
             timerDelay.Enabled = false;
+        }
+
+        private void frmMasterNetwork_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = forzaChiusura;
+        }
+
+        void requireStatus()
+        {
+            JsonNetlist miaRete = new JsonNetlist();
+            String jsonSTR = miaRete.encodeNET(dataGridDevices);
+            txMsg.storeNetork(jsonSTR);
+        }
+
+        void newRichiediStato()
+        {
+            txMsg.requireNetworkStatus();
+
+        }
+        int RichiestaStatoAbilitata;
+        private void systemTimer_Tick(object sender, EventArgs e)
+        {
+            if (clsArbitrator.isFinestraAperta() == false)
+            {
+                if (RichiestaStatoAbilitata == 1 && picPleaseWait.Visible == false)
+                {
+                    newRichiediStato();
+                    disabilitaRichStato();
+                }
+
+            }
+                
+            
+        }
+
+        void abilitaRichStato()
+        {
+            RichiestaStatoAbilitata = 1;
+        }
+
+        void disabilitaRichStato()
+        {
+            RichiestaStatoAbilitata = 0;
+        }
+
+        void ledGrigi()
+        {
+            for (int i = 0; i < dataGridDevices.RowCount; i++)
+            {
+                dataGridDevices.Rows[i].Cells["STATO"].Value = Costanti.bmpLEDpiccoloGRIGIO;
+            }
+        }
+
+        void ledBlu()
+        {
+            for (int i = 0; i < dataGridDevices.RowCount; i++)
+            {
+                dataGridDevices.Rows[i].Cells["STATO"].Value = Costanti.bmpLEDpiccoloBLU;
+            }
         }
     }
 }

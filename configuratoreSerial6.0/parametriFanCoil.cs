@@ -125,31 +125,30 @@ namespace configuratoreSerial6._0
         public const int KF_ABILITAZIONE_RAMPA_ONOFF = 99;
         public const int KF_TEMPO_RAMPA = 100;
         // -----------------------------
-        public const int KF_TIPO_DISPOSITIVO_MS = 101;
-        public const int KF_INDIRIZZO = 102;
-        public const int KF_BAUDRATE = 103;
-        public const int KF_PARITA = 104;
-        public const int KF_BITSTOP = 105;
+        public const int KF_INCR_ZM_RISC_TIPO1_MBUS = 101;
+        public const int KF_INCR_ZM_RAFF_TIPO1_MBUS = 102;
+        public const int KF_INCR_ZM_RISC_TIPO2_MBUS = 103;
+        public const int KF_INCR_ZM_RAFF_TIPO2_MBUS = 104;
+        public const int KF_ECONOMY_TYPE_MBUS = 105;
         // -----------------------------
-        public const int KF_INDIRIZZO_SLAVE = 106;
+        public const int KF_TIPO_DISPOSITIVO_MS = 106;
+        public const int KF_INDIRIZZO = 107;
+        public const int KF_BAUDRATE = 108;
+        public const int KF_PARITA = 109;
+        public const int KF_BITSTOP = 110;
         // -----------------------------
-        public const int KF_KV_FORZATURA_SETPOINT_ONOFF = 107;
-        public const int KF_KV_VALORE_FORZATURA_SETPOINT = 108;
-        public const int KF_KV_CMD_VENTILATORE = 109;
-        public const int KF_KV_CMD_RISCALDAMENTO = 110;
-        public const int KF_KV_CMD_RAFFREDDAMENTO = 111;
-        public const int KF_KV_CMD_SERRANDA = 112;
-        public const int KF_KV_PERC_VENTILATORE = 113;
-        public const int KF_KV_PERC_RISCALDAMENTO = 114;
-        public const int KF_KV_PERC_RAFFREDDAMENTO = 115;
-        public const int KF_KV_PERC_SERRANDA = 116;
-        public const int KF_INCR_ZM_RISC_TIPO1_MBUS = 117;
-        public const int KF_INCR_ZM_RAFF_TIPO1_MBUS = 118;
-        public const int KF_INCR_ZM_RISC_TIPO2_MBUS = 119;
-        public const int KF_INCR_ZM_RAFF_TIPO2_MBUS = 120;
-        public const int KF_ECONOMY_TYPE_MBUS = 121;
+        public const int KF_INDIRIZZO_SLAVE = 111;
+        // -----------------------------
+        public const int KF_KV_FORZATURA_SETPOINT_ONOFF = 112;
+        public const int KF_KV_VALORE_FORZATURA_SETPOINT = 113;
+        public const int KF_MBUS_FORZATURA_VENTILATORE = 114;
+        public const int KF_MBUS_FORZATURA_RISCALDAMENTO = 115;
+        public const int KF_MBUS_FORZATURA_RAFFREDDAMENTO = 116;
+        public const int KF_MBUS_FORZATURA_SERRANDA = 117;
 
-        public const int NUMERO_PARAMETRI_KF = (KF_ECONOMY_TYPE_MBUS + 1);
+
+
+        public const int NUMERO_PARAMETRI_KF = (KF_MBUS_FORZATURA_SERRANDA + 1);
 
     }
 }

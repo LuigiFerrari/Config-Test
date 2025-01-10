@@ -1,6 +1,8 @@
-﻿using System;
+﻿using configuratoreSerial6._0.uniqueID;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,9 +15,17 @@ namespace configuratore
 {
     public partial class frmInfo : Form
     {
-        public frmInfo()
+        String[] Livelli =
+        {
+            "MANUFACTURER",
+            "COMMISIONING",
+            "USER"
+
+        };
+        public frmInfo(int codice)
         {
             InitializeComponent();
+            lblLivello.Text = Livelli[codice];
         }
 
         private void frmInfo_Load(object sender, EventArgs e)
@@ -27,6 +37,19 @@ namespace configuratore
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmRequireCOnfig frmRequire = new frmRequireCOnfig();
+            frmRequire.ShowDialog();
+            int configurazione = frmRequire.getConfig();
+            if (configurazione >= 0)
+            {
+                uniqueID.setConfigurazione(configurazione);
+                lblLivello.Text = Livelli[configurazione];
+                global.setLivello(configurazione);
+            }
         }
 
 

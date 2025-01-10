@@ -1,6 +1,7 @@
 ﻿using configuratore.costStatoT1;
 using configuratore.stato;
 using configuratore.statoCassette;
+using configuratoreSerial6._0;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,8 @@ namespace configuratore
         frmStartUp parent;
         int richiestoDa;
 
+        classGroupBoxT1 gbTest;
+
         const String STR_MASTER = "0";
 
         public int getRichiestoDa() { return richiestoDa; }
@@ -53,11 +56,34 @@ namespace configuratore
             for (int i = 0; i < LayOutT1Grp.Length; i++)
             {
 
-                classGroupBoxT1 gbTest = new classGroupBoxT1(LayOutT1Grp[i], this);
+                gbTest = new classGroupBoxT1(LayOutT1Grp[i], this);
                 progressivo = gbTest.getProgresivo();
                 this.Controls.Add(gbTest.getGroupBox());
                 gBox.Add(gbTest);
             }
+
+            int fln = -1;
+            int flg = -1;
+            for (int g = 0; g < LayOutT1Grp.Length && flg < 0; g++)
+            {
+
+                //  for(int n=0;n< LayOutT1Grp[g].cfgUpDown[n].numUpDown== nud_0_06)
+                if (LayOutT1Grp[g].cfgUpDown != null)
+                {
+                    for (int n = 0; n < LayOutT1Grp[g].cfgUpDown.Length && fln < 0; n++)
+                    {
+                        if (LayOutT1Grp[g].cfgUpDown[n].numUpDown == nud_0_06)
+                        {
+                            fln = n;
+                            flg = g;
+                            gbTest.setGNnum6(LayOutT1Grp[g].cfgUpDown[n].numParametro, n);
+                        }
+                    }
+                }
+            }
+
+
+
             setColorDefault();
             this.Text = Type + Info;
 
@@ -95,6 +121,9 @@ namespace configuratore
             costStatoT2.init();
             initStato();
             rxBuffer = new clsRxBuffer();
+            // setta i valori della forzatura
+            restoreForzatura();
+
         }
 
         public byte[] getRxBuffr() { return rxBuffer.getRxBuffer(); }
@@ -247,6 +276,14 @@ namespace configuratore
                                     skipNum = costAl.MAX_SIZE_STRING / 2;
                                     // Debug.WriteLine(s);
                                     break;
+                                case 'V':
+                                    s = "";
+                                    for (int i = 0; i < costAl.MAX_SIZE_VERSIONE; i++)
+                                        s = s + (char)buffer[pos + i + 1];
+                                    statoGrp[g].valLabel[j].Text = s;
+                                    skipNum = costAl.MAX_SIZE_VERSIONE / 2;
+                                    // Debug.WriteLine(s);
+                                    break;
                                 case 'N':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
                                     int d = costStatoT2.getdecimali(p);
@@ -259,10 +296,19 @@ namespace configuratore
                                             s = "M";
                                         }
                                         else
+                                        {
                                             s = "S";
+                                        }
+                                    }
+                                    if (p == costStatoT2.T2S_INDIRIZZO_SLAVE)
+                                    {
+                                        if(t1_rb_1_00_TipDisp_MASTER.Checked == true)
+                                        {
+                                            s = t1_nud_1_01_Indirizzo.Value.ToString();
+                                        }
                                     }
 
-                                    if (p == costStatoT2.T2S_ON_OFF)
+                                        if (p == costStatoT2.T2S_ON_OFF)
                                     {
                                         if (v == 0)
                                             s = "OFF";
@@ -687,10 +733,21 @@ namespace configuratore
                              vDefault = 0,
                              numParametro = parametriT1.KT2_BITSTOP,
                         },
-                     }
+                     },
+                       cfgUpDown = new upDownInfo[]
+                    {
+                        new upDownInfo
+                        {
+                            numUpDown = t1_nud_1_01_Indirizzo, // 0
+                            numParametro = parametriT1.KT2_INDIRIZZO,
+                            vDefault =(decimal)1,vMin =(decimal) 0,vMax =(decimal) 255,vInc =(decimal) 1,nDec =(int) 0
+                        },
+                    }
+
 
                 }, // GB 1
             };
+
         }
 
 
@@ -738,6 +795,11 @@ namespace configuratore
                         {
                             mlabel = t1_lbl_s0_14,
                             text =lStat.Indice.T2_LBL_S2_00,
+                        },
+                        new sLabel()
+                        {
+                            mlabel = t1_lbl_s0_16,
+                            text =lStat.Indice.T1_LBL_S0_07,
                         },
                          new sLabel()
                         {
@@ -792,8 +854,8 @@ namespace configuratore
                             text = lStat.Indice.T1_LBL_S2_02,
                         },
                     },
-                        valLabel = new Label[] { t1_val_s2_00, t1_val_s2_01, t1_val_s2_02 },
-                        vvParametro = new int[] { constStatoT1.T2S_MATRICOLA_00,  constStatoT1.T2S_MASTERSLAVE, constStatoT1.T2S_INDIRIZZO_SLAVE }
+                        valLabel = new Label[] { t1_val_s2_00, t1_val_s2_01, t1_val_s2_02,t1_val_s2_04_sw_rel },
+                        vvParametro = new int[] { constStatoT1.T2S_MATRICOLA_00,  constStatoT1.T2S_MASTERSLAVE, constStatoT1.T2S_INDIRIZZO_SLAVE, constStatoT1.T2S_VERSIONE_00 }
                    },   // ---------- 0
           };
         }
@@ -1077,7 +1139,7 @@ namespace configuratore
             txMsg.txMsgOne(parametriT2.KT2_V_ROSSO, 0, richiestoDa);
             txMsg.txMsgOne(parametriT2.KT2_V_VERDE, 0, richiestoDa);
             txMsg.txMsgOne(parametriT2.KT2_V_BLU, 0, richiestoDa);
-            txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, 0, richiestoDa);
+            // txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, 0, richiestoDa);
         }
 
         private void btn_s1__02_LED_BLU_Click(object sender, EventArgs e)
@@ -1108,12 +1170,27 @@ namespace configuratore
             if (richiestoDa == 0)
                 parent.abilitaMenu();
             else
+            {
                 clsArbitrator.setriabilitaBottoni();
+                clsArbitrator.clsFinestraAperta();
+            }
             // blocca eventuali forzature
             offForzature();
         }
 
-
+        void restoreForzatura()
+        {
+            if(comTask.readOnOffSetPoint()!=0)
+            {
+                t2_s1_btn_00.Text = V_ON;
+                t2_s1_btn_00.Image = global::configuratoreSerial6._0.Resource1.FrecciaDestraON;
+            } else
+            {
+                t2_s1_btn_00.Text = V_OFF;
+                t2_s1_btn_00.Image = global::configuratoreSerial6._0.Resource1.FrecciaDestraOFF;
+            }
+            t2_s1_nud_00.Value = comTask.readSetPointValue();
+        }
         struct retStat
         {
             public Image img;
@@ -1158,13 +1235,16 @@ namespace configuratore
             t2_s1_btn_00.Image = y.img;
             t2_s1_btn_00.Text = y.txt;
             txMsg.txMsgOne(parametriT2.KT2_V_FORZ_SETPOINT_ONOFF, getStato(t2_s1_btn_00), richiestoDa);
+            comTask.writeOnOffSetPoint(getStato(t2_s1_btn_00));
         }
 
 
 
         private void t2_s1_nud_00_ValueChanged(object sender, EventArgs e)
         {
-            txMsg.txMsg2(parametriT2.KT2_V_FORZ_SETPOINT_VALORE, (int)t2_s1_nud_00.Value * 10, richiestoDa);
+            txMsg.txMsg2(parametriT2.KT2_V_FORZ_SETPOINT_VALORE, (int)(t2_s1_nud_00.Value * 10), richiestoDa);
+            comTask.writeSetPointValue(t2_s1_nud_00.Value);
+
         }
 
         void abilitaTimerRichiesta()
@@ -1204,6 +1284,217 @@ namespace configuratore
 
 
         }
+
+        private void salvaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String Filename = datiConfig.getDefaultDirFancoil();
+            String directoryName = Path.GetDirectoryName(Filename);
+            preparaTabellaDatiParametri();
+            aggiornaDataFile();
+            datiConfig.setDefaultDirTermostato(Filename);
+            datiConfig.saveFile();
+            datiTermostato.AggiornaData();
+            datiTermostato.saveFile(Filename);
+            datiTermostato.Initdati(Filename);
+        }
+
+        private void aggiornaDataFile()
+        {
+            datiTermostato.AggiornaData();
+        }
+        private void salvaComeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            String Filename = datiConfig.getDefaultDirFancoil();
+            String directoryName = Path.GetDirectoryName(Filename);
+            saveFileDialog1.InitialDirectory = directoryName;
+            saveFileDialog1.DefaultExt = "prm";
+            saveFileDialog1.Filter = "Thermostat parameter (*.prm)|*.prm";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Filename = saveFileDialog1.FileName;
+                preparaTabellaDatiParametri();
+                datiConfig.setDefaultDirTermostato(Filename);
+                datiConfig.saveFile();
+                datiTermostato.saveFile(Filename);
+                datiTermostato.Initdati(Filename);
+
+            }
+        }
+
+        private void apriToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String Filename = datiConfig.getDefaultDirTermostato();
+            String directoryName = Path.GetDirectoryName(Filename);
+            String myFile = Path.GetFileName(Filename);
+
+            openFileDialog1.FileName = myFile;
+            openFileDialog1.InitialDirectory = directoryName;
+            openFileDialog1.Filter = "Thermostat parameter (*.prm)|*.prm|All files (*.*)|*.*";
+            openFileDialog1.DefaultExt = "prm";
+
+            DialogResult dr = openFileDialog1.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                Filename = openFileDialog1.FileName;
+                datiConfig.setDefaultDirTermostato(Filename);
+                datiConfig.saveFile();
+                datiTermostato.Initdati(Filename);
+                AggiornaCampi();
+            }
+        }
+
+        void AggiornaCampi()
+        {
+            for (int r = 0; r < datiTermostato.getNumeroTtaleParametri(); r++)
+            {
+                String Nome = datiTermostato.getNomefromTabella(r);
+                int p = datiTermostato.getIDParametro(Nome);
+                if (p >= 0)
+                {
+                    int v = datiTermostato.getValorefromTabella(r);
+                    aggiornaParametroDaFile(p, v);
+                }
+            }
+        }
+
+        void preparaTabellaDatiParametri()
+        {
+            // legge tutti i dati dei parametri e li salva nella relativa tabella
+            int g;
+            int j;
+            int v;
+            datiTermostato.cancellaTabella();
+            int numeroTotaleParametri = datiTermostato.getNumeroTtaleParametri();
+            for (g = 0; g < LayOutT1Grp.Length; g++)
+            {
+                if (LayOutT1Grp[g].cfgCombo != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgCombo.Length; j++)
+                    {
+                        int ID = LayOutT1Grp[g].cfgCombo[j].numParametro;
+                        String nomeParametro = datiTermostato.getNomeParametro(ID);
+                        v = LayOutT1Grp[g].cfgCombo[j].combo.SelectedIndex;
+                        datiTermostato.salvaParametro(ID, nomeParametro, v);
+
+
+
+                    }
+
+                }
+                // ----------------------------------
+                if (LayOutT1Grp[g].cfgUpDown != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgUpDown.Length; j++)
+                    {
+
+                        int ID = LayOutT1Grp[g].cfgUpDown[j].numParametro;
+                        String nomeParametro = datiTermostato.getNomeParametro(ID);
+                        decimal x = LayOutT1Grp[g].cfgUpDown[j].numUpDown.Value;
+                        v = (int)(x * (decimal)utility.potDieci(LayOutT1Grp[g].cfgUpDown[j].nDec));
+
+                        datiTermostato.salvaParametro(ID, nomeParametro, v);
+                    }
+                }
+                // ----------------------------------
+                if (LayOutT1Grp[g].cfgRadioButton != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgRadioButton.Length; j++)
+                    {
+
+                        int ID = LayOutT1Grp[g].cfgRadioButton[j].numParametro;
+                        String nomeParametro = datiTermostato.getNomeParametro(ID);
+                        for (int k = 0; k < LayOutT1Grp[g].cfgRadioButton[j].rButton.Length; k++)
+                        {
+
+                            if (LayOutT1Grp[g].cfgRadioButton[j].rButton[k].Checked)
+                            {
+                                v = k;
+                                datiTermostato.salvaParametro(ID, nomeParametro, v);
+                            }
+                        }
+                        // campoDinamico(p, g, j, v);
+                    }
+
+                }
+            }
+            //// ----------------------------------
+
+        }
+
+        public void aggiornaParametroDaFile(int p, int v)
+        // p = numero parametro
+        // v = valore parametro
+
+        {
+            Debug.WriteLine("Par: " + p.ToString());
+            int g;
+            int j;
+            int trovato = -1;
+
+            for (g = 0; g < LayOutT1Grp.Length && trovato < 0; g++)
+            {
+                if (LayOutT1Grp[g].cfgCombo != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgCombo.Length && trovato < 0; j++)
+                    {
+                        if (LayOutT1Grp[g].cfgCombo[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            LayOutT1Grp[g].cfgCombo[j].combo.SelectedIndex = v;
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+
+                }
+                // ----------------------------------
+                if (LayOutT1Grp[g].cfgUpDown != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgUpDown.Length && trovato < 0; j++)
+                    {
+                        if (LayOutT1Grp[g].cfgUpDown[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            // trasformare decimali
+                            decimal d = utility.convert2Decimal(v, LayOutT1Grp[g].cfgUpDown[j].nDec);
+                            LayOutT1Grp[g].cfgUpDown[j].numUpDown.Value = d;
+                            // calcoli(p);
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+                }
+                // ----------------------------------
+                if (LayOutT1Grp[g].cfgRadioButton != null)
+                {
+                    for (j = 0; j < LayOutT1Grp[g].cfgRadioButton.Length && trovato < 0; j++)
+                    {
+                        if (LayOutT1Grp[g].cfgRadioButton[j].numParametro == p)
+                        {
+                            // trovato
+                            trovato = j;
+                            for (int k = 0; k < LayOutT1Grp[g].cfgRadioButton[trovato].rButton.Length; k++)
+                            {
+                                LayOutT1Grp[g].cfgRadioButton[trovato].rButton[k].Checked = (k == v);
+                            }
+                            // campoDinamico(p, g, j, v);
+                        }
+
+                    }
+                }
+                // ----------------------------------
+
+            }
+            if (trovato < 0)
+            {
+                Debug.WriteLine("Parametro non trovato" + p.ToString());
+            }
+        }
+
+
     }
 }
 

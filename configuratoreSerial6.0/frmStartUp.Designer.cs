@@ -31,10 +31,6 @@
             components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
-            apriToolStripMenuItem = new ToolStripMenuItem();
-            nuovoToolStripMenuItem = new ToolStripMenuItem();
-            salvaToolStripMenuItem = new ToolStripMenuItem();
-            salvaComeToolStripMenuItem = new ToolStripMenuItem();
             esciToolStripMenuItem = new ToolStripMenuItem();
             cOMToolStripMenuItem = new ToolStripMenuItem();
             spedisciTCPToolStripMenuItem = new ToolStripMenuItem();
@@ -71,40 +67,15 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { apriToolStripMenuItem, nuovoToolStripMenuItem, salvaToolStripMenuItem, salvaComeToolStripMenuItem, esciToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { esciToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
             // 
-            // apriToolStripMenuItem
-            // 
-            apriToolStripMenuItem.Name = "apriToolStripMenuItem";
-            apriToolStripMenuItem.Size = new Size(146, 22);
-            apriToolStripMenuItem.Text = "Apri";
-            // 
-            // nuovoToolStripMenuItem
-            // 
-            nuovoToolStripMenuItem.Name = "nuovoToolStripMenuItem";
-            nuovoToolStripMenuItem.Size = new Size(146, 22);
-            nuovoToolStripMenuItem.Text = "Nuovo";
-            // 
-            // salvaToolStripMenuItem
-            // 
-            salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
-            salvaToolStripMenuItem.Size = new Size(146, 22);
-            salvaToolStripMenuItem.Text = "Salva";
-            salvaToolStripMenuItem.Click += salvaToolStripMenuItem_Click;
-            // 
-            // salvaComeToolStripMenuItem
-            // 
-            salvaComeToolStripMenuItem.Name = "salvaComeToolStripMenuItem";
-            salvaComeToolStripMenuItem.Size = new Size(146, 22);
-            salvaComeToolStripMenuItem.Text = "Salva come ...";
-            // 
             // esciToolStripMenuItem
             // 
             esciToolStripMenuItem.Name = "esciToolStripMenuItem";
-            esciToolStripMenuItem.Size = new Size(146, 22);
+            esciToolStripMenuItem.Size = new Size(180, 22);
             esciToolStripMenuItem.Text = "Esci";
             esciToolStripMenuItem.Click += esciToolStripMenuItem_Click;
             // 
@@ -270,10 +241,6 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem apriToolStripMenuItem;
-        private ToolStripMenuItem nuovoToolStripMenuItem;
-        private ToolStripMenuItem salvaToolStripMenuItem;
-        private ToolStripMenuItem salvaComeToolStripMenuItem;
         private ToolStripMenuItem esciToolStripMenuItem;
         private ToolStripMenuItem cOMToolStripMenuItem;
         private ToolStripMenuItem deviceToolStripMenuItem;

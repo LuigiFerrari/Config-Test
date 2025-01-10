@@ -32,16 +32,6 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dataGridDevices = new DataGridView();
-            DISPOSITIVO = new DataGridViewTextBoxColumn();
-            INDIRIZZO = new DataGridViewTextBoxColumn();
-            MATRICOLA = new DataGridViewTextBoxColumn();
-            VERSIONE = new DataGridViewTextBoxColumn();
-            STATO = new DataGridViewTextBoxColumn();
-            CONNECT = new DataGridViewImageColumn();
-            CODICE = new DataGridViewTextBoxColumn();
-            FLAGPRINCIPALE = new DataGridViewTextBoxColumn();
-            SUBTYPE = new DataGridViewTextBoxColumn();
-            PRINCIPALE = new DataGridViewImageColumn();
             btnResetRete = new Button();
             btnAggiornaRete = new Button();
             btnSalvaRete = new Button();
@@ -52,6 +42,17 @@
             Fintosave = new System.Windows.Forms.Timer(components);
             timerTick = new System.Windows.Forms.Timer(components);
             timerDelay = new System.Windows.Forms.Timer(components);
+            systemTimer = new System.Windows.Forms.Timer(components);
+            DISPOSITIVO = new DataGridViewTextBoxColumn();
+            INDIRIZZO = new DataGridViewTextBoxColumn();
+            MATRICOLA = new DataGridViewTextBoxColumn();
+            VERSIONE = new DataGridViewTextBoxColumn();
+            STATO = new DataGridViewImageColumn();
+            CONNECT = new DataGridViewImageColumn();
+            CODICE = new DataGridViewTextBoxColumn();
+            FLAGPRINCIPALE = new DataGridViewTextBoxColumn();
+            SUBTYPE = new DataGridViewTextBoxColumn();
+            PRINCIPALE = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridDevices).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPleaseWait).BeginInit();
             SuspendLayout();
@@ -85,89 +86,6 @@
             dataGridDevices.CellMouseDown += dataGridDevices_CellMouseDown;
             dataGridDevices.CellMouseMove += dataGridDevices_CellMouseMove;
             dataGridDevices.MouseUp += dataGridDevices_MouseUp;
-            // 
-            // DISPOSITIVO
-            // 
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DISPOSITIVO.DefaultCellStyle = dataGridViewCellStyle1;
-            DISPOSITIVO.FillWeight = 300F;
-            DISPOSITIVO.HeaderText = "DISPOSITIVO";
-            DISPOSITIVO.Name = "DISPOSITIVO";
-            DISPOSITIVO.ReadOnly = true;
-            DISPOSITIVO.SortMode = DataGridViewColumnSortMode.NotSortable;
-            DISPOSITIVO.Width = 300;
-            // 
-            // INDIRIZZO
-            // 
-            INDIRIZZO.FillWeight = 70F;
-            INDIRIZZO.HeaderText = "INDIRIZZO";
-            INDIRIZZO.Name = "INDIRIZZO";
-            INDIRIZZO.ReadOnly = true;
-            INDIRIZZO.SortMode = DataGridViewColumnSortMode.NotSortable;
-            INDIRIZZO.Width = 70;
-            // 
-            // MATRICOLA
-            // 
-            MATRICOLA.HeaderText = "MATRICOLA";
-            MATRICOLA.Name = "MATRICOLA";
-            MATRICOLA.ReadOnly = true;
-            MATRICOLA.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // VERSIONE
-            // 
-            VERSIONE.HeaderText = "VERSIONE";
-            VERSIONE.Name = "VERSIONE";
-            VERSIONE.ReadOnly = true;
-            VERSIONE.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // STATO
-            // 
-            STATO.FillWeight = 50F;
-            STATO.HeaderText = "STATO";
-            STATO.Name = "STATO";
-            STATO.ReadOnly = true;
-            STATO.SortMode = DataGridViewColumnSortMode.NotSortable;
-            STATO.Width = 50;
-            // 
-            // CONNECT
-            // 
-            CONNECT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            CONNECT.HeaderText = "CONNECT";
-            CONNECT.Name = "CONNECT";
-            CONNECT.ReadOnly = true;
-            CONNECT.Resizable = DataGridViewTriState.True;
-            CONNECT.Width = 68;
-            // 
-            // CODICE
-            // 
-            CODICE.HeaderText = "CODICE";
-            CODICE.Name = "CODICE";
-            CODICE.ReadOnly = true;
-            CODICE.SortMode = DataGridViewColumnSortMode.NotSortable;
-            CODICE.Visible = false;
-            // 
-            // FLAGPRINCIPALE
-            // 
-            FLAGPRINCIPALE.HeaderText = "FLAGPRINCIPALE";
-            FLAGPRINCIPALE.Name = "FLAGPRINCIPALE";
-            FLAGPRINCIPALE.ReadOnly = true;
-            FLAGPRINCIPALE.SortMode = DataGridViewColumnSortMode.NotSortable;
-            FLAGPRINCIPALE.Visible = false;
-            // 
-            // SUBTYPE
-            // 
-            SUBTYPE.HeaderText = "SUBTYPE";
-            SUBTYPE.Name = "SUBTYPE";
-            SUBTYPE.ReadOnly = true;
-            SUBTYPE.SortMode = DataGridViewColumnSortMode.NotSortable;
-            SUBTYPE.Visible = false;
-            // 
-            // PRINCIPALE
-            // 
-            PRINCIPALE.HeaderText = "";
-            PRINCIPALE.Name = "PRINCIPALE";
-            PRINCIPALE.ReadOnly = true;
-            PRINCIPALE.Resizable = DataGridViewTriState.True;
             // 
             // btnResetRete
             // 
@@ -254,6 +172,93 @@
             timerDelay.Interval = 2500;
             timerDelay.Tick += timerDelay_Tick;
             // 
+            // systemTimer
+            // 
+            systemTimer.Tick += systemTimer_Tick;
+            // 
+            // DISPOSITIVO
+            // 
+            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            DISPOSITIVO.DefaultCellStyle = dataGridViewCellStyle1;
+            DISPOSITIVO.FillWeight = 300F;
+            DISPOSITIVO.HeaderText = "DISPOSITIVO";
+            DISPOSITIVO.Name = "DISPOSITIVO";
+            DISPOSITIVO.ReadOnly = true;
+            DISPOSITIVO.SortMode = DataGridViewColumnSortMode.NotSortable;
+            DISPOSITIVO.Width = 300;
+            // 
+            // INDIRIZZO
+            // 
+            INDIRIZZO.FillWeight = 70F;
+            INDIRIZZO.HeaderText = "INDIRIZZO";
+            INDIRIZZO.Name = "INDIRIZZO";
+            INDIRIZZO.ReadOnly = true;
+            INDIRIZZO.SortMode = DataGridViewColumnSortMode.NotSortable;
+            INDIRIZZO.Width = 70;
+            // 
+            // MATRICOLA
+            // 
+            MATRICOLA.HeaderText = "MATRICOLA";
+            MATRICOLA.Name = "MATRICOLA";
+            MATRICOLA.ReadOnly = true;
+            MATRICOLA.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // VERSIONE
+            // 
+            VERSIONE.HeaderText = "VERSIONE";
+            VERSIONE.Name = "VERSIONE";
+            VERSIONE.ReadOnly = true;
+            VERSIONE.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // STATO
+            // 
+            STATO.FillWeight = 50F;
+            STATO.HeaderText = "STATO";
+            STATO.Name = "STATO";
+            STATO.ReadOnly = true;
+            STATO.Resizable = DataGridViewTriState.True;
+            STATO.Width = 50;
+            // 
+            // CONNECT
+            // 
+            CONNECT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            CONNECT.HeaderText = "CONNECT";
+            CONNECT.Name = "CONNECT";
+            CONNECT.ReadOnly = true;
+            CONNECT.Resizable = DataGridViewTriState.True;
+            CONNECT.Width = 68;
+            // 
+            // CODICE
+            // 
+            CODICE.HeaderText = "CODICE";
+            CODICE.Name = "CODICE";
+            CODICE.ReadOnly = true;
+            CODICE.SortMode = DataGridViewColumnSortMode.NotSortable;
+            CODICE.Visible = false;
+            // 
+            // FLAGPRINCIPALE
+            // 
+            FLAGPRINCIPALE.HeaderText = "FLAGPRINCIPALE";
+            FLAGPRINCIPALE.Name = "FLAGPRINCIPALE";
+            FLAGPRINCIPALE.ReadOnly = true;
+            FLAGPRINCIPALE.SortMode = DataGridViewColumnSortMode.NotSortable;
+            FLAGPRINCIPALE.Visible = false;
+            // 
+            // SUBTYPE
+            // 
+            SUBTYPE.HeaderText = "SUBTYPE";
+            SUBTYPE.Name = "SUBTYPE";
+            SUBTYPE.ReadOnly = true;
+            SUBTYPE.SortMode = DataGridViewColumnSortMode.NotSortable;
+            SUBTYPE.Visible = false;
+            // 
+            // PRINCIPALE
+            // 
+            PRINCIPALE.HeaderText = "";
+            PRINCIPALE.Name = "PRINCIPALE";
+            PRINCIPALE.ReadOnly = true;
+            PRINCIPALE.Resizable = DataGridViewTriState.True;
+            // 
             // frmMasterNetwork
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -269,6 +274,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmMasterNetwork";
             Text = "frmMasterNetwork";
+            FormClosing += frmMasterNetwork_FormClosing;
             Load += frmMasterNetwork_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridDevices).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPleaseWait).EndInit();
@@ -288,11 +294,12 @@
         private System.Windows.Forms.Timer Fintosave;
         private System.Windows.Forms.Timer timerTick;
         private System.Windows.Forms.Timer timerDelay;
+        private System.Windows.Forms.Timer systemTimer;
         private DataGridViewTextBoxColumn DISPOSITIVO;
         private DataGridViewTextBoxColumn INDIRIZZO;
         private DataGridViewTextBoxColumn MATRICOLA;
         private DataGridViewTextBoxColumn VERSIONE;
-        private DataGridViewTextBoxColumn STATO;
+        private DataGridViewImageColumn STATO;
         private DataGridViewImageColumn CONNECT;
         private DataGridViewTextBoxColumn CODICE;
         private DataGridViewTextBoxColumn FLAGPRINCIPALE;

@@ -1,4 +1,5 @@
 ﻿using configuratoreSerial6._0;
+using configuratoreSerial6._0.uniqueID;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,14 +7,13 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.ApplicationModel.VoiceCommands;
 using static configuratore.frmCassette;
 using static configuratore.statoCassette.frmStatoCassette;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace configuratore
@@ -32,6 +32,8 @@ namespace configuratore
         clsRxBuffer rxBuffer;
         int oldPrimaryValue;
 
+        String CurrentFileName = "";
+
         public int getRichiestoDa() { return richiestoDa; }
         public int getIndirizzo() { return indirizzo; }
         public frmFanCoil(String Type, String Info, frmStartUp lparent, Boolean DefaultData, int lrichiestoDa)
@@ -40,6 +42,7 @@ namespace configuratore
             initListDamper();
             initDatiLayout();
             initDisabilitazioni();
+            comTask.InitcomTask();
 
             global.glbfrmFanCoil = this;
             parent = lparent;
@@ -116,7 +119,8 @@ namespace configuratore
             if (rchiedi == 1)
             {
 
-                txMsg.requireParameter(parametroDaRichiedere, Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_PARAMETRI, richiestoDa | indirizzo);
+                // txMsg.requireParameter(parametroDaRichiedere, Costanti.BITS_DEVICE_CASSETTE | Costanti.BITS_VIDEATA_PARAMETRI, richiestoDa | indirizzo);
+                txMsg.requireParameter(parametroDaRichiedere, Costanti.BITS_DEVICE_FANCOIL | Costanti.BITS_VIDEATA_PARAMETRI, richiestoDa | indirizzo);
                 Debug.Write("Parametro da richiedere "); Debug.WriteLine(parametroDaRichiedere);
                 labelIndice.Width = (int)((double)parametroDaRichiedere * ((double)labelFondo.Width / parametriFanCoil.NUMERO_PARAMETRI_KF));
                 labelPleaseWait.Text = loca.getStr(loca.indice.STR_CARICA_PARAMETRI) + "(" + (parametroDaRichiedere + 1).ToString() + "/" + parametriFanCoil.NUMERO_PARAMETRI_KF.ToString() + ")";
@@ -174,7 +178,8 @@ namespace configuratore
                             // trovato
                             trovato = j;
                             v = utility.conv728(buffer, pos + 1, nbyte);
-                            LayOutFanCoilGrp[g].cfgCombo[j].combo.SelectedIndex = v;
+                            if (LayOutFanCoilGrp[g].cfgCombo[j].combo.SelectedIndex != v)
+                                LayOutFanCoilGrp[g].cfgCombo[j].combo.SelectedIndex = v;
                             // campoDinamico(p, g, j, v);
                         }
 
@@ -193,7 +198,8 @@ namespace configuratore
                             // trasformare decimali
                             v = utility.conv728(buffer, pos + 1, nbyte);
                             decimal d = utility.convert2Decimal(v, LayOutFanCoilGrp[g].cfgUpDown[j].nDec);
-                            LayOutFanCoilGrp[g].cfgUpDown[j].numUpDown.Value = d;
+                            if (LayOutFanCoilGrp[g].cfgUpDown[j].numUpDown.Value != d)
+                                LayOutFanCoilGrp[g].cfgUpDown[j].numUpDown.Value = d;
                             // calcoli(p);
                             // campoDinamico(p, g, j, v);
                         }
@@ -210,9 +216,19 @@ namespace configuratore
                             // trovato
                             trovato = j;
                             v = utility.conv728(buffer, pos + 1, nbyte);
-                            for (int k = 0; k < LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton.Length; k++)
+                            int qualeBottone = -1;
+                            int k;
+                            for (k = 0; k < LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton.Length && qualeBottone < 0; k++)
                             {
-                                LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton[k].Checked = (k == v);
+                                if (LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton[k].Checked == true)
+                                    qualeBottone = k;  // qualeBottone = bottone che sta a true
+                            }
+                            if (v != qualeBottone) // bisogna mettere a true un altro bottone
+                            {
+                                for (k = 0; k < LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton.Length; k++)
+                                {
+                                    LayOutFanCoilGrp[g].cfgRadioButton[trovato].rButton[k].Checked = (k == v);
+                                }
                             }
                             // campoDinamico(p, g, j, v);
                         }
@@ -226,8 +242,28 @@ namespace configuratore
             {
                 Debug.WriteLine("Parametro non trovato" + p.ToString());
                 clsArbitrator.clrDoNotLoop2();
+                switch (p)
+                {
+                    // parametri non visualizzabili
+                    case parametriFanCoil.KF_MBUS_FORZATURA_VENTILATORE:
+                    case parametriFanCoil.KF_MBUS_FORZATURA_RISCALDAMENTO:
+                    case parametriFanCoil.KF_MBUS_FORZATURA_RAFFREDDAMENTO:
+                    case parametriFanCoil.KF_MBUS_FORZATURA_SERRANDA:
+                        v = utility.conv728(buffer, pos + 1, nbyte);
+                        int np = p - parametriFanCoil.KF_MBUS_FORZATURA_VENTILATORE; // 0  - 3
+                        if (v < 0)
+                        {
+                            comTask.setValoreDaModbus(np, 0xffff);
+                        }
+                        else
+                        {
+                            comTask.setValoreDaModbus(np, v);
+                        }
+                        break;
+                }
             }
             continuaRichiesta();
+            // clsArbitrator.clrDoNotLoop2();
 
         }
 
@@ -1532,7 +1568,7 @@ namespace configuratore
                      {
                          new comboInfo() {
                              combo = cb_13_02_Baudrate,
-                             lista = new loca.indice[] { loca.indice.FC_CB_13_00_2400, loca.indice.FC_CB_13_00_4800, loca.indice.FC_CB_13_00_9600, loca.indice.FC_CB_13_00_19200, loca.indice.FC_CB_13_00_19200,loca.indice.FC_CB_13_00_57600,loca.indice.FC_CB_13_00_115200, },
+                             lista = new loca.indice[] { loca.indice.FC_CB_13_00_2400, loca.indice.FC_CB_13_00_4800, loca.indice.FC_CB_13_00_9600, loca.indice.FC_CB_13_00_19200, loca.indice.FC_CB_13_00_38400,loca.indice.FC_CB_13_00_57600,loca.indice.FC_CB_13_00_115200, },
                              vDefault = 2,
                              numParametro = parametriFanCoil.KF_BAUDRATE,
                         },
@@ -1956,22 +1992,49 @@ namespace configuratore
         {
             this.Icon = global::configuratoreSerial6._0.Resource1.AppIcona;
             this.MaximizeBox = false;
+            switch (global.getLivello())
+            {
+                case 0: // Manufacturer
+                    break;
+                case 1: // Commissioning
+                    initListCommissioning();
+                    setCommissioningLevel();
+                    break;
+                case 2: // User
+                    initListUser();
+                    setUserLevel();
+                    break;
+
+            }
+
+
         }
 
         private void frmFanCoil_FormClosing(object sender, FormClosingEventArgs e)
         {
-            clsArbitrator.clrEsecuzione();
-            //clsArbitrator.clrLoadingParameter();
-            if (richiestoDa == 0)
-                parent.abilitaMenu();
-            else
-                clsArbitrator.setriabilitaBottoni();
+            chiudi();
         }
 
         private void systemTimer_Tick(object sender, EventArgs e)
         {
             aggiustaAbilitazioneComboDI1();
-
+            int v = comTask.variazioneParametro();
+            int numForzatura = 0;
+            while (v != 0)
+            {
+                // è stato mosso un parametro
+                // da schermata
+                if ((v & 0x01) != 0)
+                {
+                    // 
+                    // spedisco il parametro via USB
+                    int z = comTask.getParametro(numForzatura);
+                    int np = numForzatura + parametriFanCoil.KF_MBUS_FORZATURA_VENTILATORE;
+                    txMsg.txMsgOne(np, z, comTask.getRichiestoDa());
+                }
+                v = v >> 1;
+                numForzatura++;
+            }
         }
 
         int oldcb_0_00_DI1Index = -1;
@@ -2054,10 +2117,12 @@ namespace configuratore
                 datiConfig.saveFile();
                 datiFancoil.Initdati(Filename);
                 AggiornaCampi();
+                CurrentFileName = Filename;
             }
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+
+        void saveAs()
         {
             String Filename = datiConfig.getDefaultDirFancoil();
             String directoryName = Path.GetDirectoryName(Filename);
@@ -2072,9 +2137,14 @@ namespace configuratore
                 datiConfig.saveFile();
                 datiFancoil.saveFile(Filename);
                 // datiFancoil.Initdati(Filename);
+                CurrentFileName = Filename;
 
             }
+        }
 
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {     
+                saveAs();
         }
 
         void AggiornaCampi()
@@ -2323,7 +2393,7 @@ namespace configuratore
         }
         void subAbilitaSerranda()
         {
-            if (cb_2_00_OutputConfig.SelectedIndex > 7 && rb_2_00_ON.Checked == true)
+            if (cb_2_00_OutputConfig.SelectedIndex > 6 && rb_2_00_ON.Checked == true)
             {
                 abilitaSerranda();
             }
@@ -2348,8 +2418,211 @@ namespace configuratore
             subAbilitaSerranda();
         }
 
-        // ---------- ABILITAZIONE/DISABILITAZIONE PARAMETRI SERRANDA ------
+        private void CB_16_00_RangeTensione_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_16_00_RangeTensione.SelectedIndex == 1)
+            {
+                if (nud_16_00_AlarmTreshold.Value < 2)
+                    nud_16_00_AlarmTreshold.Value = 2;
+            }
+        }
 
+        private void timerUnSecondo_Tick(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < gBox.Count; i++)
+                gBox[i].Tick(LayOutFanCoilGrp[i]);
+
+
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurrentFileName != "")
+            {
+                preparaTabellaDatiParametri();
+                datiConfig.setDefaultDirFancoil(CurrentFileName);
+                datiConfig.saveFile();
+                datiFancoil.saveFile(CurrentFileName);
+            }
+            else
+            {
+                saveAs();
+            }
+        }
+
+
+        public Boolean isNTC1On() { return rb_0_05_ON.Checked == true; }
+        public Boolean isNTC2On() { return rb_0_06_ON.Checked == true; }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            chiudi();
+            this.Close();
+
+        }
+
+        void chiudi()
+        {
+            clsArbitrator.clrEsecuzione();
+            //clsArbitrator.clrLoadingParameter();
+            if (richiestoDa == 0)
+                parent.abilitaMenu();
+            else
+                clsArbitrator.setriabilitaBottoni();
+            global.abilitaChiusuraStatoFanCoil();
+            global.frmStatoFanCoil.Close();
+            clsArbitrator.clsFinestraAperta();
+        }
+
+        // ---------- ABILITAZIONE/DISABILITAZIONE PARAMETRI SERRANDA ------
+        List<ComboBox> ListCommisioningCombo = new List<ComboBox>();
+        List<Label> ListCommisioningLabel = new List<Label>();
+        List<NumericUpDown> ListCommisioningNumericUpDown = new List<NumericUpDown>();
+        List<Panel> ListCommisioningPanel = new List<Panel>();
+        List<GroupBox> ListCommisioningGroupBox = new List<GroupBox>();
+
+
+
+        void setCommissioningLevel()
+        {
+            for (int i = 0; i < ListCommisioningCombo.Count; i++)
+            {
+                ListCommisioningCombo[i].Enabled = false;
+            }
+            for (int i = 0; i < ListCommisioningLabel.Count; i++)
+            {
+                ListCommisioningLabel[i].Enabled = false;
+            }
+
+            for (int i = 0; i < ListCommisioningNumericUpDown.Count; i++)
+            {
+                ListCommisioningNumericUpDown[i].Enabled = false;
+            }
+
+            for (int i = 0; i < ListCommisioningPanel.Count; i++)
+            {
+                ListCommisioningPanel[i].Enabled = false;
+            }
+            for (int i = 0; i < ListCommisioningGroupBox.Count; i++)
+            {
+                ListCommisioningGroupBox[i].Enabled = false;
+            }
+        }
+
+
+        void initListCommissioning()
+        {
+            ListCommisioningCombo.Add(cb_8_00_TipoSonda);
+            ListCommisioningCombo.Add(cb_0_01_AI1);
+            ListCommisioningCombo.Add(cb_0_02_AI2);
+            ListCommisioningCombo.Add(cb_2_00_OutputConfig);
+            ListCommisioningCombo.Add(cb_7_00_ModGestione);
+
+            ListCommisioningLabel.Add(lbl_0_07_AI1);
+            ListCommisioningLabel.Add(lbl_0_08_AI2);
+            ListCommisioningLabel.Add(lbl_0_05_NTC1);
+            ListCommisioningLabel.Add(lbl_0_17_NTC1descr);
+            ListCommisioningLabel.Add(lbl_0_06_NTC2);
+            ListCommisioningLabel.Add(lbl_0_23_NTC2descr);
+            ListCommisioningLabel.Add(lbl_0_12_DI5logic);
+            ListCommisioningLabel.Add(lbl_6_01_AbVentMan);
+            ListCommisioningLabel.Add(lbl_6_05_TensMinAttiv);
+            ListCommisioningLabel.Add(lbl_6_06_GiriMin);
+            ListCommisioningLabel.Add(lbl_7_00_ModGestione);
+            ListCommisioningLabel.Add(lbl_7_07_TensPortMin);
+            ListCommisioningLabel.Add(lbl_7_08_TensPortMax);
+            ListCommisioningLabel.Add(lbl_8_00_TipoSonda);
+            ListCommisioningLabel.Add(lbl_9_01_IsteresiIntasFiltro);
+            ListCommisioningLabel.Add(lbl_9_02_SogliaAltraPress);
+            ListCommisioningLabel.Add(lbl_9_03_IstSogliaAltraPress);
+            ListCommisioningLabel.Add(lbl_9_04_SogliaBassaPress);
+            ListCommisioningLabel.Add(lbl_9_05_IstSogliaBassaPress);
+            ListCommisioningLabel.Add(lbl_9_06_RitAllarmeBassaPressione);
+            ListCommisioningLabel.Add(lbl_10_00_tempSicur);
+            ListCommisioningLabel.Add(lbl_10_01_istTempSicur);
+
+            ListCommisioningNumericUpDown.Add(nud_6_05_TensMinAttiv);
+            ListCommisioningNumericUpDown.Add(nud_6_06_GiriMin);
+            ListCommisioningNumericUpDown.Add(nud_7_07_TensPortMin);
+            ListCommisioningNumericUpDown.Add(nud_7_08_TensPortMax);
+            ListCommisioningNumericUpDown.Add(nud_9_01_IsteresiIntasFiltro);
+            ListCommisioningNumericUpDown.Add(nud_9_02_SogliaAltraPress);
+            ListCommisioningNumericUpDown.Add(nud_9_03_IstSogliaAltraPress);
+            ListCommisioningNumericUpDown.Add(nud_9_04_SogliaBassaPress);
+            ListCommisioningNumericUpDown.Add(nud_9_05_IstSogliaBassaPress);
+            ListCommisioningNumericUpDown.Add(nud_9_06_RitAllarmeBassaPressione);
+
+            ListCommisioningPanel.Add(panel4);
+            ListCommisioningPanel.Add(panel5);
+            ListCommisioningPanel.Add(panel6);
+            ListCommisioningPanel.Add(panel7);
+            ListCommisioningPanel.Add(panel22);
+            ListCommisioningPanel.Add(panel8);
+            ListCommisioningPanel.Add(panel12);
+            ListCommisioningPanel.Add(panel17);
+
+            ListCommisioningGroupBox.Add(gb15_RegolazioneChangeOver);
+            ListCommisioningGroupBox.Add(gb16_senspresest);
+
+
+        }
+
+        List<GroupBox> ListUserGroupBox = new List<GroupBox>();
+        List<ComboBox> ListUserComboBox = new List<ComboBox>();
+        List<Label> ListUserlabel = new List<Label>();
+        List<Panel> ListUserpanel = new List<Panel>();
+
+        void initListUser()
+        {
+            ListUserGroupBox.Add(gb0_Ingressi);
+            ListUserGroupBox.Add(gb1_Ritardo);
+            ListUserGroupBox.Add(gb2_uscite);
+            ListUserGroupBox.Add(gb4_RegolazioneRiacaldamento);
+            ListUserGroupBox.Add(gb5_RegolazioneRaffreddamento);
+            ListUserGroupBox.Add(gb6_RegolazioneVentilatore);
+            ListUserGroupBox.Add(gb15_RegolazioneChangeOver);
+            ListUserGroupBox.Add(gb7_RegolazioneSerrandaFAir);
+            ListUserGroupBox.Add(gb17_EconomyMode);
+            ListUserGroupBox.Add(gb9_SensPress);
+            ListUserGroupBox.Add(gb16_senspresest);
+            ListUserGroupBox.Add(gb10_gestTempInt);
+            ListUserGroupBox.Add(gb11_limTempMand);
+            ListUserGroupBox.Add(gb12_FunzRampa);
+
+            ListUserComboBox.Add(cb_8_00_TipoSonda);
+
+            ListUserlabel.Add(lbl_3_00_Abilitazione);
+            ListUserlabel.Add(lbl_8_00_TipoSonda);
+
+            ListUserpanel.Add(panel16);
+        }
+
+        void setUserLevel()
+        {
+            for (int i = 0; i < ListUserGroupBox.Count; i++)
+            {
+                ListUserGroupBox[i].Enabled = false;
+            }
+            for (int i = 0; i < ListUserComboBox.Count; i++)
+            {
+                ListUserComboBox[i].Enabled = false;
+            }
+            for (int i = 0; i < ListUserlabel.Count; i++)
+            {
+                ListUserlabel[i].Enabled = false;
+            }
+            for (int i = 0; i < ListUserpanel.Count; i++)
+            {
+                ListUserpanel[i].Enabled = false;
+            }
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

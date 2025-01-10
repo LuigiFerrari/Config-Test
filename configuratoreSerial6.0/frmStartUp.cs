@@ -17,6 +17,9 @@ using System.IO;
 using configuratore.stato;
 using static configuratore.Costanti;
 using configuratoreSerial6._0;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using UniqueID;
+using configuratoreSerial6._0.uniqueID;
 
 
 namespace configuratore
@@ -33,21 +36,23 @@ namespace configuratore
         frmTermoT1 termoT1Form;
         frmTermoT2 termoT2Form;
         frmMasterNetwork devFormNetwork;
-        int TimerConnessioneTimeout;
+        uniqueID testCodice;
 
         String FileName = "";
         public clsRxBuffer rxBuffer;
         int vTimerDisconnetti = -1;
+        int TimerConnessioneTimeout = -1;
         public frmStartUp()
         {
             InitializeComponent();
             dir.init();
             txMsg.initDati();
             datiConfig.Initdati();
-            datiFancoil.Initdati(datiConfig.getDefaultDirFancoil());  // directory + file
+            datiFancoil.Initdati("");  // inizializza le tabelle
+            datiTermostato.Initdati("");  // inizializza le tabelle
+            datiCassette.Initdati("");  // inizializza le tabelle
             clsHandler.initData();
             statusWinddows.initData();
-            datiCassette.Initdati("prova.xml", Costanti.NEW);
             oldConnected = -1;
             aggiornaLingua(datiConfig.getLinguaggio());
 
@@ -55,6 +60,12 @@ namespace configuratore
             startupData.setgfrmStartUp(this);
             rxBuffer = new clsRxBuffer();
             TimerConnessioneTimeout = -1;
+#if DEBUG
+            deviceToolStripMenuItem.Visible=true;
+#else
+            deviceToolStripMenuItem.Visible = false;
+#endif
+
         }
 
         public byte[] getRxBuffr() { return rxBuffer.getRxBuffer(); }
@@ -104,6 +115,12 @@ namespace configuratore
             this.Text = "STARTUP " + Versione.versioneStrForm(); ;
 
             this.MaximizeBox = false;
+            testCodice = new uniqueID();
+            if (testCodice.getConfigurazione() < 0)
+            {
+                this.Close();
+                Application.Exit();
+            }
 
 
         }
@@ -133,7 +150,6 @@ namespace configuratore
 
 
 
-                TimerConnessioneTimeout = 100;
 
 
                 //if (SocketClient.isConnected())
@@ -150,6 +166,7 @@ namespace configuratore
                 //}
                 aggiornaLabelConnected();
                 txMsg.requireInfo();
+                timerConnessione.Enabled = true;
             }
         }
 
@@ -200,19 +217,6 @@ namespace configuratore
             // 
             // apriToolStripMenuItem
             // 
-            this.apriToolStripMenuItem.Text = loca.getStr(loca.indice.MENU__APRI);
-            // 
-            // nuovoToolStripMenuItem
-            // 
-            this.nuovoToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_NUOVO);
-            // 
-            // salvaToolStripMenuItem
-            // 
-            this.salvaToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_SALVA);
-            // 
-            // salvaComeToolStripMenuItem
-            // 
-            this.salvaComeToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_SALVA_COME);
             // 
             // esciToolStripMenuItem
             // 
@@ -258,18 +262,22 @@ namespace configuratore
                 case Costanti.CONNECTING:
                     labelConnected.Text = loca.getStr(loca.indice.STR_CONNECTING);
                     pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.arancioON;
+                    TimerConnessioneTimeout = 5;
                     break;
                 case Costanti.UNCONNECTED:
                     labelConnected.Text = loca.getStr(loca.indice.LBL_UNCONNECTED);
                     pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.verdeOFF;
+                    TimerConnessioneTimeout = -1;
                     break;
                 case Costanti.CONNECTED:
                     labelConnected.Text = loca.getStr(loca.indice.LBL_CONNECTED);
                     pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.verdeON;
+                    TimerConnessioneTimeout = -1;
                     break;
                 case Costanti.DISCONNECTING:
                     labelConnected.Text = loca.getStr(loca.indice.STARTUP_DISCONNSSIONE_INCORSO);
                     pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.arancioON;
+                    TimerConnessioneTimeout = -1;
                     break;
 
 
@@ -288,21 +296,23 @@ namespace configuratore
 
         private void timerConnessione_Tick(object sender, EventArgs e)
         {
-            //oldConnected = connectedStatus;
-            //    if (connectedStatus == 1)
-            //    {
-            //        labelConnected.Text = loca.getStr(loca.indice.STR_CONNECTING);
-            //        pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.arancioON;
-            //        txMsg.requireInfo();
-            //    }
-            //    else
-            //    {
-            //        labelConnected.Text = loca.getStr(loca.indice.LBL_UNCONNECTED);
-            //        pictureBoxConnected.Image = global::configuratoreSerial6._0.Resource1.verdeOFF;
-            //    }
-            //    aggiornaMenu();
-            //}
-          
+            if(TimerConnessioneTimeout>=0)
+            {
+                TimerConnessioneTimeout--;
+                if(TimerConnessioneTimeout<0)
+                {
+                    connectedStatus = Costanti.UNCONNECTED;
+                    aggiornaLabelConnected();
+                    String caption = "error";
+                    String message = "Time out!";
+
+                    var result = MessageBox.Show(message, caption,
+                                                 MessageBoxButtons.OK,
+                                                 MessageBoxIcon.Error);
+                }
+            }
+
+
         }
 
 
@@ -726,7 +736,7 @@ namespace configuratore
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmInfo f = new frmInfo();
+            frmInfo f = new frmInfo(testCodice.getConfigurazione());
             f.ShowDialog();
         }
 

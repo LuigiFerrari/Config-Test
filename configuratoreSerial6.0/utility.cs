@@ -15,6 +15,17 @@ namespace configuratore
 
         public const int SET_INVISIBLE_START = 0x01;
 
+        static public void prepareModello(DataTable t,String Modello)
+        {
+            DataColumn column;
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Modello";
+            t.Columns.Add(column);
+            t.Rows.Add();
+            t.Rows[0]["Modello"] = Modello;
+        }
+
         static public void prepareVersion(DataTable t, Costanti.tblIndice tblNumx)
         {
 
@@ -54,6 +65,15 @@ namespace configuratore
             t.Rows[0]["data"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         }
 
+        static public void updateDataversion(DataTable t,int tblNum)
+        {
+            t.Rows[0]["v0"] = Costanti.getVersion("v0", tblNum);
+            t.Rows[0]["v1"] = Costanti.getVersion("v1", tblNum);
+            t.Rows[0]["v2"] = Costanti.getVersion("v2", tblNum);
+            t.Rows[0]["note"] = Costanti.getNote(tblNum);
+            t.Rows[0]["data"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        }
+
         static public Boolean checkSameTblVersion(DataTable t, Costanti.tblIndice tblNumx)
         {
             // controlla solo se V0 e V1 sono diversi
@@ -62,7 +82,7 @@ namespace configuratore
             int tblNum;
             tblNum = (int)tblNumx;
             fl = false;
-            if (t.Rows[0]["v0"].ToString() == Costanti.getVersion("v0", tblNum) && t.Rows[0]["v1"].ToString() == Costanti.getVersion("v1", tblNum))
+            if (t.Rows[0]["v0"].ToString() == Costanti.getVersion("v0", tblNum) && t.Rows[0]["v1"].ToString() == Costanti.getVersion("v1" , tblNum) && t.Rows[0]["v2"].ToString() == Costanti.getVersion("v2", tblNum))
                 fl = true;
             return fl;
         }
@@ -85,6 +105,15 @@ namespace configuratore
             t.Rows[0]["note"] = "";
         }
 
+        static public void UpdateVersion(DataTable t, String newVersion)
+        {
+            String[] vx = newVersion.Split('.');
+            t.Rows[0]["v0"] = vx[0];
+            t.Rows[0]["v1"] = vx[1];
+            t.Rows[0]["v2"] = vx[2];
+            t.Rows[0]["data"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            t.Rows[0]["note"] = "";
+        }
         static public string LeggiVersione(DataTable t)
         {
             return t.Rows[0]["v0"].ToString() + "." + t.Rows[0]["v1"].ToString();
