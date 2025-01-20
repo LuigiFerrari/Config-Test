@@ -1054,7 +1054,7 @@ namespace configuratore
             }
             else
             {
-                if ("00001" == textBoxMatricola.Text || "000001" == textBoxMatricola.Text)
+                if ("00001" == textBoxMatricola.Text || "000001" == textBoxMatricola.Text || "2436019999" == textBoxMatricola.Text)
                 {
                     string message = "Il numero di matricola non è stato inserito";
                     string title = "Errore";
