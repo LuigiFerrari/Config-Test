@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSerialPortSelect));
             listBoxPortList = new ListBox();
             btnOK = new Button();
             button2 = new Button();
@@ -92,6 +93,7 @@
             Controls.Add(button2);
             Controls.Add(btnOK);
             Controls.Add(listBoxPortList);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmSerialPortSelect";
             StartPosition = FormStartPosition.CenterParent;

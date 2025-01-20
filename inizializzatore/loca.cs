@@ -438,6 +438,7 @@ namespace configuratore
 				// GENERICO 
                 MSG_ERRORE,
 				ERR_NON_COMPATIBILE,
+				INVALID_SERIAL_NUMBER,
 				TOTALE
 
         }
@@ -837,6 +838,7 @@ namespace configuratore
 		static string[,] generico = new string[(int)indice.TOTALE - (int)indice.NUM_OF_STRING - 1, NUMERO_LINGUE] {
 		/*   ESSAGGIO          */ {"Errore","Error"},
 		/*   ESSAGGIO          */ {"Dati non compatibili","Not compatible data"},
+		/* INVALID_SERIAL_NUMBER */  {"il quinto carattere della matricola non corrisponde con il dispositivo","Not compatible data"},
 };
         static string[] vocabolario = new string[] { "³", "°", "ª", "±", "²", "\"", "à"};
 

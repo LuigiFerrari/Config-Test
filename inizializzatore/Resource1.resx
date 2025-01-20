@@ -124,6 +124,18 @@
   <data name="arancioON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\arancioON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="autotestOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\autotestOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="autotestON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\autotestON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CABINA_MODBUS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\CABINA_MODBUS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CABINA_USBEMU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\CABINA_USBEMU.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Connetti" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\Connetti.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,6 +154,9 @@
   <data name="freccia_animata" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\freccia-animata.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="gnau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\gnau.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,11 +169,17 @@
   <data name="LedBluON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedBluON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LedBluON50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedBluON50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LedRossoOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedRossoOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LedRossoON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedRossoON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LedRossoON50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedRossoON50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LedVerdeOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedVerdeOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,8 +187,23 @@
   <data name="LedVerdeON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\LedVerdeON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LedVerdeON50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\LedVerdeON50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logo_x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\logo_x1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\OFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OFFSWT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\OFFSWT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\ON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ONSWT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\ONSWT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pleasewait" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\pleasewait.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,11 +217,47 @@
   <data name="PrincipaleON" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\PrincipaleON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PushButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\PushButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="roccheggianiSplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\roccheggianiSplash.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="sensorePress" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\sensorePress.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SliderOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\SliderOFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SliderON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\SliderON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpeakerOFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\SpeakerOFF.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SpeakerON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\SpeakerON.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triac" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\triac.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triac_1_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\triac_1_off.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triac_1_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\triac_1_on.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triac_2_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\triac_2_off.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="triac_2_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\triac_2_on.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tuu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Grafica\tuu.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="uk" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Grafica\uk.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

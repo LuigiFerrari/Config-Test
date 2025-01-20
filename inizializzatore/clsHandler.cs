@@ -105,31 +105,59 @@ namespace configuratore
             byte[] msg = new byte[lx];
             String strJson = convert2Json(rxBuffer).Trim();
             jsonMsg = new JsonNetlist();
+            int tm = jsonMsg.decodeNET(strJson);
+
+                switch (tm)
+                {
+                    case 0:
+                        if (pForm.flgVerify == 0)
+                        {
+
+                            pForm.setMatricola(jsonMsg.getMatricola());
+
+                            pForm.setMasterSlave(jsonMsg.getMasterSlave());
+
+                            pForm.setIndirizzoMaster(jsonMsg.getIndirizzoMaster());
+
+                            pForm.setVersone(jsonMsg.getVersione());
+
+                            pForm.setDispositivo(jsonMsg.getDispositivo());
+                            ret = -1;
+                        }
+                        else
+                        {
+                            if (jsonMsg.getMatricola() != pForm.getMatricola())
+                                ret = 1;
+                            if (jsonMsg.getMasterSlave() != pForm.getMasterSlave())
+                                ret = 1;
+                            if (jsonMsg.getIndirizzoMaster() != pForm.getIndirizzoMaster())
+                                ret = 1;
+
+                        }
+                        break;
+                    case 1:
+
+                        // test mode
+                        pForm.setDI(jsonMsg.getD15());
+                        pForm.setLblADC(jsonMsg.getADC1(), 0);
+                        pForm.setLblADC(jsonMsg.getADC2(), 1);
+                        pForm.setNTC(jsonMsg.getNTC11(), 0);
+                        pForm.setNTC(jsonMsg.getNTC12(), 1);
+                        pForm.setPressSens(jsonMsg.getPRESS());
+                        pForm.setRS485(jsonMsg.getRS485());
+                        ret = -1;
+                        break;
+                    case 2:
+                        pForm.setPotAnal(jsonMsg.getPotenzometroAnal());
+                        pForm.setOnOffAnal(jsonMsg.getOnOffanal());
+                        pForm.setNTC1Anal(jsonMsg.getNTC1anal(), jsonMsg.getNTC1Error());
+                        pForm.setNTC2Anal(jsonMsg.getNTC2anal(), jsonMsg.getNTC2Error());
+                        pForm.SetRS48513Anal(jsonMsg.getRS48513anal());
+                        ret = -1;
+                        break;
+
+                }
             
-            jsonMsg.decodeNET(strJson);
-            if (pForm.flgVerify == 0)
-            {
-
-                pForm.setMatricola(jsonMsg.getMatricola());
-
-                pForm.setMasterSlave(jsonMsg.getMasterSlave());
-
-                pForm.setIndirizzoMaster(jsonMsg.getIndirizzoMaster());
-
-                pForm.setVersone(jsonMsg.getVersione());
-
-                pForm.setDispositivo(jsonMsg.getDispositivo());
-                ret = -1;
-            } else
-            {
-                if (jsonMsg.getMatricola() != pForm.getMatricola())
-                    ret = 1;
-                if (jsonMsg.getMasterSlave() != pForm.getMasterSlave())
-                    ret = 1;
-                if (jsonMsg.getIndirizzoMaster() != pForm.getIndirizzoMaster())
-                    ret = 1;
-
-            }
             return ret;
            //  pForm.textBoxMatricola.Text = jsonMsg.getMatricola();
         }

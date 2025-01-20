@@ -159,8 +159,10 @@ namespace configuratore
                     } catch(Exception e)
                     {
                         string message = loca.getStr(loca.indice.STARTUP_CONNECTION_ERROR);
-                        string title = loca.getStr(loca.indice.MNET_MSG_ERROR); 
-                        MessageBox.Show(message, title);
+                        string title = loca.getStr(loca.indice.MNET_MSG_ERROR);
+                        // MessageBox.Show(message, title);
+                        configuratoreSerial6._0.reportCls.SaveTestReportFile();
+                        Application.Restart();
                     }
                 }
 

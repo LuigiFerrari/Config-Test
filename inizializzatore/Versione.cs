@@ -8,8 +8,8 @@ namespace configuratore
 {
     class Versione
     {
-        const string vernum = "0.0.0";
-        const string PCrelease = "0.0.0";
+        const string vernum = "1.7.0";
+        const string PCrelease = "1.7.0";
 #if (DEBUG)
         const string debug = " (DEBUG) ";
 #else

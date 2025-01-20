@@ -32,7 +32,7 @@ namespace configuratore
 
             ConfigDataSet = new DataSet("configurazione");
             // carica voice library
-            FilenameyName = dir.getCassetteConfigDir() + "\\" + ConfigFile;
+            FilenameyName = dir.getTestConfigDir() + "\\" + ConfigFile;
 
             if (File.Exists(FilenameyName))
             {

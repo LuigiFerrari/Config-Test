@@ -29,72 +29,77 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInfo));
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.softwareRelease = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            label1 = new Label();
+            pictureBox1 = new PictureBox();
+            button1 = new Button();
+            softwareRelease = new Label();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(50, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(264, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "P.L.C. CONFIGURATOR";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(58, 57);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(336, 25);
+            label1.TabIndex = 0;
+            label1.Text = "P.L.C. CONFIGURATOR & TEST";
+            label1.Click += label1_Click;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::configuratoreSerial6._0.Resource1.logo_x1;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Location = new System.Drawing.Point(65, 97);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(235, 59);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.BackgroundImage = configuratoreSerial6._0.Resource1.logo_x1;
+            pictureBox1.BackgroundImageLayout = ImageLayout.None;
+            pictureBox1.Location = new Point(76, 112);
+            pictureBox1.Margin = new Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(274, 68);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(224, 228);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "CLOSE";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Location = new Point(261, 263);
+            button1.Margin = new Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(88, 27);
+            button1.TabIndex = 2;
+            button1.Text = "CLOSE";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // softwareRelease
             // 
-            this.softwareRelease.AutoSize = true;
-            this.softwareRelease.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.softwareRelease.Location = new System.Drawing.Point(50, 178);
-            this.softwareRelease.Name = "softwareRelease";
-            this.softwareRelease.Size = new System.Drawing.Size(264, 25);
-            this.softwareRelease.TabIndex = 3;
-            this.softwareRelease.Text = "P.L.C. CONFIGURATOR";
+            softwareRelease.AutoSize = true;
+            softwareRelease.Font = new Font("Microsoft Sans Serif", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            softwareRelease.Location = new Point(58, 205);
+            softwareRelease.Margin = new Padding(4, 0, 4, 0);
+            softwareRelease.Name = "softwareRelease";
+            softwareRelease.Size = new Size(336, 25);
+            softwareRelease.TabIndex = 3;
+            softwareRelease.Text = "P.L.C. CONFIGURATOR & TEST";
             // 
             // frmInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 273);
-            this.ControlBox = false;
-            this.Controls.Add(this.softwareRelease);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmInfo";
-            this.Text = "INFO";
-            this.Load += new System.EventHandler(this.frmInfo_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(447, 315);
+            ControlBox = false;
+            Controls.Add(softwareRelease);
+            Controls.Add(button1);
+            Controls.Add(pictureBox1);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "frmInfo";
+            Text = "INFO";
+            Load += frmInfo_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
