@@ -335,14 +335,15 @@ namespace configuratore.statoCassette
 /* 131 FS_LBL_4_20                         */ { "Segnalazione filtro sporco","Dirty filter warning"},
 /* 132 FS_GB_5_FORZATURE                   */ { "Forzature","Overides"},
 /* 133 FS_LBL_5_00                         */ { "Comando ventilatore [%]","Fan control [%]"},
-/* 134 FS_LBL_5_01                         */ { "Comando resistenza [%]","El. heater control [%]"},
-/* 135 FS_LBL_5_02                         */ { "Apertura valvola","Valve opening"},
-/* 136 FS_LBL_5_03                         */ { "Apertura serranda [%]","Damper opening"},
+/* 134 FS_LBL_5_01                         */ { "Comando unità riscaldante [%]","Heating unit control [%]"},
+/* 135 FS_LBL_5_02                         */ { "Apertura unità raffreddante [%]","Cooling unit control [%]"},
+/* 136 FS_LBL_5_03                         */ { "Apertura serranda [%]","Damper opening [%]"},
 /* 137 FS_LB_A_00                          */ { "TIPO 1: aumento x. Morta 1","TYPE 1: dead zone inc. 1"},
 /* 138 FS_LB_A_01                          */ { "TIPO 2: aumento x. Morta 2","TYPE 2: dead zone inc. 2"},
 /* 139 FS_LB_A_02                          */ { "TIPO 3: OFF","TYPE 3: OFF"},
 /* 140 FS_LB_A_03                          */ { "TIPO 4: ventilazione minima","TYPE 4: minimum ventilation"},
-/* 141 FS_LBL_1_07                         */ { "Pressione aria","Air pressure"},
+/* 141 FS_LBL_1_07                         */ { "Pressione aria [Pa]","Air pressure [Pa]"},
+
 
 
 

@@ -253,6 +253,10 @@ namespace configuratore
             // 
             this.engllishToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_INGLESE);
             // 
+
+            this.cOMToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_COM);
+            this.spedisciTCPToolStripMenuItem.Text= loca.getStr(loca.indice.MENU_CONNETTI);
+
         }
 
         void aggiornaLabelConnected()

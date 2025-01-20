@@ -1,4 +1,5 @@
-﻿using configuratore.statoCassette;
+﻿
+using configuratore.statoCassette;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -87,6 +88,8 @@ namespace configuratore
 
         public int getRichiestoDa() { return richiestoDa; }
         public int getIndirizzo() { return indirizzo; }
+
+
 
         public frmCassette(String Type, String Info, frmStartUp lparent, Boolean DefaultData, int lrichiestoDa)
         {
@@ -1572,6 +1575,8 @@ namespace configuratore
                 }
             }
         }
+
+        
 
         public void setNTC1Str(loca.indice t)
         {

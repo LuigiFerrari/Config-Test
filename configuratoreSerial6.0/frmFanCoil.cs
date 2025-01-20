@@ -64,6 +64,11 @@ namespace configuratore
                 this.Controls.Add(gbTest.getGroupBox());
                 gBox.Add(gbTest);
             }
+            // aggiorna tabs
+            tabPage1.Text = loca.getStr(loca.indice.FC_TAB_INGRESSO_USCITE);
+            tabPage2.Text = loca.getStr(loca.indice.FC_TAB_REGOLAZIONI);
+            tabPage3.Text = loca.getStr(loca.indice.FC_TAB_IMPOSTAZIONI);
+            tabPage4.Text = loca.getStr(loca.indice.FC_TAB_MODBUS);
             this.Text = Type + Info + sRichiestoDa; //  + " Cassette Ver. " + version + " (Build" + bld + ") Matricola: " + Matricola;
             labelIndice.Width = 0;
             clsArbitrator.setEsecuzione();
@@ -133,9 +138,12 @@ namespace configuratore
             {
                 ClassGroupBoxFanCoil gbTest = gBox[i];
                 gbTest.UpdateDeviceLanguage();
-
-
             }
+            // aggiorna tabs
+            tabPage1.Text = loca.getStr(loca.indice.FC_TAB_INGRESSO_USCITE);
+            tabPage2.Text = loca.getStr(loca.indice.FC_TAB_REGOLAZIONI);
+            tabPage3.Text = loca.getStr(loca.indice.FC_TAB_IMPOSTAZIONI);
+            tabPage4.Text = loca.getStr(loca.indice.FC_TAB_MODBUS);
         }
         #region LAYOUT
 
@@ -791,6 +799,11 @@ namespace configuratore
                              lbl = lbl_4_05_MaxDCres,          // 6
                              testo = loca.indice.FC_LBL_4_05
                          },
+                           new lblInfo() {
+                             lbl = lbl_4_06_AbilAlarmRE,          // 6
+                             testo = loca.indice.FC_LBL_4_06
+                         },
+                           
                     }, // LABELS
                     
                       cfgUpDown = new upDownInfo[]
@@ -1038,7 +1051,7 @@ namespace configuratore
                           new comboInfo()
                           {
                              combo = cb_6_00_AzioneOff,
-                             lista = new loca.indice[] { loca.indice.FC_CB_6_00_0, loca.indice.FC_CB_6_00_1},
+                             lista = new loca.indice[] { loca.indice.FC_CB_6_00, loca.indice.FC_CB_6_01},
                              vDefault = 1,
                              numParametro = parametriFanCoil.KF_AZIONE_OFF,
                           }
