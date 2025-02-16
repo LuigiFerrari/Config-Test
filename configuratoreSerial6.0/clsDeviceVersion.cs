@@ -31,13 +31,17 @@ namespace configuratore
 {
             new sVerdins() { MM=1, Mm=0, mm=0 }     // Touch
         };
-
+        static sVerdins[] versionTermoT3 =
+{
+            new sVerdins() { MM=1, Mm=0, mm=0 }     // Touch
+        };
         public static int getNumOfVersioniCassette() { return versionCassette.Length; }
         public static int getNumOfVersioniFamcoil() { return versionFancoil.Length; }
 
         public static int getNumOfVersioniTermoT1() { return versionTermoT1.Length; }
 
         public static int getNumOfVersioniTermoT2() { return versionTermoT2.Length; }
+        public static int getNumOfVersioniTermoT3() { return versionTermoT3.Length; }
 
         public static sVerdins getLastCassetteVersion()
         {
@@ -149,6 +153,13 @@ namespace configuratore
         {
             string x;
             x = String.Format("Ver. {0:D}.{1:D}.{2:D}", versionTermoT2[i].MM, versionTermoT2[i].Mm, versionTermoT2[i].mm);
+            return x;
+        }
+
+        static public String getTermoT3Version(int i)
+        {
+            string x;
+            x = String.Format("Ver. {0:D}.{1:D}.{2:D}", versionTermoT3[i].MM, versionTermoT3[i].Mm, versionTermoT3[i].mm);
             return x;
         }
     }

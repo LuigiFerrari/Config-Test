@@ -39,6 +39,7 @@
             fANCOILToolStripMenuItem = new ToolStripMenuItem();
             tERMOSTATOANALOGICOToolStripMenuItem = new ToolStripMenuItem();
             tERMOSTATOTOUCHCONTROLToolStripMenuItem = new ToolStripMenuItem();
+            tERMOSTATOTFTToolStripMenuItem = new ToolStripMenuItem();
             lingiaToolStripMenuItem = new ToolStripMenuItem();
             italianoToolStripMenuItem = new ToolStripMenuItem();
             engllishToolStripMenuItem = new ToolStripMenuItem();
@@ -75,7 +76,7 @@
             // esciToolStripMenuItem
             // 
             esciToolStripMenuItem.Name = "esciToolStripMenuItem";
-            esciToolStripMenuItem.Size = new Size(180, 22);
+            esciToolStripMenuItem.Size = new Size(94, 22);
             esciToolStripMenuItem.Text = "Esci";
             esciToolStripMenuItem.Click += esciToolStripMenuItem_Click;
             // 
@@ -96,7 +97,7 @@
             // 
             // deviceToolStripMenuItem
             // 
-            deviceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cASSETTEToolStripMenuItem, fANCOILToolStripMenuItem, tERMOSTATOANALOGICOToolStripMenuItem, tERMOSTATOTOUCHCONTROLToolStripMenuItem });
+            deviceToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { cASSETTEToolStripMenuItem, fANCOILToolStripMenuItem, tERMOSTATOANALOGICOToolStripMenuItem, tERMOSTATOTOUCHCONTROLToolStripMenuItem, tERMOSTATOTFTToolStripMenuItem });
             deviceToolStripMenuItem.Name = "deviceToolStripMenuItem";
             deviceToolStripMenuItem.Size = new Size(54, 20);
             deviceToolStripMenuItem.Text = "Device";
@@ -127,6 +128,13 @@
             tERMOSTATOTOUCHCONTROLToolStripMenuItem.Name = "tERMOSTATOTOUCHCONTROLToolStripMenuItem";
             tERMOSTATOTOUCHCONTROLToolStripMenuItem.Size = new Size(244, 22);
             tERMOSTATOTOUCHCONTROLToolStripMenuItem.Text = "TERMOSTATO TOUCH CONTROL";
+            // 
+            // tERMOSTATOTFTToolStripMenuItem
+            // 
+            tERMOSTATOTFTToolStripMenuItem.Name = "tERMOSTATOTFTToolStripMenuItem";
+            tERMOSTATOTFTToolStripMenuItem.Size = new Size(244, 22);
+            tERMOSTATOTFTToolStripMenuItem.Text = "TERMOSTATO TFT";
+            tERMOSTATOTFTToolStripMenuItem.Click += tERMOSTATOTFTToolStripMenuItem_Click;
             // 
             // lingiaToolStripMenuItem
             // 
@@ -260,6 +268,7 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.Timer timerDisconnetti;
+        private ToolStripMenuItem tERMOSTATOTFTToolStripMenuItem;
     }
 }
 

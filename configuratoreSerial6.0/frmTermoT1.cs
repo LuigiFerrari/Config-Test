@@ -118,7 +118,7 @@ namespace configuratore
                 utility.visibileInvisibile(LayOutT1Grp);
                 timerRxDati.Enabled = false;
             }
-            costStatoT2.init();
+            constStatoT2.init();
             initStato();
             rxBuffer = new clsRxBuffer();
             // setta i valori della forzatura
@@ -195,7 +195,7 @@ namespace configuratore
             parametroDaRichiedere = -1;
             statoDaRichiedere = statoDaRichiedere + skip;
 
-            if (statoDaRichiedere >= costStatoT2.T2S_NUMERO_STATI)
+            if (statoDaRichiedere >= constStatoT2.T2S_NUMERO_STATI)
             {
                 rchiedi = 0;
                 statoDaRichiedere = -1;
@@ -242,7 +242,7 @@ namespace configuratore
 
             //Debug.WriteLine("F7");
             // ricava la lunghezza dei dati
-            int nbyte = costStatoT2.getSizeStato(p);
+            int nbyte = constStatoT2.getSizeStato(p);
             //Debug.Write("Stato ");
             //Debug.Write(p);
             //Debug.Write(" nbyte ");
@@ -259,7 +259,7 @@ namespace configuratore
                         {
                             // trovato
                             trovato = j;
-                            switch (costStatoT2.getTipoParametro(p))
+                            switch (constStatoT2.getTipoParametro(p))
                             {
                                 case 'B':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
@@ -286,10 +286,10 @@ namespace configuratore
                                     break;
                                 case 'N':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
-                                    int d = costStatoT2.getdecimali(p);
+                                    int d = constStatoT2.getdecimali(p);
                                     s = utility.convertToString(v, d);
 
-                                    if (p == costStatoT2.T2S_MASTERSLAVE)
+                                    if (p == constStatoT2.T2S_MASTERSLAVE)
                                     {
                                         if (s == STR_MASTER)
                                         {
@@ -300,7 +300,7 @@ namespace configuratore
                                             s = "S";
                                         }
                                     }
-                                    if (p == costStatoT2.T2S_INDIRIZZO_SLAVE)
+                                    if (p == constStatoT2.T2S_INDIRIZZO_SLAVE)
                                     {
                                         if(t1_rb_1_00_TipDisp_MASTER.Checked == true)
                                         {
@@ -308,7 +308,7 @@ namespace configuratore
                                         }
                                     }
 
-                                        if (p == costStatoT2.T2S_ON_OFF)
+                                        if (p == constStatoT2.T2S_ON_OFF)
                                     {
                                         if (v == 0)
                                             s = "OFF";
@@ -320,13 +320,13 @@ namespace configuratore
                                         // se deve aggiornare va a vedere se il campo va a vedere se
                                         // il campo è T2S_REAL_SETPOINT_TEMP
                                         // In tal caso il campo non deve essere aggiornato
-                                        if (p == costStatoT2.T2S_DEVIAZIONE_SETPOINT)
+                                        if (p == constStatoT2.T2S_DEVIAZIONE_SETPOINT)
                                             deviazioneMaxMinSetPoint = utility.fromStringToFolat(s);
-                                        if (p == costStatoT2.T2S_DEFAULT_SETPOINT)
+                                        if (p == constStatoT2.T2S_DEFAULT_SETPOINT)
                                             defaultSetPoint = utility.fromStringToFolat(s);
-                                        if (p == costStatoT2.T2S_TEMP_SETPOINT)
+                                        if (p == constStatoT2.T2S_TEMP_SETPOINT)
                                             discreteSetPoint = (int)utility.fromStringToFolat(s);
-                                        if (p == costStatoT2.T2S_REAL_SETPOINT_TEMP)
+                                        if (p == constStatoT2.T2S_REAL_SETPOINT_TEMP)
                                         {
                                             updateSetpointReale(g, j, p);
                                         }
@@ -336,7 +336,7 @@ namespace configuratore
 
 
 
-                                    if (p == costStatoT2.T2S_TEMP_SETPOINT)
+                                    if (p == constStatoT2.T2S_TEMP_SETPOINT)
                                         discreteSetPoint = (int)utility.fromStringToFolat(s);
                                     // Debug.WriteLine(s);
                                     break;
@@ -376,14 +376,14 @@ namespace configuratore
             int err = 0;
             switch (p)
             {
-                case costStatoT2.T2S_TEMP_NTCEXT:
-                    ret = cercaGruppoeOisizione(costStatoT2.T2S_ERR_NTCEXT);
+                case constStatoT2.T2S_TEMP_NTCEXT:
+                    ret = cercaGruppoeOisizione(constStatoT2.T2S_ERR_NTCEXT);
                     break;
-                case costStatoT2.T2S_TEMP_NTC1:
-                    ret = cercaGruppoeOisizione(costStatoT2.T2S_ERR_NTC1);
+                case constStatoT2.T2S_TEMP_NTC1:
+                    ret = cercaGruppoeOisizione(constStatoT2.T2S_ERR_NTC1);
                     break;
-                case costStatoT2.T2S_ERR_NTCBOARD:
-                    ret = cercaGruppoeOisizione(costStatoT2.T2S_ERR_NTCBOARD);
+                case constStatoT2.T2S_ERR_NTCBOARD:
+                    ret = cercaGruppoeOisizione(constStatoT2.T2S_ERR_NTCBOARD);
                     break;
             }
             if (ret.gruppo >= 0 && ret.posizione >= 0)
@@ -406,13 +406,13 @@ namespace configuratore
                 ret.gruppo = -1;
                 ret.posizione = -1;
 
-                ret = cercaGruppoeOisizione(costStatoT2.T2S_REAL_SETPOINT_TEMP);
+                ret = cercaGruppoeOisizione(constStatoT2.T2S_REAL_SETPOINT_TEMP);
                 if (ret.gruppo >= 0 && ret.posizione >= 0)
                 {
                     // ricalcola tutto
                     int v = 0;
                     float nuovoSetPoint = defaultSetPoint + adjustSetpoint();
-                    int d = costStatoT2.getdecimali(costStatoT2.T2S_REAL_SETPOINT_TEMP);
+                    int d = constStatoT2.getdecimali(constStatoT2.T2S_REAL_SETPOINT_TEMP);
                     nuovoSetPoint = nuovoSetPoint * utility.potDieci(d);
                     statoGrp[ret.gruppo].valLabel[ret.posizione].Text = utility.convertToString((int)nuovoSetPoint, d);
                 }

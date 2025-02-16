@@ -46,7 +46,7 @@ namespace configuratore
             parent = lparent;
             InitializeComponent();
             initData();
-            costStatoT2.init();
+            constStatoT2.init();
             initStato();
             global.glbfrmT2 = this;
             gBox = new List<classGroupBoxT2>();
@@ -95,7 +95,7 @@ namespace configuratore
                 utility.visibileInvisibile(LayOutT2Grp);
                 timerRxDati.Enabled = false;
             }
-            costStatoT2.init();
+            constStatoT2.init();
             initStato();
             rxBuffer = new clsRxBuffer();
         }
@@ -168,7 +168,7 @@ namespace configuratore
             rchiedi = 2;
             parametroDaRichiedere = -1;
             statoDaRichiedere++;
-            if (statoDaRichiedere >= costStatoT2.T2S_NUMERO_STATI)
+            if (statoDaRichiedere >= constStatoT2.T2S_NUMERO_STATI)
                 statoDaRichiedere = 0;
             // timerRxDati.Enabled = false;
             //labelFondo.Visible = false;
@@ -364,23 +364,23 @@ namespace configuratore
 
                     },
                     valLabel = new Label[] { val_s0_00, val_s0_01, val_s0_02, val_s0_03, val_s0_04, val_s0_05, val_s0_06,val_s0_07,val_s0_08,val_s0_09,val_s0_10,val_s0_11,val_s0_12,val_s0_13,val_s0_14,val_s0_15,val_s0_16},
-                    vvParametro = new int[] { costStatoT2.T2S_TEMP_NTC1,
-                                       costStatoT2.T2S_TEMP_NTCEXT,
-                                       costStatoT2.T2S_TEMP_NTCBOARD,
-                                       costStatoT2.T2S_TEMP_SETPOINT,  // setpoint discreto 0 ~ 10
-                                       costStatoT2.T2S_FAN_SPEED,
-                                       costStatoT2.T2S_FAN_AUTO_MAN,
-                                       costStatoT2.T2S_ALIM_VOLT,
-                                       costStatoT2.T2S_ERR_NTC1,
-                                       costStatoT2.T2S_ERR_NTCEXT,
-                                       costStatoT2.T2S_ERR_NTCBOARD,
-                                       costStatoT2.T2S_LED_MKR,
-                                        costStatoT2.T2S_LED_DND,
-                                        costStatoT2.T2S_OVC_MKR,
-                                        costStatoT2.T2S_OVC_DND,
-                                        costStatoT2.T2S_REAL_SETPOINT_TEMP,
-                                        costStatoT2.T2S_RS485_ERROR_ORIZZ,
-                                        costStatoT2.T2S_ON_OFF
+                    vvParametro = new int[] { constStatoT2.T2S_TEMP_NTC1,
+                                       constStatoT2.T2S_TEMP_NTCEXT,
+                                       constStatoT2.T2S_TEMP_NTCBOARD,
+                                       constStatoT2.T2S_TEMP_SETPOINT,  // setpoint discreto 0 ~ 10
+                                       constStatoT2.T2S_FAN_SPEED,
+                                       constStatoT2.T2S_FAN_AUTO_MAN,
+                                       constStatoT2.T2S_ALIM_VOLT,
+                                       constStatoT2.T2S_ERR_NTC1,
+                                       constStatoT2.T2S_ERR_NTCEXT,
+                                       constStatoT2.T2S_ERR_NTCBOARD,
+                                       constStatoT2.T2S_LED_MKR,
+                                        constStatoT2.T2S_LED_DND,
+                                        constStatoT2.T2S_OVC_MKR,
+                                        constStatoT2.T2S_OVC_DND,
+                                        constStatoT2.T2S_REAL_SETPOINT_TEMP,
+                                        constStatoT2.T2S_RS485_ERROR_ORIZZ,
+                                        constStatoT2.T2S_ON_OFF
 
                     },
                 },
@@ -410,7 +410,7 @@ namespace configuratore
                         },
                     },
                     valLabel = new Label[] { t2_val_s2_00,t2_val_s2_01,t2_val_s2_02},  // 
-                    vvParametro = new int[] { costStatoT2.T2S_MATRICOLA_00, costStatoT2.T2S_INDIRIZZO_SLAVE, costStatoT2.T2S_MASTERSLAVE },
+                    vvParametro = new int[] { constStatoT2.T2S_MATRICOLA_00, constStatoT2.T2S_INDIRIZZO_SLAVE, constStatoT2.T2S_MASTERSLAVE },
                 },
 
                   new  gbOx()
@@ -455,7 +455,7 @@ namespace configuratore
                         },
                     },
                     valLabel = new Label[] { val_s3_0,val_s3_1},
-                    vvParametro = new int[] { costStatoT2.T2S_DEFAULT_SETPOINT, costStatoT2.T2S_DEVIAZIONE_SETPOINT },
+                    vvParametro = new int[] { constStatoT2.T2S_DEFAULT_SETPOINT, constStatoT2.T2S_DEVIAZIONE_SETPOINT },
 
                  }                
                   // ---------- 1          
@@ -1041,7 +1041,7 @@ namespace configuratore
         {
             int g;
             int l;
-            costStatoT2.lbl r;
+            constStatoT2.lbl r;
             for (g = 0; g < statoGrp.Length; g++)
             {
                 if (statoGrp[g].valLabel != null)
@@ -1050,7 +1050,7 @@ namespace configuratore
                     {
                         int p = statoGrp[g].vvParametro[l];
 
-                        r = costStatoT2.getFormatStato(p);
+                        r = constStatoT2.getFormatStato(p);
                         statoGrp[g].valLabel[l].Text = r.Text;
                         if (r.NochangeColor == true)
                         {
@@ -1091,7 +1091,7 @@ namespace configuratore
 
             //Debug.WriteLine("F7");
             // ricava la lunghezza dei dati
-            int nbyte = costStatoT2.getSizeStato(p);
+            int nbyte = constStatoT2.getSizeStato(p);
             //Debug.Write("Stato ");
             //Debug.Write(p);
             //Debug.Write(" nbyte ");
@@ -1108,7 +1108,7 @@ namespace configuratore
                         {
                             // trovato
                             trovato = j;
-                            switch (costStatoT2.getTipoParametro(p))
+                            switch (constStatoT2.getTipoParametro(p))
                             {
                                 case 'B':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
@@ -1125,9 +1125,9 @@ namespace configuratore
                                     break;
                                 case 'N':
                                     v = utility.conv728(buffer, pos + 1, nbyte);
-                                    int d = costStatoT2.getdecimali(p);
+                                    int d = constStatoT2.getdecimali(p);
                                     s = utility.convertToString(v, d);
-                                    if (p == costStatoT2.T2S_MASTERSLAVE)
+                                    if (p == constStatoT2.T2S_MASTERSLAVE)
                                     {
                                         if (s == STR_MASTER)
                                         {
@@ -1137,7 +1137,7 @@ namespace configuratore
                                             s = "S";
                                     }
 
-                                    if (p == costStatoT2.T2S_ON_OFF)
+                                    if (p == constStatoT2.T2S_ON_OFF)
                                     {
                                         if (v == 0)
                                             s = "OFF";
@@ -1145,14 +1145,14 @@ namespace configuratore
                                             s = "ON";
                                     }
                                     statoGrp[g].valLabel[j].Text = s;
-                                    if (p == costStatoT2.T2S_DEVIAZIONE_SETPOINT)
+                                    if (p == constStatoT2.T2S_DEVIAZIONE_SETPOINT)
                                         deviazioneMaxMinSetPoint = utility.fromStringToFolat(s);
-                                    if (p == costStatoT2.T2S_DEFAULT_SETPOINT)
+                                    if (p == constStatoT2.T2S_DEFAULT_SETPOINT)
                                         defaultSetPoint = utility.fromStringToFolat(s);
-                                    if (p == costStatoT2.T2S_TEMP_SETPOINT)
+                                    if (p == constStatoT2.T2S_TEMP_SETPOINT)
                                         discreteSetPoint = (int)utility.fromStringToFolat(s);
-                                    // if (p == constStatoT1.T1S_POS_POT || p == costStatoT2.T2S_DEVIAZIONE_SETPOINT || p == costStatoT2.T2S_DEFAULT_SETPOINT || p == costStatoT2.T2S_TEMP_SETPOINT)
-                                        if (p == costStatoT2.T2S_DEVIAZIONE_SETPOINT || p == costStatoT2.T2S_DEFAULT_SETPOINT || p == costStatoT2.T2S_TEMP_SETPOINT)
+                                    // if (p == constStatoT1.T1S_POS_POT || p == constStatoT2.T2S_DEVIAZIONE_SETPOINT || p == constStatoT2.T2S_DEFAULT_SETPOINT || p == constStatoT2.T2S_TEMP_SETPOINT)
+                                        if (p == constStatoT2.T2S_DEVIAZIONE_SETPOINT || p == constStatoT2.T2S_DEFAULT_SETPOINT || p == constStatoT2.T2S_TEMP_SETPOINT)
                                             updateSetpointReale(g, j, p);
 
                                     // Debug.WriteLine(s);
@@ -1231,13 +1231,13 @@ namespace configuratore
                 ret.gruppo = -1;
                 ret.posizione = -1;
 
-                ret = cercaGruppoeOisizione(costStatoT2.T2S_REAL_SETPOINT_TEMP);
+                ret = cercaGruppoeOisizione(constStatoT2.T2S_REAL_SETPOINT_TEMP);
                 if (ret.gruppo >= 0 && ret.posizione >= 0)
                 {
                     // ricalcola tutto
                     int v = 0;
                     float nuovoSetPoint = defaultSetPoint + adjustSetpoint();
-                    int d = costStatoT2.getdecimali(costStatoT2.T2S_REAL_SETPOINT_TEMP);
+                    int d = constStatoT2.getdecimali(constStatoT2.T2S_REAL_SETPOINT_TEMP);
                     nuovoSetPoint = nuovoSetPoint * utility.potDieci(d);
                     statoGrp[ret.gruppo].valLabel[ret.posizione].Text = utility.convertToString((int)nuovoSetPoint, d);
                 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using configuratoreSerial6._0;
 
 namespace configuratore
 {
@@ -16,6 +17,7 @@ namespace configuratore
         static public frmFanCoil glbfrmFanCoil;
         static public frmTermoT1 glbfrmT1;
         static public frmTermoT2 glbfrmT2;
+        static public frmTermoT3 glbfrmT3;
 
         static public frmStatoCassette frmStatoCassette;
         static public frmStatoFanCoil frmStatoFanCoil;

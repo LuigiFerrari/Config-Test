@@ -193,6 +193,8 @@ namespace configuratore.statoCassette
 /* 162 */ T2_LBL_G2_00,
 /* 163 */ T2_LBL_S2_00,
 /* 164 */ T2_LBL_S2_01,
+/* 165 */ T2_LBL_SW_R,
+
 
 
             NUM_OF_STRING,
@@ -386,7 +388,7 @@ namespace configuratore.statoCassette
 /* 162 T2_LBL_G2_00                        */ { "Temperatura","Temperature"},
 /* 163 T2_LBL_S2_00                        */ { "Setpoint default [C°]","Default temperature setpoint [C°]"},
 /* 164 T2_LBL_S2_01                        */ { "Deviazione max setpoint default [C°]","Max. default setpoint deviation [C°]"},
-
+/* 165 T2_LBL_SW_R                         */ { "Versione software","Software release"},
 
 
 

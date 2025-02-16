@@ -35,6 +35,7 @@ namespace configuratore
         frmStatoFanCoil statoFanCoil;
         frmTermoT1 termoT1Form;
         frmTermoT2 termoT2Form;
+        frmTermoT3 termoT3Form;
         frmMasterNetwork devFormNetwork;
         uniqueID testCodice;
 
@@ -61,7 +62,7 @@ namespace configuratore
             rxBuffer = new clsRxBuffer();
             TimerConnessioneTimeout = -1;
 #if DEBUG
-            deviceToolStripMenuItem.Visible=true;
+            deviceToolStripMenuItem.Visible = true;
 #else
             deviceToolStripMenuItem.Visible = false;
 #endif
@@ -105,6 +106,15 @@ namespace configuratore
                 subMenu.Click += new System.EventHandler(this.TermoT2_Click);
                 tERMOSTATOTOUCHCONTROLToolStripMenuItem.DropDownItems.Add(subMenu);
             }
+            for (i = 0; i < clsDeviceVersion.getNumOfVersioniTermoT3(); i++)
+            {
+                ToolStripMenuItem subMenu = new ToolStripMenuItem();
+                subMenu.Text = clsDeviceVersion.getTermoT3Version(i);
+                subMenu.Click += new System.EventHandler(this.TermoT3_Click);
+                tERMOSTATOTFTToolStripMenuItem.DropDownItems.Add(subMenu);
+            }
+
+
 
 
         }
@@ -228,7 +238,7 @@ namespace configuratore
             // 
             // spedisciTCPToolStripMenuItem
             // 
-      
+
             // deviceToolStripMenuItem
             // 
             this.deviceToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_DEVICE);
@@ -255,13 +265,13 @@ namespace configuratore
             // 
 
             this.cOMToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_COM);
-            this.spedisciTCPToolStripMenuItem.Text= loca.getStr(loca.indice.MENU_CONNETTI);
+            this.spedisciTCPToolStripMenuItem.Text = loca.getStr(loca.indice.MENU_CONNETTI);
 
         }
 
         void aggiornaLabelConnected()
         {
-            switch(connectedStatus)
+            switch (connectedStatus)
             {
                 case Costanti.CONNECTING:
                     labelConnected.Text = loca.getStr(loca.indice.STR_CONNECTING);
@@ -286,13 +296,13 @@ namespace configuratore
 
 
             }
-         
+
         }
 
 
         void aggiornaLabelDisconnect()
         {
-            connectedStatus=Costanti.DISCONNECTING;
+            connectedStatus = Costanti.DISCONNECTING;
             aggiornaLabelConnected();
             clsSerial.Disconnect();
             timerDisconnetti.Enabled = true;
@@ -300,10 +310,10 @@ namespace configuratore
 
         private void timerConnessione_Tick(object sender, EventArgs e)
         {
-            if(TimerConnessioneTimeout>=0)
+            if (TimerConnessioneTimeout >= 0)
             {
                 TimerConnessioneTimeout--;
-                if(TimerConnessioneTimeout<0)
+                if (TimerConnessioneTimeout < 0)
                 {
                     connectedStatus = Costanti.UNCONNECTED;
                     aggiornaLabelConnected();
@@ -323,7 +333,7 @@ namespace configuratore
 
         private void timerRicezione_Tick(object sender, EventArgs e)
         {
-            
+
 
             if (connectedStatus == Costanti.CONNECTING)
             {
@@ -413,7 +423,7 @@ namespace configuratore
                 myForm = new frmCassette("CASSETTE: ", "", this, true, Costanti.RICHIESTA_DA_LOCALE);
                 statusWinddows.setFinestraAperta(Costanti.CASSETTE);
                 myForm.Show();
-                statoCassetteForm = new frmStatoCassette("","",-1);
+                statoCassetteForm = new frmStatoCassette("", "", -1);
                 statoCassetteForm.Show();
             }
             else
@@ -459,7 +469,21 @@ namespace configuratore
                 //statoCassetteForm.Show();
             }
         }
+        private void TermoT3_Click(object sender, EventArgs e)
+        {
+            if (deviceToolStripMenuItem.Enabled == true)
+            {
+                disaAbiilitaMenu(false);
+                sVerdins v = clsDeviceVersion.getLastCassetteVersion();
+                statusWinddows.setVersion(clsDeviceVersion.getLastCassetteVersion());
+                termoT3Form = new frmTermoT3("CASSETTE: ", "", this, true, Costanti.RICHIESTA_DA_LOCALE);
+                statusWinddows.setFinestraAperta(Costanti.CASSETTE);
+                termoT3Form.Show();
 
+                //statoCassetteForm = new frmStatoCassette();
+                //statoCassetteForm.Show();
+            }
+        }
         private void TermoT2_Click(object sender, EventArgs e)
         {
             if (deviceToolStripMenuItem.Enabled == true)
@@ -514,7 +538,7 @@ namespace configuratore
             return ret;
         }
 
-        public void openFromRemote(int fancas, Boolean SaltaTestDisabilitato, int richiestoDa, String Matricola,String release="")
+        public void openFromRemote(int fancas, Boolean SaltaTestDisabilitato, int richiestoDa, String Matricola, String release = "")
         {
 
             if (deviceToolStripMenuItem.Enabled == true || SaltaTestDisabilitato == true)
@@ -531,7 +555,7 @@ namespace configuratore
                         case Costanti.T2 | Costanti.BIT_IM_MASTER:
                         case Costanti.T1 | Costanti.BIT_IM_MASTER:
                             // apre la videata di config RETE
-                            devFormNetwork = new frmMasterNetwork(getNomeDispositivo(fancas), clsMsg.getInfoMsg() + " " + clsSerial.getSelectedPortName(), this, false) ; ; // frmMasterNetwork("NETWORK ", clsMsg.getInfoMsg(), this, false);
+                            devFormNetwork = new frmMasterNetwork(getNomeDispositivo(fancas), clsMsg.getInfoMsg() + " " + clsSerial.getSelectedPortName(), this, false); ; // frmMasterNetwork("NETWORK ", clsMsg.getInfoMsg(), this, false);
                             statusWinddows.setFinestraAperta(fancas & (~Costanti.BIT_IM_MASTER));
                             devFormNetwork.Show();
                             while (clsArbitrator.isInEsecuzione() == true)
@@ -671,7 +695,7 @@ namespace configuratore
         private void frmStartUp_FormClosing(object sender, FormClosingEventArgs e)
         {
             disconnetti();
-           
+
         }
 
         public void disconnetti()
@@ -757,6 +781,11 @@ namespace configuratore
                 connectedStatus = Costanti.UNCONNECTED;
                 aggiornaLabelConnected();
             }
+        }
+
+        private void tERMOSTATOTFTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -88,7 +88,7 @@ new statoDevice() { decimali = 0 ,size =1, tipo='B',iValore=0,sValore=""},//    
         
         static void setTestdefault()
         {
-            for(int i=0;i< VV_NUMERO_STATI;i++)
+            for(int i=0;i< T2S_NUMERO_STATI; i++)
             {
                 switch(getTipoParametro(i))
                 {
